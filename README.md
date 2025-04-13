@@ -1,13 +1,18 @@
+SPDX-FileCopyrightText: 2024 karmar <karmar@posteo.de>
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+
 # Nix home and sytem modules
 
 ## Description
-Provide Nix modules for Nix OS systems and home environments.
-Modules can be tested in virtual machines supported as Flake or classic with
-npins.
-Declare custom system configurations with attribute sets to fill personal
+Provides Nix modules for Nix OS systems and home environments.
+The modules can be tested in virtual machines pinned with Flake or npins.
+Declares custom system configurations with attribute sets to fill personal
 information using the Nix functional language.
-Manage user home configurations using home-manager as Nix OS module in the Flake
-or without Flakes.
+Manages user home configurations using home-manager as Nix OS module with or
+without Flakes.
+Code and configs are work-in-progress and provided as-is with the main goal to
+have a lot of fun.
 
 ## Usage
 Build the example virtual machine using the provided
@@ -60,6 +65,28 @@ repository.
 - Wireguard configuration is only a dummy implementation without actual keys
 - Musnix input is not activated, because it has to be added to default.nix
 
+## Acknowledgment
+Inspirations came from various sources.
+Some valueable resources were:
+
+[tweag](https://github.com/tweag/nix-hour)
+
+[systemcrafters](https://systemcrafters.net/)
+
+[tfc](https://github.com/tfc/nixos-configs)
+
+[srid](https://github.com/srid/nixos-unified)
+
+## Authors
+**karmar@posteo.de**
+
 ## License
-SPDX-FileCopyrightText: 2024 karmar <karmar@posteo.de>
-SPDX-License-Identifier: CC-BY-SA-4.0
+This repository uses the [REUSE software](https://reuse.software/) to provide
+license information in a unambiguous and conveniant way.
+Take a look at the header of the file of interest or in the folder
+[LICENSES](/LICENSES/).
+To check the REUSE compliance run:
+```shell
+nix-shell
+reuse lint
+```
