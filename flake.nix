@@ -125,7 +125,7 @@
           specialArgs = { inherit inputs; };
 
           modules = [
-            ./config.nix
+            ./modules/personal/config.nix
             (
               { config, pkgs, ... }:
               {

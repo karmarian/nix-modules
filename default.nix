@@ -31,7 +31,7 @@ lib.makeScope pkgs.newScope (final: {
     modules = [
       ./systems/vm/configuration.nix
       (import "${home-manager}/nixos")
-      ./config.nix
+      ./modules/personal/config.nix
       (
         { config, pkgs, ... }:
         {

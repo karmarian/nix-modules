@@ -9,9 +9,8 @@
 }:
 
 let
-  inherit (config.mine.userVm) username;
-  inherit (config.mine.userVm) uid;
-  inherit (config.mine.machineVm)
+  inherit (config.mine.userSubmodule.userVm) username uid;
+  inherit (config.mine.machineSubmodule.machineVm)
     cores
     memorySize
     xkbLayout

@@ -13,14 +13,14 @@
 }:
 
 let
-  # :KLUDGE: This should be used from config.nix.
-  username = "me";
+  inherit (config.mine.userSubmodule.userVm) username;
 
 in
 {
   # You can import other home-manager modules here
   imports = [
     ../../modules/home
+    ../../modules/personal/config.nix
   ];
 
   # Home Manager needs a bit of information about you and the
