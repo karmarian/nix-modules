@@ -23,8 +23,7 @@
     ./network.nix
     ./programming.nix
     ./python.nix
-    ./shell-utils.nix
-    ./shell-bash.nix
+    ./shell.nix
     ./ssh.nix
     ./tex.nix
     ./tmux.nix
@@ -50,8 +49,10 @@
       network.enable = true;
       programming.enable = true;
       python.enable = true;
-      shell-bash.enable = true;
-      shell-utils.enable = true;
+      shell = {
+        enable = true;
+        bash.enable = true;
+      };
       ssh.enable = true;
       tex.enable = true;
       tmux.enable = true;

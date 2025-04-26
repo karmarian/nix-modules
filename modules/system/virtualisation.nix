@@ -9,11 +9,12 @@
 }:
 
 {
-  options.mine.module.system.virtualization = {
-    enable = lib.mkEnableOption "Virtualization apps";
+  options.mine.module.system.virtualisation = {
+    enable = lib.mkEnableOption "Virtualisation apps";
+    waydroid.autostart = lib.mkEnableOption "Autostart Waydroid service";
   };
 
-  config = lib.mkIf config.mine.module.system.virtualization.enable {
+  config = lib.mkIf config.mine.module.system.virtualisation.enable {
     boot.binfmt.emulatedSystems = lib.mkDefault [
       "aarch64-linux"
       "armv7l-linux"
@@ -83,5 +84,10 @@
       # *waydroid-container* has to be started using systemd.
       waydroid.enable = lib.mkDefault true;
     };
+
+    # Disable Waydroid container service at startup.
+    systemd.services.waydroid-container.wantedBy = lib.mkIf (
+      !config.mine.module.system.virtualisation.waydroid.autostart
+    ) (lib.mkForce [ ]);
   };
 }

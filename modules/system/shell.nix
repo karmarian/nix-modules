@@ -9,11 +9,12 @@
 }:
 
 {
-  options.mine.module.system.shell-utils = {
+  options.mine.module.system.shell = {
     enable = lib.mkEnableOption "Shell utilities";
+    ollama.autostart = lib.mkEnableOption "Autostart Ollama service";
   };
 
-  config = lib.mkIf config.mine.module.system.shell-utils.enable {
+  config = lib.mkIf config.mine.module.system.shell.enable {
     environment.systemPackages = with pkgs; [
       gparted
       vim
@@ -32,5 +33,9 @@
 
     # Enable Ollama framework for local large language model deployments.
     services.ollama.enable = true;
+    # Disable Ollama service at startup.
+    systemd.services.ollama.wantedBy = lib.mkIf (!config.mine.module.system.shell.ollama.autostart) (
+      lib.mkForce [ ]
+    );
   };
 }

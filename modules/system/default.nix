@@ -19,11 +19,11 @@
     ./pipewire.nix
     ./printing.nix
     ./remote-desktop.nix
-    ./shell-utils.nix
+    ./shell.nix
     ./store-optimization.nix
     ./syncthing.nix
     ./unfree.nix
-    ./virtualization.nix
+    ./virtualisation.nix
     ./wireguard.nix
     ./zram.nix
   ];
@@ -44,11 +44,11 @@
       pipewire.enable = true;
       printing.enable = true;
       remote-desktop.enable = true;
-      shell-utils.enable = true;
+      shell.enable = true;
       store-optimization.enable = true;
       syncthing.enable = true;
       unfree.enable = true;
-      virtualization.enable = true;
+      virtualisation.enable = true;
       wireguard.enable = true;
       zram.enable = true;
     };
