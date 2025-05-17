@@ -59,14 +59,14 @@ in
   users.mutableUsers = false;
 
   users.users.${username} = {
-    # Configure a normal default user
+    # Configure a normal default user.
     isNormalUser = isNormalUser;
-    # Set this to match your users uid (run `id`)
-    # Makes the files in this directory editable within the VM without sudo
+    # Set this to match your users uid (run `id`).
+    # Makes the files in this directory editable within the VM without sudo.
     uid = uid;
-    # No password
+    # No password.
     hashedPassword = "";
-    # Add the default user to the wheel group, and make wheel more privileged
+    # Add the user to the extra group to get more privileges.
     extraGroups = extraGroups;
   };
 
@@ -80,7 +80,7 @@ in
   security.sudo.wheelNeedsPassword = false;
 
   # Programs are added with modules per system or per home.
-  # Set some dconf options declaratively
+  # Set some dconf options declaratively.
   programs.dconf = {
     enable = true;
     profiles.user.databases = [
@@ -99,10 +99,10 @@ in
     vm-switch
   ];
 
-  # Auto-login the default user on consoles
+  # Auto-login the default user on consoles.
   services.getty.autologinUser = "${username}";
 
-  # xserver, but actually really wayland
+  # Xserver, but actually really wayland.
   services.xserver = {
     displayManager.gdm.autoSuspend = false;
     # Set this to your own layout (run `setxkbmap -query`)
@@ -118,7 +118,7 @@ in
   };
 
   virtualisation.vmVariant.virtualisation = {
-    # Set this to a portion of your host machine's resources
+    # Set this to a portion of your host machine's resources.
     cores = lib.mkForce cores;
     memorySize = lib.mkForce memorySize;
   };
@@ -127,6 +127,6 @@ in
   mine.module.system.all.enable = true;
 
   # Avoid the stateVersion warning.
-  # Setting this to system.nixos.release is fine because we have no state
+  # Setting this to system.nixos.release is fine because we have no state.
   system.stateVersion = config.system.nixos.release;
 }
