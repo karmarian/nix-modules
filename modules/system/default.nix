@@ -21,7 +21,6 @@
     ./printing.nix
     ./remote-desktop.nix
     ./shell.nix
-    ./store-optimization.nix
     ./syncthing.nix
     ./unfree.nix
     ./virtualisation.nix
@@ -45,12 +44,14 @@
         # VPN profile is not generic and correct settings have to applied.
         wireguard.enable = false;
       };
-      nix.enable = true;
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+      };
       pipewire.enable = true;
       printing.enable = true;
       remote-desktop.enable = true;
       shell.enable = true;
-      store-optimization.enable = true;
       syncthing.enable = true;
       unfree.enable = true;
       virtualisation.enable = true;
