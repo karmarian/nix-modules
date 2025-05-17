@@ -17,8 +17,7 @@ let
     inherit system;
   };
   # :TODO: Pin Home-manager version with npins.
-  # home-manager = import sources.home-manager;
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+  home-manager = (import sources.home-manager { }).path;
   overlay-stable = final: prev: {
     stable = pkgs-stable;
   };
