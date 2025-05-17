@@ -9,9 +9,17 @@
 }:
 
 let
-  inherit (config.mine.userSubmodule.userVm) username uid;
+  inherit (config.mine.userSubmodule.userVm)
+    extraGroups
+    isNormalUser
+    username
+    uid
+    ;
   inherit (config.mine.machineSubmodule.machineVm)
     cores
+    defaultLocale
+    extraLocale
+    hostname
     memorySize
     xkbLayout
     xkbVariant
@@ -24,19 +32,42 @@ in
     ../../modules/system
   ];
 
-  # Declarative users
+  networking.hostName = "${hostname}"; # Define your hostname.
+
+  # Set the time zone (run `tzselect`).
+  time.timeZone = "${timeZone}";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "${defaultLocale}";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "${extraLocale}";
+    LC_IDENTIFICATION = "${extraLocale}";
+    LC_MEASUREMENT = "${extraLocale}";
+    LC_MONETARY = "${extraLocale}";
+    LC_NAME = "${extraLocale}";
+    LC_NUMERIC = "${extraLocale}";
+    LC_PAPER = "${extraLocale}";
+    LC_TELEPHONE = "${extraLocale}";
+    LC_TIME = "${extraLocale}";
+  };
+
+  # Use the same keyboard layout in consoles as in the desktop.
+  console.useXkbConfig = true;
+
+  # Declarative users.
   users.mutableUsers = false;
 
   users.users.${username} = {
     # Configure a normal default user
-    isNormalUser = true;
+    isNormalUser = isNormalUser;
     # Set this to match your users uid (run `id`)
     # Makes the files in this directory editable within the VM without sudo
     uid = uid;
     # No password
     hashedPassword = "";
     # Add the default user to the wheel group, and make wheel more privileged
-    extraGroups = [ "wheel" ];
+    extraGroups = extraGroups;
   };
 
   # :KLUDGE: Until home-manager attribute sets are working in default.nix, this is placed here instead of
@@ -47,30 +78,29 @@ in
   home-manager.users.${username} = import ../../homes/${username}/home.nix;
 
   security.sudo.wheelNeedsPassword = false;
-  nix.settings.trusted-users = [
-    "root"
-    "@wheel"
-  ];
-
-  # Set this to your timezone (run `tzselect`)
-  time.timeZone = "${timeZone}";
-
-  # Avoid the stateVersion warning.
-  # Setting this to system.nixos.release is fine because we have no state
-  system.stateVersion = config.system.nixos.release;
-
-  # Auto-login the default user on consoles
-  services.getty.autologinUser = "${username}";
-
-  # Use the same keyboard layout in consoles as in the desktop
-  console.useXkbConfig = true;
 
   # Programs are added with modules per system or per home.
-  # programs = { };
+  # Set some dconf options declaratively
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [
+      {
+        settings = with lib.gvariant; {
+          "org/gnome/settings-daemon/plugins/power" = {
+            sleep-inactive-ac-type = "nothing";
+            sleep-inactive-battery-type = "nothing";
+          };
+        };
+      }
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     vm-switch
   ];
+
+  # Auto-login the default user on consoles
+  services.getty.autologinUser = "${username}";
 
   # xserver, but actually really wayland
   services.xserver = {
@@ -87,21 +117,6 @@ in
     user = "${username}";
   };
 
-  # Set some dconf options declaratively
-  programs.dconf = {
-    enable = true;
-    profiles.user.databases = [
-      {
-        settings = with lib.gvariant; {
-          "org/gnome/settings-daemon/plugins/power" = {
-            sleep-inactive-ac-type = "nothing";
-            sleep-inactive-battery-type = "nothing";
-          };
-        };
-      }
-    ];
-  };
-
   virtualisation.vmVariant.virtualisation = {
     # Set this to a portion of your host machine's resources
     cores = lib.mkForce cores;
@@ -110,4 +125,8 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system.all.enable = true;
+
+  # Avoid the stateVersion warning.
+  # Setting this to system.nixos.release is fine because we have no state
+  system.stateVersion = config.system.nixos.release;
 }

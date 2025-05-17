@@ -15,6 +15,7 @@
     ./jellyfin.nix
     ./mobile.nix
     # ./musnix.nix
+    ./network.nix
     ./nix.nix
     ./pipewire.nix
     ./printing.nix
@@ -24,7 +25,6 @@
     ./syncthing.nix
     ./unfree.nix
     ./virtualisation.nix
-    ./wireguard.nix
     ./zram.nix
   ];
 
@@ -40,6 +40,11 @@
       mobile.enable = true;
       # :TODO: Enable Musnix at least with the Flake build again.
       # musnix.enable = true;
+      network = {
+        enable = true;
+        # VPN profile is not generic and correct settings have to applied.
+        wireguard.enable = false;
+      };
       nix.enable = true;
       pipewire.enable = true;
       printing.enable = true;
@@ -49,7 +54,6 @@
       syncthing.enable = true;
       unfree.enable = true;
       virtualisation.enable = true;
-      wireguard.enable = true;
       zram.enable = true;
     };
   };

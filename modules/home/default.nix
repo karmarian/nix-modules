@@ -28,7 +28,6 @@
     ./tex.nix
     ./tmux.nix
     ./vim.nix
-    ./vpn.nix
   ];
 
   options.mine.module.home.all = {
@@ -46,7 +45,10 @@
       gstreamer.enable = true;
       media.enable = true;
       music.enable = true;
-      network.enable = true;
+      network = {
+        enable = true;
+        vpn.enable = true;
+      };
       programming.enable = true;
       python.enable = true;
       shell = {
@@ -57,7 +59,6 @@
       tex.enable = true;
       tmux.enable = true;
       vim.enable = true;
-      vpn.enable = true;
     };
   };
 }
