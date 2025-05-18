@@ -65,7 +65,7 @@ set wrap
 
 syntax enable
 
-colorscheme Benokai
+colorscheme Gravity
 
 " set background=light
 " colorscheme gruvbox

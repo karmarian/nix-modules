@@ -36,6 +36,7 @@
       terminal = "tmux-direct";
       extraConfig = ''
         set -as terminal-overrides ',xterm-256color:RGB'
+        set -g terminal-overrides 'xterm*:smcup@:rmcup@'
         set -g mouse on
 
         # remove when fixed: https://github.com/nix-community/home-manager/issues/5952
