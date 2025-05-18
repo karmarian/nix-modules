@@ -16,7 +16,6 @@
   config = lib.mkIf config.mine.module.home.container.enable {
     home.packages = with pkgs; [
       dive # look into docker image layers
-      distrobox
       flatpak
       guix
       podman
@@ -24,5 +23,10 @@
       podman-tui # status of containers in the terminal
       qemu
     ];
+
+    programs.distrobox = {
+      enable = true;
+      enableSystemdUnit = true;
+    };
   };
 }

@@ -21,6 +21,8 @@ in
   options.mine.module.home.shell = {
     enable = lib.mkEnableOption "Shell utilities";
     bash.enable = lib.mkEnableOption "Bash";
+    ollama.enable = lib.mkEnableOption "Ollama natural language model";
+    ollama.autostart = lib.mkEnableOption "Autostart Ollama service";
   };
 
   config = lib.mkIf config.mine.module.home.shell.enable (
@@ -29,7 +31,6 @@ in
         home.packages = with pkgs; [
           dmidecode
           file
-          gnupg
           gtop
           hwinfo
           lshw
@@ -60,6 +61,7 @@ in
             enable = true;
             enableBashIntegration = true;
           };
+          gpg.enable = true;
           htop = {
             enable = true;
             settings =
@@ -90,6 +92,7 @@ in
               );
           };
           man.enable = true;
+          ripgrep.enable = true;
         };
       }
 
@@ -115,6 +118,15 @@ in
             eval "$(direnv hook bash)"
           '';
         };
+      })
+
+      (lib.mkIf config.mine.module.home.shell.ollama.enable {
+        # Enable Ollama framework for local large language model deployments.
+        services.ollama.enable = true;
+        # Disable Ollama service at startup.
+        systemd.user.services.ollama.Install.WantedBy = lib.mkIf (
+          !config.mine.module.home.shell.ollama.autostart
+        ) (lib.mkForce [ ]);
       })
     ]
   );

@@ -19,7 +19,8 @@
       inkscape
       texlive.combined.scheme-tetex
       librsvg
-      pandoc
     ];
+
+    programs.pandoc.enable = true;
   };
 }
