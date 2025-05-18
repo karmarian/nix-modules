@@ -16,6 +16,7 @@
     ./git.nix
     ./gnome.nix
     ./git.nix
+    ./home-manager.nix
     ./media.nix
     ./music.nix
     ./network.nix
@@ -41,6 +42,12 @@
       emacs.enable = true;
       git.enable = true;
       gnome.enable = true;
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = false;
+        standalone = false;
+      };
       media = {
         enable = true;
         mpd.enable = false;
