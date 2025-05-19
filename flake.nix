@@ -114,5 +114,22 @@
           ];
         };
       };
+
+      homeConfigurations = {
+        ${userVm} = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          modules = [
+            ./modules/personal/config.nix
+            (
+              { config, pkgs, ... }:
+              {
+                nixpkgs.overlays = [ overlay-stable ];
+              }
+            )
+            ./homes/${userVm}/home.nix
+          ];
+        };
+      };
     };
 }
