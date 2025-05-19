@@ -32,8 +32,37 @@
         sshKey = "ssh-ed25519";
       };
 
+      userSubmodule.userWsl = {
+        username = "me";
+        fullname = "Me";
+        extraGroups = [
+          "adbusers"
+          "audio"
+          "kvm"
+          "libvirt"
+          "lp"
+          "networkmanager"
+          "video"
+          "wheel"
+          "wireshark"
+        ];
+        email = "me@wsl.de";
+        sshKey = "ssh-ed25519";
+      };
+
       machineSubmodule.machineVm = {
         hostname = "vm";
+        arch = "x86_64-linux";
+        cores = 2;
+        memorySize = 4 * 1024;
+        xkbLayout = "de";
+        xkbVariant = "";
+        timeZone = "Europe/Berlin";
+        extraLocale = "de_DE.UTF-8";
+      };
+
+      machineSubmodule.machineWsl = {
+        hostname = "wsl";
         arch = "x86_64-linux";
         cores = 2;
         memorySize = 4 * 1024;

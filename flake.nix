@@ -19,6 +19,11 @@
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # NixOS WSL sources.
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -28,6 +33,7 @@
       nixpkgs-stable,
       home-manager,
       musnix,
+      nixos-wsl,
       ...
     }:
 
@@ -38,6 +44,7 @@
       # :TODO: Import and inherit attributes from peronal config module.
       userVm = "me";
       machineVm = "vm";
+      machineWsl = "wsl";
 
       overlay-stable = final: prev: {
         stable = nixpkgs-stable.legacyPackages.${prev.system};
@@ -77,6 +84,33 @@
             #   };
             # }
             musnix.nixosModules.musnix
+          ];
+        };
+
+        ${machineWsl} = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          specialArgs = { inherit inputs; };
+
+          modules = [
+            ./modules/personal/config.nix
+            (
+              { config, pkgs, ... }:
+              {
+                nixpkgs.overlays = [ overlay-stable ];
+              }
+            )
+            ./systems/${machineWsl}/configuration.nix
+            nixos-wsl.nixosModules.wsl
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.users = {
+                ${userVm} = import ./homes/${userVm}/home.nix;
+              };
+            }
           ];
         };
       };
