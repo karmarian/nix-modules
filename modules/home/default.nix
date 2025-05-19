@@ -15,7 +15,6 @@
     ./emacs.nix
     ./git.nix
     ./gnome.nix
-    ./git.nix
     ./home-manager.nix
     ./media.nix
     ./music.nix

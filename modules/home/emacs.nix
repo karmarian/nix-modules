@@ -41,12 +41,14 @@
           auctex
           apheleia
           clang-format
+          clipetty
           cmake-font-lock
           cmake-ide
           cmake-mode
           cmake-project
           company
           daemons
+          diff-hl
           direnv
           docker
           dockerfile-mode
