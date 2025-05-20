@@ -65,9 +65,7 @@ set wrap
 
 syntax enable
 
-colorscheme Gravity
-
-" set background=light
-" colorscheme gruvbox
+set background=light
+colorscheme modus " modus_operandi modus_vivendi
 
 nnoremap <F2> za
