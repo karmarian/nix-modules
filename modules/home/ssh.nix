@@ -16,16 +16,12 @@
   config = lib.mkIf config.mine.module.home.ssh.enable {
     programs.ssh = {
       enable = true;
+      addKeysToAgent = "yes";
     };
 
     services = {
       ssh-agent = {
         enable = true;
-      };
-
-      gpg-agent = {
-        enable = true;
-        enableSshSupport = true;
       };
     };
   };
