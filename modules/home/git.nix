@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2024 karmar <karmar@posteo.de>
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+{
+  options.mine.module.home.git = {
+    enable = lib.mkEnableOption "Git apps and config";
+  };
+
+  config = lib.mkIf config.mine.module.home.git.enable {
+    home.packages = with pkgs; [
+      git-annex
+      git-lfs
+    ];
+
+    programs.git = {
+      enable = lib.mkDefault true;
+      # :TODO: Input optional attributes from peronal config.nix.
+      userName = lib.mkDefault "karmar";
+      userEmail = lib.mkDefault "karmar@posteo.de";
+      lfs.enable = lib.mkDefault true;
+      delta.enable = lib.mkDefault true;
+      extraConfig = {
+        credential.helper = lib.mkDefault "store";
+        init.defaultBranch = lib.mkDefault "main";
+        push.autoSetupRemote = lib.mkDefault true;
+      };
+      aliases = {
+        pushfwl = lib.mkDefault "push --force-with-lease";
+        co = lib.mkDefault "checkout";
+        cp = lib.mkDefault "cherry-pick";
+      };
+    };
+
+    programs.lazygit.enable = lib.mkDefault false;
+  };
+}
