@@ -14,9 +14,9 @@
   };
 
   config = lib.mkIf config.mine.module.system.gnome.enable {
-    services.xserver = {
+    services = {
       # Enable the XServer windowing system, but actually really wayland.
-      enable = true;
+      xserver.enable = true;
 
       # Enable the GNOME Desktop Environment.
       displayManager.gdm.enable = true;

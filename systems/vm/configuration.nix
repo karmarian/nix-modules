@@ -103,18 +103,18 @@ in
   services.getty.autologinUser = "${username}";
 
   # Xserver, but actually really wayland.
-  services.xserver = {
+  services = {
     displayManager.gdm.autoSuspend = false;
     # Set this to your own layout (run `setxkbmap -query`)
-    xkb = {
+    xserver.xkb = {
       layout = "${xkbLayout}";
       variant = "${xkbVariant}";
     };
-  };
+    displayManager.autoLogin = {
+      enable = true;
+      user = "${username}";
+    };
 
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "${username}";
   };
 
   virtualisation.vmVariant.virtualisation = {
