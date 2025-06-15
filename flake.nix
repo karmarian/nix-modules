@@ -14,6 +14,11 @@
       # The `follows` keyword in inputs is used for inheritance.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Disko source, used for declarative disk partitioning.
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Musnix source for music production using Nix.
     musnix = {
       url = "github:musnix/musnix";
@@ -27,6 +32,7 @@
       nixpkgs,
       nixpkgs-stable,
       home-manager,
+      disko,
       musnix,
       ...
     }:
@@ -76,6 +82,7 @@
             #     ${userVm} = import ./homes/${userVm}/home.nix;
             #   };
             # }
+            disko.nixosModules.disko
             musnix.nixosModules.musnix
           ];
         };

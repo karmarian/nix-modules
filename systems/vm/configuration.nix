@@ -29,6 +29,7 @@ let
 in
 {
   imports = [
+    ./disko-config.nix
     ../../modules/system
   ];
 

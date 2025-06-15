@@ -64,6 +64,7 @@ repository.
 - Attribute sets in custom config are not used for build outputs in flake.nix
 - Wireguard configuration is only a dummy implementation without actual keys
 - Musnix input is not activated, because it has to be added to default.nix
+- Disko module import not working in default.nix
 
 ## Acknowledgment
 Inspirations came from various sources.

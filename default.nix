@@ -16,8 +16,8 @@ let
     overlays = [ ];
     inherit system;
   };
-  # :TODO: Pin Home-manager version with npins.
   home-manager = (import sources.home-manager { }).path;
+  disko = import sources.disko { };
   overlay-stable = final: prev: {
     stable = pkgs-stable;
   };
@@ -30,6 +30,7 @@ lib.makeScope pkgs.newScope (final: {
     modules = [
       ./systems/vm/configuration.nix
       (import "${home-manager}/nixos")
+      (import "${disko}/module.nix")
       ./modules/personal/config.nix
       (
         { config, pkgs, ... }:
