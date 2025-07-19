@@ -92,6 +92,7 @@ in
               );
           };
           man.enable = true;
+          ptyxis.enable = true;
           ripgrep.enable = true;
         };
       }
