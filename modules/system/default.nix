@@ -3,6 +3,7 @@
 
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -47,6 +48,7 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
+        auto-upgrade.enable = true;
       };
       pipewire.enable = true;
       printing.enable = true;
