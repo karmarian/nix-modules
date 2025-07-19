@@ -6,8 +6,8 @@
 
   inputs = {
     # Official NixOS package source, using unstable and stable branches.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # Home-manager source, used for managing user configurations.
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -25,7 +25,7 @@
     inputs@{
       self,
       nixpkgs,
-      nixpkgs-stable,
+      nixpkgs-unstable,
       home-manager,
       musnix,
       ...
@@ -39,8 +39,8 @@
       userVm = "me";
       machineVm = "vm";
 
-      overlay-stable = final: prev: {
-        stable = nixpkgs-stable.legacyPackages.${prev.system};
+      overlay-unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
 
     in
@@ -61,7 +61,7 @@
             (
               { config, pkgs, ... }:
               {
-                nixpkgs.overlays = [ overlay-stable ];
+                nixpkgs.overlays = [ overlay-unstable ];
               }
             )
             ./systems/vm/configuration.nix

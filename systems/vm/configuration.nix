@@ -104,7 +104,7 @@ in
 
   # Xserver, but actually really wayland.
   services = {
-    displayManager.gdm.autoSuspend = false;
+    xserver.displayManager.gdm.autoSuspend = false;
     # Set this to your own layout (run `setxkbmap -query`)
     xserver.xkb = {
       layout = "${xkbLayout}";

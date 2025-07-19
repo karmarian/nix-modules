@@ -65,7 +65,7 @@
       (lib.mkIf config.mine.module.home.desktop.comms.enable {
         home.packages = with pkgs; [
           element-desktop
-          stable.jami
+          jami
           signal-desktop-bin
         ];
       })
