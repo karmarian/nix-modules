@@ -9,11 +9,11 @@
 }:
 
 {
-  options.mine.module.system.wsl = {
+  options.mine.module.wsl = {
     enable = lib.mkEnableOption "Windows Subsystem for Linux config";
   };
 
-  config = lib.mkIf config.mine.module.system.wsl.enable {
+  config = lib.mkIf config.mine.module.wsl.enable {
     wsl = {
       enable = lib.mkDefault true;
       defaultUser = lib.mkDefault "karmar";

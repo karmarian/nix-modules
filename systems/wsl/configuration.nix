@@ -23,6 +23,7 @@ in
 
   imports = [
     ../../modules/system
+    ../../modules/wsl
   ];
 
   networking.hostName = "${hostname}"; # Define your hostname.
@@ -82,9 +83,9 @@ in
     pipewire.enable = true;
     shell.enable = true;
     virtualisation.enable = true;
-    wsl.enable = true;
     zram.enable = true;
   };
+  mine.module.wsl.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

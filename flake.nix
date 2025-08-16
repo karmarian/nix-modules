@@ -97,7 +97,7 @@
             (
               { config, pkgs, ... }:
               {
-                nixpkgs.overlays = [ overlay-stable ];
+                nixpkgs.overlays = [ overlay-unstable ];
               }
             )
             ./systems/${machineWsl}/configuration.nix
@@ -124,7 +124,7 @@
             (
               { config, pkgs, ... }:
               {
-                nixpkgs.overlays = [ overlay-stable ];
+                nixpkgs.overlays = [ overlay-unstable ];
               }
             )
             ./homes/${userVm}/home.nix
