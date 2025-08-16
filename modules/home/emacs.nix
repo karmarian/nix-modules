@@ -31,28 +31,23 @@
 
         services.emacs = {
           enable = lib.mkDefault true;
-          extraOptions = lib.mkDefault [ "--daemon" ];
           client = {
             enable = lib.mkDefault true;
-            arguments = lib.mkDefault [ "-c" ];
           };
           socketActivation.enable = lib.mkDefault true;
-          startWithUserSession = lib.mkDefault true;
-          defaultEditor = lib.mkDefault false;
+          defaultEditor = lib.mkDefault true;
         };
       }
 
       (lib.mkIf config.mine.module.home.emacs.comms {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
-            # Emacs editor package
             ement
           ];
       })
 
       (lib.mkIf config.mine.module.home.emacs.core {
         home.packages = with pkgs; [
-          # Emacs package dependencies
           source-code-pro
         ];
 
