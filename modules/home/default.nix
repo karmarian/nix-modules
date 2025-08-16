@@ -38,7 +38,18 @@
         enable = true;
         comms.enable = true;
       };
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        comms = true;
+        core = true;
+        dev = true;
+        evil = true;
+        music = true;
+        org = true;
+        package = true;
+        python = true;
+        shell = true;
+      };
       git.enable = true;
       gnome.enable = true;
       home-manager = {
