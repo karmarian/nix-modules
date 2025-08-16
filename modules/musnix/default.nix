@@ -4,11 +4,11 @@
 { config, lib, ... }:
 
 {
-  options.mine.module.system.musnix = {
+  options.mine.module.musnix = {
     enable = lib.mkEnableOption "Musnix config";
   };
 
-  config = lib.mkIf config.mine.module.system.musnix.enable {
+  config = lib.mkIf config.mine.module.musnix.enable {
     musnix = {
       enable = true;
       rtcqs.enable = true;
