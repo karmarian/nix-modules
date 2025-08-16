@@ -25,6 +25,7 @@
     ./syncthing.nix
     ./unfree.nix
     ./virtualisation.nix
+    ./wsl.nix
     ./zram.nix
   ];
 
@@ -57,6 +58,7 @@
       syncthing.enable = true;
       unfree.enable = true;
       virtualisation.enable = true;
+      wsl.enable = false;
       zram.enable = true;
     };
   };
