@@ -31,6 +31,7 @@ in
 {
   imports = [
     ../../modules/system
+    ../../modules/musnix
   ];
 
   networking.hostName = "${hostname}"; # Define your hostname.
@@ -126,6 +127,7 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system.all.enable = true;
+  mine.module.musnix.enable = true;
 
   # Avoid the stateVersion warning.
   # Setting this to system.nixos.release is fine because we have no state.
