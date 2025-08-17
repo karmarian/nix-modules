@@ -55,6 +55,7 @@
           epkgs: with epkgs; [
             clipetty
             vertico
+            which-key
           ];
       })
 
