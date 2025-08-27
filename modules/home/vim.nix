@@ -14,6 +14,11 @@
   };
 
   config = lib.mkIf config.mine.module.home.vim.enable {
+    home.sessionVariables = {
+      EDITOR = "vim";
+      VISUAL = "vim";
+    };
+
     programs.neovim = {
       enable = true;
       vimAlias = true;

@@ -35,7 +35,7 @@
             enable = lib.mkDefault true;
           };
           socketActivation.enable = lib.mkDefault true;
-          defaultEditor = lib.mkDefault true;
+          defaultEditor = lib.mkDefault false;
         };
       }
 
