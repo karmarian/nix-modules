@@ -18,6 +18,7 @@
     lib.mkMerge [
       {
         home.packages = with pkgs; [
+          bustle
           kdePackages.okular
           tor-browser
         ];

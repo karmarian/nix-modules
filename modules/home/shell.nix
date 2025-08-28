@@ -29,6 +29,7 @@ in
     lib.mkMerge [
       {
         home.packages = with pkgs; [
+          alsa-utils
           dmidecode
           file
           gtop
@@ -37,6 +38,7 @@ in
           lsscsi
           magic-wormhole
           pciutils
+          picocom
           pstree
           rsync
           snapper
