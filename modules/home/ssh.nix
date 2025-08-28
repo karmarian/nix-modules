@@ -17,6 +17,7 @@
     programs.ssh = {
       enable = true;
       addKeysToAgent = "yes";
+      extraConfig = import ./ssh/extra-config.nix;
     };
 
     services = {
