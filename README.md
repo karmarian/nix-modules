@@ -15,6 +15,8 @@ Code and configs are work-in-progress and provided as-is with the main goal to
 have a lot of fun.
 
 ## Usage
+
+### Build and run the system in a virtual machine
 Build the example virtual machine using the provided
 [flake.nix](/flake.nix) output:
 ```shell
@@ -34,6 +36,7 @@ It will auto-login into Gnome.
 The hardware parameters like used cores and RAM memory can be customized in the
 file [config.nix](/modules/personnal/config.nix).
 
+### Integrate the modules and modify personal settings
 The modules are split into [home](/modules/home) and [system](/modules/system)
 to be included in the corresponding [home.nix](/homes/me/home.nix) or
 [configuration.nix](/systems/vm/configuration.nix) files.
@@ -58,6 +61,30 @@ The goal is to reduce the [flake.nix](/flake.nix), [default.nix](/default.nix),
 information in modules and configuration files, which can be reused more easily.
 Hence, private information can be kept local in a seperate worktree or
 repository.
+
+### Deploy the configuration using Disko
+The system configuration can be deployed with the manual Nix OS installer,
+*nixos-anywhere* or as an image.
+The official Nix OS installer is a simple way and also possible without Flakes.
+There are several ways to transfer the files to the target system, where the
+manual Nix OS installer is booted.
+
+```shell
+sudo passwd nixos
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_nixos
+ssh-copy-id -i ~/.ssh/id_ed25519_nixos nixos@<ip-addr>
+git bundle create nix-modules.bundle main
+scp nix-modules.bundle nixos@<ip-addr>:/tmp
+cd /tmp
+git clone nix-modules.bundle
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/nix-modules/systems/vm/disko-config.nix
+# Optional
+sudo -i nixos-generate-config --no-filesystems --root /mnt
+cp /mnt/etc/nixos/hardware-configuration.nix nix-modules/systems/vm
+sudo -i nixos-install --flake '/tmp/nix-modules#vm'
+nixos-enter --root /mnt -c 'passwd me'
+reboot
+```
 
 ## Known issues
 - Attribute sets in custom config are not used in modules
