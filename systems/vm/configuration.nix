@@ -135,7 +135,29 @@ in
   };
 
   # NixOS system gets customized by system modules, which are enabled here.
-  mine.module.system.all.enable = true;
+  mine.module.system = {
+    boot.enable = true;
+    gnome.enable = false;
+    jellyfin.enable = true;
+    mobile.enable = true;
+    network = {
+      enable = true;
+      # VPN profile is not generic and correct settings have to applied.
+      wireguard.enable = false;
+    };
+    nix = {
+      enable = true;
+      store-optimisation.enable = true;
+      auto-upgrade.enable = true;
+    };
+    pipewire.enable = true;
+    printing.enable = false;
+    shell.enable = true;
+    syncthing.enable = true;
+    unfree.enable = true;
+    virtualisation.enable = false;
+    zram.enable = true;
+  };
   mine.module.musnix.enable = true;
 
   # Avoid the stateVersion warning.

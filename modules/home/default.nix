@@ -64,7 +64,7 @@
         gstreamer.enable = true;
       };
       # Issues with Carla, lmms with old cython dpendencies (https://github.com/NixOS/nixpkgs/issues/389149)
-      music.enable = false;
+      music.enable = true;
       network = {
         enable = true;
         vpn.enable = true;

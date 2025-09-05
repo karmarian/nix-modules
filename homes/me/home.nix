@@ -34,7 +34,57 @@ in
   home.sessionVariables = { };
 
   # Home Manager gets customized by home modules, which are enabled here.
-  mine.module.home.all.enable = true;
+  mine.module.home = {
+    container.enable = false;
+    desktop = {
+      enable = false;
+      comms.enable = false;
+    };
+    emacs = {
+      enable = true;
+      comms = true;
+      core = true;
+      dev = true;
+      evil = true;
+      music = true;
+      org = true;
+      package = true;
+      python = true;
+      shell = true;
+    };
+    git.enable = true;
+    gnome.enable = false;
+    home-manager = {
+      enable = true;
+      auto-expire = true;
+      auto-upgrade = false;
+      standalone = false;
+    };
+    media = {
+      enable = true;
+      mpd.enable = false;
+      gstreamer.enable = false;
+    };
+    music.enable = true;
+    network = {
+      enable = true;
+      vpn.enable = true;
+    };
+    programming = {
+      enable = true;
+      python.enable = true;
+    };
+    shell = {
+      enable = true;
+      bash.enable = true;
+      ollama.enable = true;
+      ollama.autostart = false;
+    };
+    ssh.enable = true;
+    tex.enable = true;
+    tmux.enable = true;
+    vim.enable = true;
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
