@@ -18,7 +18,7 @@ have a lot of fun.
 
 ### Build and run the system in a virtual machine
 Build the example virtual machine using the provided
-[flake.nix](/flake.nix) output:
+[flake.nix](/flake.nix) output as virtual machine variant:
 ```shell
 nixos-rebuild build-vm --flake .#vm
 ```
@@ -32,15 +32,18 @@ nix build -A vm.run
 # Launch virtual machine
 ./result/bin/run-nixos-vm
 ```
-
-Build a main.raw image file with disko configuration for usage with qemu:
+To start the virtual machine with the disko configuration run:
+```shell
+nix run -L '.#nixosConfigurations.vm.config.system.build.vmWithDisko'
+```
+Build a main.raw image file with the disko configuration for usage with qemu
+scripts by executing:
 ```shell
 nix build .#nixosConfigurations.vm.config.system.build.diskoImagesScript
 sudo ./result --build-memory 2048
 $(nix-build ./qemu.nix)/bin/test-image ./main.raw
 ```
 
-It will auto-login into Gnome.
 The hardware parameters like used cores and RAM memory can be customized in the
 file [config.nix](/modules/personnal/config.nix).
 
@@ -100,6 +103,7 @@ reboot
 - Wireguard configuration is only a dummy implementation without actual keys
 - Musnix input is not activated, because it has to be added to default.nix
 - Disko module import not working in default.nix
+- Encrypted drives need key files to unlock in the disko virtual machine
 
 ## Acknowledgment
 Inspirations came from various sources.
