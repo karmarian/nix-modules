@@ -70,6 +70,7 @@
                 nixpkgs.overlays = [ overlay-stable ];
               }
             )
+            ./simple-efi.nix
             ./systems/vm/configuration.nix
             home-manager.nixosModules.home-manager
             # :KLUDGE: For compatibility with default.nix, this is placed into

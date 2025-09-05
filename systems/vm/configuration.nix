@@ -5,6 +5,7 @@
   pkgs,
   lib,
   config,
+  modulesPath,
   ...
 }:
 
@@ -29,9 +30,13 @@ let
 in
 {
   imports = [
+    "${modulesPath}/profiles/qemu-guest.nix"
     ./disko-config.nix
     ../../modules/system
   ];
+
+  boot.loader.grub.efiSupport = lib.mkDefault true;
+  boot.loader.grub.efiInstallAsRemovable = lib.mkDefault true;
 
   networking.hostName = "${hostname}"; # Define your hostname.
 
@@ -55,6 +60,9 @@ in
 
   # Use the same keyboard layout in consoles as in the desktop.
   console.useXkbConfig = true;
+
+  # Optional. Useful for testing.
+  # users.users.root.initialPassword = "root";
 
   # Declarative users.
   users.mutableUsers = false;
@@ -130,4 +138,8 @@ in
   # Avoid the stateVersion warning.
   # Setting this to system.nixos.release is fine because we have no state.
   system.stateVersion = config.system.nixos.release;
+
+  # Adjust this to your liking.
+  # WARNING: if you set a too low value the image might be not big enough to contain the nixos installation
+  disko.devices.disk.main.imageSize = "30G";
 }

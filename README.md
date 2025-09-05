@@ -32,6 +32,14 @@ nix build -A vm.run
 # Launch virtual machine
 ./result/bin/run-nixos-vm
 ```
+
+Build a main.raw image file with disko configuration for usage with qemu:
+```shell
+nix build .#nixosConfigurations.vm.config.system.build.diskoImagesScript
+sudo ./result --build-memory 2048
+$(nix-build ./qemu.nix)/bin/test-image ./main.raw
+```
+
 It will auto-login into Gnome.
 The hardware parameters like used cores and RAM memory can be customized in the
 file [config.nix](/modules/personnal/config.nix).
