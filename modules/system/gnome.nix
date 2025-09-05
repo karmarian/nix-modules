@@ -49,6 +49,7 @@
         ]);
 
       systemPackages = with pkgs; [
+        gnome-boxes
         gnomeExtensions.astra-monitor
         gnomeExtensions.appindicator
       ];

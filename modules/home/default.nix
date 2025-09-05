@@ -55,15 +55,14 @@
       home-manager = {
         enable = true;
         auto-expire = true;
-        auto-upgrade = false;
-        standalone = false;
+        auto-upgrade = true;
+        standalone = true;
       };
       media = {
         enable = true;
-        mpd.enable = false;
+        mpd.enable = true;
         gstreamer.enable = true;
       };
-      # Issues with Carla, lmms with old cython dpendencies (https://github.com/NixOS/nixpkgs/issues/389149)
       music.enable = true;
       network = {
         enable = true;
@@ -77,7 +76,7 @@
         enable = true;
         bash.enable = true;
         ollama.enable = true;
-        ollama.autostart = false;
+        ollama.autostart = true;
       };
       ssh.enable = true;
       tex.enable = true;

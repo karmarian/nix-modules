@@ -128,12 +128,6 @@ in
 
   };
 
-  virtualisation.vmVariant.virtualisation = {
-    # Set this to a portion of your host machine's resources.
-    cores = lib.mkForce cores;
-    memorySize = lib.mkForce memorySize;
-  };
-
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
     boot.enable = true;
@@ -155,7 +149,14 @@ in
     shell.enable = true;
     syncthing.enable = true;
     unfree.enable = true;
-    virtualisation.enable = false;
+    virtualisation = {
+      enable = true;
+      binfmt.enable = false;
+      container.enable = false;
+      variant.enable = true;
+      waydroid.enable = false;
+      waydroid.autostart = false;
+    };
     zram.enable = true;
   };
   mine.module.musnix.enable = true;

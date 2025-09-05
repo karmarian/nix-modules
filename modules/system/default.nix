@@ -40,7 +40,7 @@
       network = {
         enable = true;
         # VPN profile is not generic and correct settings have to applied.
-        wireguard.enable = false;
+        wireguard.enable = true;
       };
       nix = {
         enable = true;
@@ -53,7 +53,14 @@
       shell.enable = true;
       syncthing.enable = true;
       unfree.enable = true;
-      virtualisation.enable = true;
+      virtualisation = {
+        enable = true;
+        binfmt.enable = true;
+        container.enable = true;
+        variant.enable = true;
+        waydroid.enable = true;
+        waydroid.autostart = true;
+      };
       zram.enable = true;
     };
   };
