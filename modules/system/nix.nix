@@ -3,6 +3,7 @@
 
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -12,6 +13,7 @@
   options.mine.module.system.nix = {
     enable = lib.mkEnableOption "Nix config";
     store-optimisation.enable = lib.mkEnableOption "Store optimisation";
+    auto-upgrade.enable = lib.mkEnableOption "Automatic system upgrade";
   };
 
   config = lib.mkIf config.mine.module.system.nix.enable (
@@ -55,6 +57,23 @@
             automatic = true;
             dates = [ "20:15" ];
           };
+        };
+      })
+
+      (lib.mkIf config.mine.module.system.nix.auto-upgrade.enable {
+        system.autoUpgrade = {
+          enable = true;
+          flake = inputs.self.outPath;
+          flags = [
+            "--update-input"
+            "home-manager"
+            "musnix"
+            "nixpkgs"
+            "nixpkgs-unstable"
+            "-L"
+          ];
+          dates = "19:00";
+          randomizedDelaySec = "45min";
         };
       })
     ]

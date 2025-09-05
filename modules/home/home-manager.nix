@@ -43,7 +43,6 @@
       (lib.mkIf config.mine.module.home.home-manager.standalone {
         programs.home-manager = {
           enable = true;
-          path = toString ../../.;
         };
       })
     ]

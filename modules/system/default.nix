@@ -3,6 +3,7 @@
 
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -14,7 +15,6 @@
     ./gnome.nix
     ./jellyfin.nix
     ./mobile.nix
-    # ./musnix.nix
     ./network.nix
     ./nix.nix
     ./pipewire.nix
@@ -37,8 +37,6 @@
       gnome.enable = true;
       jellyfin.enable = true;
       mobile.enable = true;
-      # :TODO: Enable Musnix at least with the Flake build again.
-      # musnix.enable = true;
       network = {
         enable = true;
         # VPN profile is not generic and correct settings have to applied.
@@ -47,6 +45,7 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
+        auto-upgrade.enable = true;
       };
       pipewire.enable = true;
       printing.enable = true;

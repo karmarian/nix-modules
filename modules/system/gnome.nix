@@ -19,8 +19,8 @@
       xserver.enable = true;
 
       # Enable the GNOME Desktop Environment.
-      displayManager.gdm.enable = true;
-      desktopManager.gnome = {
+      xserver.displayManager.gdm.enable = true;
+      xserver.desktopManager.gnome = {
         enable = true;
         # Set firefox and console as the apps in the dock
         favoriteAppsOverride = ''

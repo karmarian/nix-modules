@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: CC-BY-SA-4.0
 
 {
-  pkgs,
-  lib,
   config,
+  inputs,
+  lib,
   modulesPath,
+  pkgs,
   ...
 }:
 
@@ -33,6 +34,7 @@ in
     "${modulesPath}/profiles/qemu-guest.nix"
     ./disko-config.nix
     ../../modules/system
+    ../../modules/musnix
   ];
 
   boot.loader.grub.efiSupport = lib.mkDefault true;
@@ -113,7 +115,7 @@ in
 
   # Xserver, but actually really wayland.
   services = {
-    displayManager.gdm.autoSuspend = false;
+    xserver.displayManager.gdm.autoSuspend = false;
     # Set this to your own layout (run `setxkbmap -query`)
     xserver.xkb = {
       layout = "${xkbLayout}";
@@ -134,6 +136,7 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system.all.enable = true;
+  mine.module.musnix.enable = true;
 
   # Avoid the stateVersion warning.
   # Setting this to system.nixos.release is fine because we have no state.

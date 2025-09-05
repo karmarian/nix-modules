@@ -15,7 +15,7 @@
 
   config = lib.mkIf config.mine.module.home.music.enable {
     home.packages = with pkgs; [
-      stable.ardour
+      ardour
       calf
       carla
       distrho-ports
@@ -28,8 +28,8 @@
       lmms
       mda_lv2
       musescore
-      stable.rosegarden
-      stable.solfege
+      rosegarden
+      solfege
       surge
       zynaddsubfx
     ];

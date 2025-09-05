@@ -29,6 +29,7 @@ in
     lib.mkMerge [
       {
         home.packages = with pkgs; [
+          alsa-utils
           dmidecode
           file
           gtop
@@ -37,6 +38,7 @@ in
           lsscsi
           magic-wormhole
           pciutils
+          picocom
           pstree
           rsync
           snapper
@@ -64,34 +66,34 @@ in
           gpg.enable = true;
           htop = {
             enable = true;
-            settings =
-              {
-                color_scheme = 6;
-                cpu_count_from_zero = true;
-                highlight_base_name = true;
-                highlight_megabytes = true;
-                highlight_threads = true;
-              }
-              // (
-                with config.lib.htop;
-                leftMeters [
-                  (bar "AllCPUs2")
-                  (bar "Memory")
-                  (bar "Swap")
-                  (bar "Battery")
-                ]
-              )
-              // (
-                with config.lib.htop;
-                rightMeters [
-                  (text "Tasks")
-                  (text "LoadAverage")
-                  (text "Uptime")
-                  (text "CPU")
-                ]
-              );
+            settings = {
+              color_scheme = 6;
+              cpu_count_from_zero = true;
+              highlight_base_name = true;
+              highlight_megabytes = true;
+              highlight_threads = true;
+            }
+            // (
+              with config.lib.htop;
+              leftMeters [
+                (bar "AllCPUs2")
+                (bar "Memory")
+                (bar "Swap")
+                (bar "Battery")
+              ]
+            )
+            // (
+              with config.lib.htop;
+              rightMeters [
+                (text "Tasks")
+                (text "LoadAverage")
+                (text "Uptime")
+                (text "CPU")
+              ]
+            );
           };
           man.enable = true;
+          ptyxis.enable = true;
           ripgrep.enable = true;
         };
       }

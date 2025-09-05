@@ -24,7 +24,7 @@
           audacious
           audacity
           ffmpeg
-          freetube
+          unstable.freetube
           mpd
           vlc
         ];

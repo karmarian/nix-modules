@@ -11,113 +11,169 @@
 {
   options.mine.module.home.emacs = {
     enable = lib.mkEnableOption "Emacs with modules and dependencies";
+    comms = lib.mkEnableOption "Communication modules";
+    core = lib.mkEnableOption "Core modules";
+    dev = lib.mkEnableOption "Development modules";
+    evil = lib.mkEnableOption "Evil modules";
+    music = lib.mkEnableOption "Music modules";
+    org = lib.mkEnableOption "Org modules";
+    package = lib.mkEnableOption "Package management modules";
+    python = lib.mkEnableOption "Python modules";
+    shell = lib.mkEnableOption "Shell modules";
   };
 
-  config = lib.mkIf config.mine.module.home.emacs.enable {
-    home.packages = with pkgs; [
-      # Emacs package dependencies
-      clang-tools
-      cmake
-      direnv
-      ghostscript
-      git
-      git-annex
-      global
-      guile
-      source-code-pro
-      universal-ctags
-    ];
+  config = lib.mkIf config.mine.module.home.emacs.enable (
+    lib.mkMerge [
+      {
+        programs.emacs = {
+          enable = lib.mkDefault true;
+        };
 
-    programs.emacs = {
-      enable = lib.mkDefault true;
-      extraPackages =
-        epkgs: with epkgs; [
-          # Emacs editor package
-          build-farm
-          guix
-          nix-mode
-          use-package
+        services.emacs = {
+          enable = lib.mkDefault true;
+          client = {
+            enable = lib.mkDefault true;
+          };
+          socketActivation.enable = lib.mkDefault true;
+          defaultEditor = lib.mkDefault false;
+        };
+      }
 
-          auctex
-          apheleia
-          clang-format
-          cmake-font-lock
-          cmake-ide
-          cmake-mode
-          cmake-project
-          company
-          daemons
-          direnv
-          docker
-          dockerfile-mode
-          dts-mode
-          eglot
-          ement
-          emms
-          elpy
+      (lib.mkIf config.mine.module.home.emacs.comms {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            ement
+          ];
+      })
 
-          # Emacs eshell packages
-          eat
-          eshell-z
-          esh-autosuggest
-          xterm-color
-          exec-path-from-shell
-          pcmpl-args
-          eshell-syntax-highlighting
-          eshell-toggle
-          vterm
-
-          # Emacs evil packages
-          evil
-          evil-collection
-          evil-org
-
-          exec-path-from-shell
-          flycheck
-          geiser
-          geiser-guile
-          ggtags
-          git-link
-          hydra
-          iedit
-          lispy
-          lispyville
-
-          # Emacs magit packages
-          magit
-          magit-annex
-          magit-todos
-
-          markdown-mode
-          multiple-cursors
-          org
-          org-roam
-          projectile
-          rainbow-delimiters
-          rainbow-mode
-          rust-mode
-          smartparens
-          sly
-          sly-asdf
-          undo-tree
-          vertico
-          visual-fill-column
-          yaml
-          yasnippet
-          yasnippet-snippets
+      (lib.mkIf config.mine.module.home.emacs.core {
+        home.packages = with pkgs; [
+          source-code-pro
         ];
-    };
 
-    services.emacs = {
-      enable = lib.mkDefault true;
-      extraOptions = lib.mkDefault [ "--daemon" ];
-      client = {
-        enable = lib.mkDefault true;
-        arguments = lib.mkDefault [ "-c" ];
-      };
-      socketActivation.enable = lib.mkDefault true;
-      startWithUserSession = lib.mkDefault true;
-      defaultEditor = lib.mkDefault false;
-    };
-  };
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            clipetty
+            vertico
+            which-key
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.dev {
+        home.packages = with pkgs; [
+          clang-tools
+          cmake
+          direnv
+          ghostscript
+          git
+          git-annex
+          global
+          guile
+          universal-ctags
+        ];
+
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            auctex
+            apheleia
+            build-farm
+            clang-format
+            cmake-font-lock
+            cmake-ide
+            cmake-mode
+            cmake-project
+            company
+            daemons
+            diff-hl
+            direnv
+            docker
+            dockerfile-mode
+            dts-mode
+            eglot
+            exec-path-from-shell
+            flycheck
+            geiser
+            geiser-guile
+            git-link
+            ggtags
+            guix
+            hydra
+            iedit
+            lispy
+            lispyville
+            magit
+            magit-annex
+            magit-todos
+            markdown-mode
+            multiple-cursors
+            nix-mode
+            projectile
+            rainbow-delimiters
+            rainbow-mode
+            rust-mode
+            smartparens
+            sly
+            sly-asdf
+            undo-tree
+            visual-fill-column
+            yaml
+            yasnippet
+            yasnippet-snippets
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.evil {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            evil
+            evil-collection
+            evil-org
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.music {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            emms
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.org {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            org
+            org-roam
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.package {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            use-package
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.python {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            elpy
+          ];
+      })
+
+      (lib.mkIf config.mine.module.home.emacs.shell {
+        programs.emacs.extraPackages =
+          epkgs: with epkgs; [
+            eat
+            eshell-z
+            esh-autosuggest
+            xterm-color
+            exec-path-from-shell
+            pcmpl-args
+            eshell-syntax-highlighting
+            eshell-toggle
+            vterm
+          ];
+      })
+    ]
+  );
 }

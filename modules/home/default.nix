@@ -15,7 +15,6 @@
     ./emacs.nix
     ./git.nix
     ./gnome.nix
-    ./git.nix
     ./home-manager.nix
     ./media.nix
     ./music.nix
@@ -39,7 +38,18 @@
         enable = true;
         comms.enable = true;
       };
-      emacs.enable = true;
+      emacs = {
+        enable = true;
+        comms = true;
+        core = true;
+        dev = true;
+        evil = true;
+        music = true;
+        org = true;
+        package = true;
+        python = true;
+        shell = true;
+      };
       git.enable = true;
       gnome.enable = true;
       home-manager = {
@@ -53,7 +63,8 @@
         mpd.enable = false;
         gstreamer.enable = true;
       };
-      music.enable = true;
+      # Issues with Carla, lmms with old cython dpendencies (https://github.com/NixOS/nixpkgs/issues/389149)
+      music.enable = false;
       network = {
         enable = true;
         vpn.enable = true;

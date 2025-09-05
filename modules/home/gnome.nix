@@ -83,6 +83,8 @@
 
       "org/gnome/settings-daemon/plugins/color" = {
         night-light-enabled = lib.mkDefault true;
+        night-light-schedule-from = lib.mkDefault 19.0;
+        night-light-schedule-to = lib.mkDefault 8.0;
       };
 
       # Make media key changes always silent.

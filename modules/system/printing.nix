@@ -16,7 +16,7 @@
   config = lib.mkIf config.mine.module.system.printing.enable {
     environment.systemPackages = with pkgs; [
       hplip
-      stable.xsane
+      xsane
     ];
 
     services = {

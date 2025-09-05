@@ -18,6 +18,7 @@
     lib.mkMerge [
       {
         home.packages = with pkgs; [
+          bustle
           kdePackages.okular
           tor-browser
         ];
@@ -65,7 +66,7 @@
       (lib.mkIf config.mine.module.home.desktop.comms.enable {
         home.packages = with pkgs; [
           element-desktop
-          stable.jami
+          jami
           signal-desktop-bin
         ];
       })

@@ -6,26 +6,26 @@
   sources ? import ./npins,
 }:
 let
-  pkgs = import sources.nixpkgs {
+  pkgs = import sources.nixos-stable {
     config = { };
     overlays = [ ];
     inherit system;
   };
-  pkgs-stable = import sources.nixos-stable {
+  pkgs-unstable = import sources.nixpkgs-unstable {
     config = { };
     overlays = [ ];
     inherit system;
   };
   home-manager = (import sources.home-manager { }).path;
   disko = import sources.disko { };
-  overlay-stable = final: prev: {
-    stable = pkgs-stable;
+  overlay-unstable = final: prev: {
+    unstable = pkgs-unstable;
   };
   inherit (pkgs) lib;
 in
 lib.makeScope pkgs.newScope (final: {
 
-  nixosSystem = import (sources.nixpkgs + "/nixos/lib/eval-config.nix") {
+  nixosSystem = import (sources.nixos-stable + "/nixos/lib/eval-config.nix") {
     system = "x86_64-linux";
     modules = [
       ./systems/vm/configuration.nix
@@ -35,7 +35,7 @@ lib.makeScope pkgs.newScope (final: {
       (
         { config, pkgs, ... }:
         {
-          nixpkgs.overlays = [ overlay-stable ];
+          nixpkgs.overlays = [ overlay-unstable ];
         }
       )
     ];
