@@ -1,5 +1,5 @@
-# SPDX-FileCopyrightText: 2024 karmar <karmar@posteo.de>
-# SPDX-License-Identifier: CC-BY-SA-4.0
+# SPDX-FileCopyrightText: Tweag I/O Limited
+# SPDX-License-Identifier: LicenseRef-MIT-TWEAG-IO-LIMITED
 
 [
   (final: prev: {

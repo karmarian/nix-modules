@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2018, 2019, 2022–2024 Nix community projects
+# SPDX-License-Identifier: LicenseRef-MIT-NIX-COMMUNITY-PROJECTS
+
 {
   disko.devices = {
     disk = {
