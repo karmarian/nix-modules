@@ -80,18 +80,29 @@ The official Nix OS installer is a simple way and also possible without Flakes.
 There are several ways to transfer the files to the target system, where the
 manual Nix OS installer is booted.
 
+Prepare the Nix OS installer image as the SSH server:
 ```shell
-sudo passwd nixos
-ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_nixos
-ssh-copy-id -i ~/.ssh/id_ed25519_nixos nixos@<ip-addr>
-git bundle create nix-modules.bundle main
-scp nix-modules.bundle nixos@<ip-addr>:/tmp
+$nixos-iso: sudo passwd nixos
+$nixos-iso: ip addr
+```
+Prepare the local machine as the SSH client and clone the Git repository:
+```shell
+$local: ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_nixos
+$local: ssh-copy-id -i ~/.ssh/id_ed25519_nixos nixos@<hostname>
+$local: git bundle create nix-modules.bundle main
+$local: scp nix-modules.bundle nixos@<ip-addr>:/tmp
 cd /tmp
 git clone nix-modules.bundle
+```
+Format the desired disk layout using disko:
+```shell
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/nix-modules/systems/vm/disko-config.nix
-# Optional
+# Optionally, generate the hardware configuration, if not already available
 sudo -i nixos-generate-config --no-filesystems --root /mnt
 cp /mnt/etc/nixos/hardware-configuration.nix nix-modules/systems/vm
+```
+Install the custom Nix OS configuration and start the initial boot:
+```shell
 sudo -i nixos-install --flake '/tmp/nix-modules#vm'
 nixos-enter --root /mnt -c 'passwd me'
 reboot
