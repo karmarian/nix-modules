@@ -107,6 +107,86 @@ sudo -i nixos-install --flake '/tmp/nix-modules#vm'
 nixos-enter --root /mnt -c 'passwd me'
 reboot
 ```
+Update the Nix OS configuration remotely using the openSSH server.
+```shell
+nixos-rebuild switch --use-remote-sudo --target-host <user>@<hostname> --flake .#odroid
+```
+Note that the user on the target system requires root privileges and has to be a
+*trusted-user*.
+
+### Git-annex sync workflow quick start
+This is a compilation of the documentation provided at
+[https://git-annex.branchable.com/](https://git-annex.branchable.com/].
+
+Creating a repository is very straightforward:
+```shell
+$ mkdir ~/annex
+$ cd ~/annex
+$ git init
+$ git annex init
+```
+
+Like any other git repository, git-annex repositories have remotes.
+Let's start by adding a USB drive as a remote:
+```shell
+$ sudo mount /media/usb
+$ cd /media/usb
+$ git clone ~/annex
+$ cd annex
+$ git annex init "portable USB drive"
+$ git remote add laptop ~/annex
+$ cd ~/annex
+$ git remote add usbdrive /media/usb/annex
+```
+
+It can also be used with a git remote that is truly remote, a host accessed by
+ssh:
+```shell
+$local: git clone <user@hostname>:/home/me/annex ~/annex
+$local: cd ~/annex
+$local: git annex init "my desktop"
+```
+or the other way:
+```shell
+# SSH to remote machine
+$remote: mkdir ~/annex
+$remote: cd ~/annex
+$remote: git init
+$remote: git annex init "my remote"
+# Switch back to local machine
+$local: git remote add <remote> <user@hostname>:/home/me/annex
+$local: git push -u <remote> <branch>
+```
+
+Merge synced/$currentbranch, pull changes from specified remote and update
+synced/$currentbranch:
+```shell
+$ cd </path/to/annex>
+git annex sync --content
+```
+This has to be done in all repositories in a decentralized fashion.
+To avoid errors caused on repositories without access privileges to remotes,
+run:
+```shell
+$remote: git annex sync --no-content --no-pull --no-push
+```
+
+Configure the settings of git-annex repositories:
+```shell
+Require multiple copies of files on accessible remotes
+git annex numcopies 2
+# Exclude specific files in the preferred content section
+git annex wanted here "exclude=*.flac"
+# Alternatively edit the configuration file directly
+git annex vicfg
+```
+
+Remove an obsolete remote repository:
+```shell
+git annex move --from <remote>
+git annex dead <remote>
+git remote rm <remote>
+```
 
 ## Known issues
 - Attribute sets in custom config are not used in modules
