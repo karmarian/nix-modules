@@ -66,7 +66,6 @@
           direnv
           ghostscript
           git
-          git-annex
           global
           guile
           universal-ctags
@@ -91,7 +90,6 @@
             dts-mode
             eglot
             exec-path-from-shell
-            flycheck
             geiser
             geiser-guile
             git-link
@@ -101,19 +99,12 @@
             iedit
             lispy
             lispyville
-            magit
-            magit-annex
-            magit-todos
             markdown-mode
             multiple-cursors
             nix-mode
-            projectile
             rainbow-delimiters
-            rainbow-mode
             rust-mode
             smartparens
-            sly
-            sly-asdf
             undo-tree
             visual-fill-column
             yaml
