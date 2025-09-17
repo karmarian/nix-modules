@@ -12,6 +12,7 @@
   options.mine.module.home.desktop = {
     enable = lib.mkEnableOption "Desktop apps and browser settings";
     comms.enable = lib.mkEnableOption "Communication apps";
+    extra-browser.enable = lib.mkEnableOption "Extra browsers";
   };
 
   config = lib.mkIf config.mine.module.home.desktop.enable (
@@ -20,7 +21,6 @@
         home.packages = with pkgs; [
           bustle
           kdePackages.okular
-          tor-browser
         ];
 
         manual.html.enable = lib.mkDefault true;
@@ -54,14 +54,19 @@
               };
             };
           };
-          librewolf.enable = true;
-          thunderbird = {
-            enable = true;
-            profiles.default.isDefault = true;
-          };
           keepassxc.enable = true;
         };
       }
+
+      (lib.mkIf config.mine.module.home.desktop.extra-browser.enable {
+        home.packages = with pkgs; [
+          tor-browser
+        ];
+
+        programs = {
+          librewolf.enable = true;
+        };
+      })
 
       (lib.mkIf config.mine.module.home.desktop.comms.enable {
         home.packages = with pkgs; [
@@ -69,6 +74,11 @@
           jami
           signal-desktop-bin
         ];
+
+        programs.thunderbird = {
+          enable = true;
+          profiles.default.isDefault = true;
+        };
       })
     ]
   );

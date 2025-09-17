@@ -37,6 +37,7 @@
       desktop = {
         enable = true;
         comms.enable = true;
+        extra-browser.enable = true;
       };
       emacs = {
         enable = true;
