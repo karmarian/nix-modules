@@ -13,7 +13,7 @@
 }:
 
 let
-  inherit (config.mine.userSubmodule.userVm) username;
+  inherit (config.mine.userSubmodule.userVm) username email;
 
 in
 {
@@ -53,7 +53,11 @@ in
       python = true;
       shell = true;
     };
-    git.enable = true;
+    git = {
+      enable = true;
+      userName = username;
+      userEmail = email;
+    };
     gnome.enable = false;
     home-manager = {
       enable = true;

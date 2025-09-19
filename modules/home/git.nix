@@ -15,6 +15,16 @@ in
 {
   options.mine.module.home.git = {
     enable = lib.mkEnableOption "Git apps and config";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "me@posteo.org";
+      description = "Username config";
+    };
+    userEmail = lib.mkOption {
+      type = lib.types.str;
+      default = "me";
+      description = "Email config";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -25,9 +35,8 @@ in
 
     programs.git = {
       enable = lib.mkDefault true;
-      # :TODO: Input optional attributes from peronal config.nix.
-      userName = lib.mkDefault "karmar";
-      userEmail = lib.mkDefault "karmar@posteo.de";
+      userName = cfg.userName;
+      userEmail = cfg.userEmail;
       lfs.enable = lib.mkDefault true;
       delta.enable = lib.mkDefault true;
       extraConfig = {
