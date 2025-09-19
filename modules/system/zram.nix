@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.zram;
+
+in
 {
   options.mine.module.system.zram = {
     enable = lib.mkEnableOption "Zram";
   };
 
-  config = lib.mkIf config.mine.module.system.zram.enable {
+  config = lib.mkIf cfg.enable {
     zramSwap.enable = true;
 
     environment.systemPackages = with pkgs; [

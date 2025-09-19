@@ -8,6 +8,10 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.emacs;
+
+in
 {
   options.mine.module.home.emacs = {
     enable = lib.mkEnableOption "Emacs with modules and dependencies";
@@ -22,7 +26,7 @@
     shell = lib.mkEnableOption "Shell modules";
   };
 
-  config = lib.mkIf config.mine.module.home.emacs.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         programs.emacs = {
@@ -39,14 +43,14 @@
         };
       }
 
-      (lib.mkIf config.mine.module.home.emacs.comms {
+      (lib.mkIf cfg.comms {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             ement
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.core {
+      (lib.mkIf cfg.core {
         home.packages = with pkgs; [
           source-code-pro
         ];
@@ -59,7 +63,7 @@
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.dev {
+      (lib.mkIf cfg.dev {
         home.packages = with pkgs; [
           clang-tools
           cmake
@@ -113,7 +117,7 @@
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.evil {
+      (lib.mkIf cfg.evil {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             evil
@@ -122,14 +126,14 @@
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.music {
+      (lib.mkIf cfg.music {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             emms
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.org {
+      (lib.mkIf cfg.org {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             org
@@ -137,21 +141,21 @@
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.package {
+      (lib.mkIf cfg.package {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             use-package
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.python {
+      (lib.mkIf cfg.python {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             elpy
           ];
       })
 
-      (lib.mkIf config.mine.module.home.emacs.shell {
+      (lib.mkIf cfg.shell {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             eat

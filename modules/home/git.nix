@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.git;
+
+in
 {
   options.mine.module.home.git = {
     enable = lib.mkEnableOption "Git apps and config";
   };
 
-  config = lib.mkIf config.mine.module.home.git.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       git-annex
       git-lfs

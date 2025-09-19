@@ -8,13 +8,17 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.programming;
+
+in
 {
   options.mine.module.home.programming = {
     enable = lib.mkEnableOption "Programming apps";
     python.enable = lib.mkEnableOption "Python environment tools";
   };
 
-  config = lib.mkIf config.mine.module.home.programming.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         home.packages = with pkgs; [
@@ -35,7 +39,7 @@
         };
       }
 
-      (lib.mkIf config.mine.module.home.programming.python.enable {
+      (lib.mkIf cfg.python.enable {
         home.packages = with pkgs; [
           # Python with development packages
           (python3.withPackages (p: [

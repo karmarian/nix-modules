@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.mobile;
+
+in
 {
   options.mine.module.system.mobile = {
     enable = lib.mkEnableOption "Smartphone utilities";
   };
 
-  config = lib.mkIf config.mine.module.system.mobile.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       kdeconnect = {
         enable = true;

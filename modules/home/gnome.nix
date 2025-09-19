@@ -7,13 +7,16 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.mine.module.home.gnome;
 
+in
 {
   options.mine.module.home.gnome = {
     enable = lib.mkEnableOption "Gnome apps and configs";
   };
 
-  config = lib.mkIf config.mine.module.home.gnome.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       gnome-tweaks
     ];

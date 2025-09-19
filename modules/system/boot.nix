@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.boot;
+
+in
 {
   options.mine.module.system.boot = {
     enable = lib.mkEnableOption "Boot config";
   };
 
-  config = lib.mkIf config.mine.module.system.boot.enable {
+  config = lib.mkIf cfg.enable {
     # GNU/Linux kernel package.
     boot.kernelPackages = pkgs.linuxPackages_latest;
     # Bootloader configuration.

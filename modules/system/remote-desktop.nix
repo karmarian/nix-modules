@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.remote-desktop;
+
+in
 {
   options.mine.module.system.remote-desktop = {
     enable = lib.mkEnableOption "Remote desktop apps";
   };
 
-  config = lib.mkIf config.mine.module.system.remote-desktop.enable {
+  config = lib.mkIf cfg.enable {
     # Enable the GNOME RDP components.
     services.gnome.gnome-remote-desktop.enable = true;
 

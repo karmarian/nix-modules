@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.tex;
+
+in
 {
   options.mine.module.home.tex = {
     enable = lib.mkEnableOption "LaTex application";
   };
 
-  config = lib.mkIf config.mine.module.home.tex.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # Mostly required by pandoc when creating PDFs.
       inkscape

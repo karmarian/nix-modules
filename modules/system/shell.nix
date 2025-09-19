@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.shell;
+
+in
 {
   options.mine.module.system.shell = {
     enable = lib.mkEnableOption "Shell utilities";
   };
 
-  config = lib.mkIf config.mine.module.system.shell.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       gparted
       vim

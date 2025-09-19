@@ -8,13 +8,17 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.network;
+
+in
 {
   options.mine.module.system.network = {
     enable = lib.mkEnableOption "Networking config";
     wireguard.enable = lib.mkEnableOption "Wireguard";
   };
 
-  config = lib.mkIf config.mine.module.system.network.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         programs.wireshark = {
@@ -23,7 +27,7 @@
         };
       }
 
-      (lib.mkIf config.mine.module.system.network.wireguard.enable {
+      (lib.mkIf cfg.wireguard.enable {
         networking.firewall = {
           allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
         };

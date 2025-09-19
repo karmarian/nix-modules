@@ -3,12 +3,16 @@
 
 { config, lib, ... }:
 
+let
+  cfg = config.mine.module.system.unfree;
+
+in
 {
   options.mine.module.system.unfree = {
     enable = lib.mkEnableOption "Allow unfree apps";
   };
 
-  config = lib.mkIf config.mine.module.system.unfree.enable {
+  config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
   };
 }

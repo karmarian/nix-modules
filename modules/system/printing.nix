@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.printing;
+
+in
 {
   options.mine.module.system.printing = {
     enable = lib.mkEnableOption "Printer and CUPS";
   };
 
-  config = lib.mkIf config.mine.module.system.printing.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       hplip
       xsane

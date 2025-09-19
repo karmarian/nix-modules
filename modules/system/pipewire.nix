@@ -9,12 +9,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.pipewire;
+
+in
 {
   options.mine.module.system.pipewire = {
     enable = lib.mkEnableOption "Pipewire config";
   };
 
-  config = lib.mkIf config.mine.module.system.pipewire.enable {
+  config = lib.mkIf cfg.enable {
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

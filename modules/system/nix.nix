@@ -9,6 +9,10 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.nix;
+
+in
 {
   options.mine.module.system.nix = {
     enable = lib.mkEnableOption "Nix config";
@@ -16,7 +20,7 @@
     auto-upgrade.enable = lib.mkEnableOption "Automatic system upgrade";
   };
 
-  config = lib.mkIf config.mine.module.system.nix.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         # Set Nixpkgs overlays and config
@@ -40,7 +44,7 @@
         environment.systemPackages = [ pkgs.nixfmt-rfc-style ];
       }
 
-      (lib.mkIf config.mine.module.system.nix.store-optimisation.enable {
+      (lib.mkIf cfg.store-optimisation.enable {
         nix = {
           # Store optimization on every build.
           settings.auto-optimise-store = true;
@@ -60,7 +64,7 @@
         };
       })
 
-      (lib.mkIf config.mine.module.system.nix.auto-upgrade.enable {
+      (lib.mkIf cfg.auto-upgrade.enable {
         system.autoUpgrade = {
           enable = true;
           flake = inputs.self.outPath;

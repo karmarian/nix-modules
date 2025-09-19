@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.tmux;
+
+in
 {
   options.mine.module.home.tmux = {
     enable = lib.mkEnableOption "Tmux application and configuration";
   };
 
-  config = lib.mkIf config.mine.module.home.tmux.enable {
+  config = lib.mkIf cfg.enable {
     home.packages =
       with pkgs;
       [

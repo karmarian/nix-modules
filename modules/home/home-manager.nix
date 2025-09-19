@@ -7,6 +7,10 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.home-manager;
+
+in
 {
   options.mine.module.home.home-manager = {
     enable = lib.mkEnableOption "Home-manager config";
@@ -15,7 +19,7 @@
     standalone = lib.mkEnableOption "Let home-manager manage itself";
   };
 
-  config = lib.mkIf config.mine.module.home.shell.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         nix.gc = {
@@ -26,21 +30,21 @@
 
       }
 
-      (lib.mkIf config.mine.module.home.home-manager.auto-expire {
+      (lib.mkIf cfg.auto-expire {
         services.home-manager.autoExpire = {
           enable = true;
           store.cleanup = true;
         };
       })
 
-      (lib.mkIf config.mine.module.home.home-manager.auto-upgrade {
+      (lib.mkIf cfg.auto-upgrade {
         services.home-manager.autoUpgrade = {
           enable = true;
           frequency = "weekly";
         };
       })
 
-      (lib.mkIf config.mine.module.home.home-manager.standalone {
+      (lib.mkIf cfg.standalone {
         programs.home-manager = {
           enable = true;
         };

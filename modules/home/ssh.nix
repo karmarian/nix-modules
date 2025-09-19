@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.ssh;
+
+in
 {
   options.mine.module.home.ssh = {
     enable = lib.mkEnableOption "SSH config";
   };
 
-  config = lib.mkIf config.mine.module.home.ssh.enable {
+  config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
       addKeysToAgent = "yes";

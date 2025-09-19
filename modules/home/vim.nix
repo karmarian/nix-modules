@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.vim;
+
+in
 {
   options.mine.module.home.vim = {
     enable = lib.mkEnableOption "Vim application and configuration";
   };
 
-  config = lib.mkIf config.mine.module.home.vim.enable {
+  config = lib.mkIf cfg.enable {
     home.sessionVariables = {
       EDITOR = "vim";
       VISUAL = "vim";

@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.syncthing;
+
+in
 {
   options.mine.module.system.syncthing = {
     enable = lib.mkEnableOption "Syncthing app and service";
   };
 
-  config = lib.mkIf config.mine.module.system.syncthing.enable {
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       syncthing
     ];

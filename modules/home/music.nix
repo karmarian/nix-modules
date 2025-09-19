@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.music;
+
+in
 {
   options.mine.module.home.music = {
     enable = lib.mkEnableOption "Music apps";
   };
 
-  config = lib.mkIf config.mine.module.home.music.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       ardour
       calf

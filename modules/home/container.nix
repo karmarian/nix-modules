@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.container;
+
+in
 {
   options.mine.module.home.container = {
     enable = lib.mkEnableOption "Container apps";
   };
 
-  config = lib.mkIf config.mine.module.home.container.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       dive # look into docker image layers
       flatpak

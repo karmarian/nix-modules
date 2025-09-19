@@ -8,6 +8,10 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.home.desktop;
+
+in
 {
   options.mine.module.home.desktop = {
     enable = lib.mkEnableOption "Desktop apps and browser settings";
@@ -15,7 +19,7 @@
     extra-browser.enable = lib.mkEnableOption "Extra browsers";
   };
 
-  config = lib.mkIf config.mine.module.home.desktop.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         home.packages = with pkgs; [
@@ -58,7 +62,7 @@
         };
       }
 
-      (lib.mkIf config.mine.module.home.desktop.extra-browser.enable {
+      (lib.mkIf cfg.extra-browser.enable {
         home.packages = with pkgs; [
           tor-browser
         ];
@@ -68,7 +72,7 @@
         };
       })
 
-      (lib.mkIf config.mine.module.home.desktop.comms.enable {
+      (lib.mkIf cfg.comms.enable {
         home.packages = with pkgs; [
           element-desktop
           jami

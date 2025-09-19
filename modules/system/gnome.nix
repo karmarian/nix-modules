@@ -8,12 +8,16 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.gnome;
+
+in
 {
   options.mine.module.system.gnome = {
     enable = lib.mkEnableOption "GNOME config";
   };
 
-  config = lib.mkIf config.mine.module.system.gnome.enable {
+  config = lib.mkIf cfg.enable {
     services = {
       # Enable the XServer windowing system, but actually really wayland.
       xserver.enable = true;

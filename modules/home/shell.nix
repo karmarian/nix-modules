@@ -9,6 +9,8 @@
 }:
 
 let
+  cfg = config.mine.module.home.shell;
+
   collectOld = pkgs.writeScriptBin "nix-collect-old" ''
     nix-env --delete-generations old
     nix-collect-garbage
@@ -25,7 +27,7 @@ in
     ollama.autostart = lib.mkEnableOption "Autostart Ollama service";
   };
 
-  config = lib.mkIf config.mine.module.home.shell.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         home.packages = with pkgs; [
@@ -98,7 +100,7 @@ in
         };
       }
 
-      (lib.mkIf config.mine.module.home.shell.bash.enable {
+      (lib.mkIf cfg.bash.enable {
         home.packages = with pkgs; [
           bash-completion
           bashInteractive
@@ -122,13 +124,11 @@ in
         };
       })
 
-      (lib.mkIf config.mine.module.home.shell.ollama.enable {
+      (lib.mkIf cfg.ollama.enable {
         # Enable Ollama framework for local large language model deployments.
         services.ollama.enable = true;
         # Disable Ollama service at startup.
-        systemd.user.services.ollama.Install.WantedBy = lib.mkIf (
-          !config.mine.module.home.shell.ollama.autostart
-        ) (lib.mkForce [ ]);
+        systemd.user.services.ollama.Install.WantedBy = lib.mkIf (!cfg.ollama.autostart) (lib.mkForce [ ]);
       })
     ]
   );

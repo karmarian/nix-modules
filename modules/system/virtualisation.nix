@@ -8,6 +8,10 @@
   ...
 }:
 
+let
+  cfg = config.mine.module.system.virtualisation;
+
+in
 {
   options.mine.module.system.virtualisation = {
     enable = lib.mkEnableOption "Virtualisation apps";
@@ -18,7 +22,7 @@
     waydroid.autostart = lib.mkEnableOption "Autostart Waydroid service";
   };
 
-  config = lib.mkIf config.mine.module.system.virtualisation.enable (
+  config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
         boot.extraModprobeConfig = lib.mkDefault "options kvm-intel nested=Y";
@@ -37,7 +41,7 @@
         virtualisation.libvirtd.enable = lib.mkDefault true;
       }
 
-      (lib.mkIf config.mine.module.system.virtualisation.binfmt.enable {
+      (lib.mkIf cfg.binfmt.enable {
         boot.binfmt.emulatedSystems = lib.mkDefault [
           "aarch64-linux"
           "armv7l-linux"
@@ -45,7 +49,7 @@
         nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
       })
 
-      (lib.mkIf config.mine.module.system.virtualisation.variant.enable {
+      (lib.mkIf cfg.variant.enable {
         # User for testing in VM with build-vm.
         users.users.nixosvmtest.isSystemUser = lib.mkDefault true;
         users.users.nixosvmtest.initialPassword = lib.mkDefault "test";
@@ -94,7 +98,7 @@
         };
       })
 
-      (lib.mkIf config.mine.module.system.virtualisation.container.enable {
+      (lib.mkIf cfg.container.enable {
         virtualisation = {
           # Enable common container config files in /etc/containers.
           containers.enable = lib.mkDefault true;
@@ -109,16 +113,14 @@
         };
       })
 
-      (lib.mkIf config.mine.module.system.virtualisation.waydroid.enable {
+      (lib.mkIf cfg.waydroid.enable {
         # Enable WayDroid LXC container to run Android apps.
         # Waydroid has to be initialized once using 'waydroid init' and the
         # *waydroid-container* has to be started using systemd.
         virtualisation.waydroid.enable = lib.mkDefault true;
 
         # Disable Waydroid container service at startup.
-        systemd.services.waydroid-container.wantedBy = lib.mkIf (
-          !config.mine.module.system.virtualisation.waydroid.autostart
-        ) (lib.mkForce [ ]);
+        systemd.services.waydroid-container.wantedBy = lib.mkIf (!cfg.waydroid.autostart) (lib.mkForce [ ]);
       })
     ]
   );
