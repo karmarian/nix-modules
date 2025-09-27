@@ -166,9 +166,9 @@ git annex sync --content
 ```
 This has to be done in all repositories in a decentralized fashion.
 To avoid errors caused on repositories without access privileges to remotes,
-run:
+only merge the synced changes:
 ```shell
-$remote: git annex sync --no-content --no-pull --no-push
+$remote: git annex merge
 ```
 
 Configure the settings of git-annex repositories:

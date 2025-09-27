@@ -11,13 +11,6 @@
 let
   cfg = config.mine.module.home.shell;
 
-  collectOld = pkgs.writeScriptBin "nix-collect-old" ''
-    nix-env --delete-generations old
-    nix-collect-garbage
-    nix-collect-garbage -d
-    nix-store --gc --print-dead
-    nix-store --optimize
-  '';
 in
 {
   options.mine.module.home.shell = {

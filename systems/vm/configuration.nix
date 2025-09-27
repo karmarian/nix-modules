@@ -41,9 +41,6 @@ in
     ../../modules/musnix
   ];
 
-  boot.loader.grub.efiSupport = lib.mkDefault true;
-  boot.loader.grub.efiInstallAsRemovable = lib.mkDefault true;
-
   networking.hostName = "${hostname}"; # Define your hostname.
 
   # Optional. Useful for testing.
@@ -64,8 +61,8 @@ in
     extraGroups = extraGroups;
   };
 
-  # :KLUDGE: Until home-manager attribute sets are working in default.nix, this is placed here instead of
-  # flake.nix and default.nix.
+  # :KLUDGE: Until home-manager attribute sets are working in default.nix, this
+  # is placed here instead of flake.nix and default.nix.
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "bak";
