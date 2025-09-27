@@ -110,6 +110,10 @@
                 type = lib.types.str;
                 default = "vm";
               };
+              syncDeviceId = lib.mkOption {
+                type = lib.types.str;
+                default = "";
+              };
             };
           });
       };

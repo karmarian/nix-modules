@@ -15,11 +15,17 @@ in
 {
   options.mine.module.system.jellyfin = {
     enable = lib.mkEnableOption "Jellyfin media server";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "me";
+      description = "Jellyfin username";
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.jellyfin = {
       enable = true;
+      user = cfg.userName;
       group = "users";
       # Open ports for jellyfin server automatically.
       openFirewall = true;

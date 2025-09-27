@@ -15,54 +15,92 @@ in
 {
   options.mine.module.system.gnome = {
     enable = lib.mkEnableOption "GNOME config";
+    autoLogin.enable = lib.mkEnableOption "Auto login into Gnome session";
+    autoLogin.user = lib.mkOption {
+      type = lib.types.str;
+      default = "me";
+      description = "Auto login username";
+    };
+    xkbLayout = lib.mkOption {
+      type = lib.types.str;
+      default = "de";
+      description = "Xserver keyboard layout";
+    };
+    xkbVariant = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Xserver keyboard variant";
+    };
   };
 
-  config = lib.mkIf cfg.enable {
-    services = {
-      # Enable the XServer windowing system, but actually really wayland.
-      xserver.enable = true;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        services = {
+          # Enable the XServer windowing system, but actually really wayland.
+          xserver.enable = true;
 
-      # Enable the GNOME Desktop Environment.
-      xserver.displayManager.gdm.enable = true;
-      xserver.desktopManager.gnome = {
-        enable = true;
-        # Set firefox and console as the apps in the dock
-        favoriteAppsOverride = ''
-          [org.gnome.shell]
-          favorite-apps = [ 'firefox.desktop','org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop' ]
-        '';
+          # Enable the GNOME Desktop Environment.
+          xserver.displayManager.gdm.enable = true;
+          xserver.desktopManager.gnome = {
+            enable = true;
+            # Set firefox and console as the apps in the dock.
+            favoriteAppsOverride = ''
+              [org.gnome.shell]
+              favorite-apps = [ 'firefox.desktop','org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop' ]
+            '';
+          };
+          # Set this to your own layout (run `setxkbmap -query`).
+          xserver.xkb = {
+            layout = cfg.xkbLayout;
+            variant = cfg.xkbVariant;
+          };
+        };
 
-        # Enable touchpad support (enabled default in most desktopManager).
-        # libinput.enable = true;
-      };
-    };
+        # Use the same keyboard layout in consoles as in the desktop.
+        console.useXkbConfig = true;
 
-    environment = {
-      gnome.excludePackages =
-        (with pkgs; [
-          gnome-tour
-        ])
-        ++ (with pkgs; [
-          epiphany
-          evince
-          geary
-          gedit
-          gnome-console
-          gnome-music
-          totem
-        ]);
+        environment = {
+          gnome.excludePackages =
+            (with pkgs; [
+              gnome-tour
+            ])
+            ++ (with pkgs; [
+              epiphany
+              evince
+              geary
+              gedit
+              gnome-console
+              gnome-music
+              totem
+            ]);
 
-      systemPackages = with pkgs; [
-        gnomeExtensions.astra-monitor
-        gnomeExtensions.appindicator
-      ];
-    };
+          systemPackages = with pkgs; [
+            gnomeExtensions.astra-monitor
+            gnomeExtensions.appindicator
+          ];
+        };
 
-    programs = {
-      gnome-terminal.enable = true;
-    };
+        programs = {
+          gnome-terminal.enable = true;
+        };
 
-    # Enable networking
-    networking.networkmanager.enable = lib.mkDefault true;
-  };
+        # Enable networking.
+        networking.networkmanager.enable = lib.mkDefault true;
+      }
+
+      (lib.mkIf cfg.autoLogin.enable {
+        services = {
+          xserver.displayManager.gdm.autoSuspend = false;
+          displayManager.autoLogin = {
+            enable = true;
+            user = cfg.autoLogin.user;
+          };
+        };
+        # Workaround for issue on 25.05 (https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229).
+        systemd.services."getty@tty1".enable = false;
+        systemd.services."autovt@tty1".enable = false;
+      })
+    ]
+  );
 }

@@ -75,6 +75,7 @@
       peripheralSubmodule.peripheralVm = {
         backupDevice = "bak";
         syncDevice = "host";
+        syncDeviceId = "";
       };
     };
   };

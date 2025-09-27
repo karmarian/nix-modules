@@ -15,6 +15,21 @@ in
 {
   options.mine.module.system.syncthing = {
     enable = lib.mkEnableOption "Syncthing app and service";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "me";
+      description = "Syncthing user";
+    };
+    syncDevice = lib.mkOption {
+      type = lib.types.str;
+      default = "mysync";
+      description = "Sync device name";
+    };
+    syncDeviceId = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Sync device ID";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -29,6 +44,28 @@ in
       overrideDevices = lib.mkDefault true;
       # overrides any folders added or deleted through the WebUI
       overrideFolders = lib.mkDefault true;
+      user = cfg.userName;
+      dataDir = "/home/${cfg.userName}/syncthing";
+      configDir = "/home/${cfg.userName}/syncthing/.config";
+      settings = {
+        devices = {
+          "${cfg.syncDevice}" = {
+            id = cfg.syncDeviceId;
+          };
+        };
+        folders = {
+          # Name of folder in Syncthing, also the folder ID
+          "share" = {
+            # Which folder to add to Syncthing
+            path = "/home/${cfg.userName}/syncthing/share";
+            # Which devices to share the folder with
+            devices = [ "${cfg.syncDevice}" ];
+          };
+        };
+      };
+      # syncthing init is required to generate these keys in the first place.
+      key = "/home/${cfg.userName}/.local/state/syncthing/key.pem";
+      cert = "/home/${cfg.userName}/.local/state/syncthing/cert.pem";
     };
 
     # Open ports in the firewall.

@@ -14,6 +14,7 @@
     ./boot.nix
     ./gnome.nix
     ./jellyfin.nix
+    ./locale.nix
     ./mobile.nix
     ./network.nix
     ./nix.nix
@@ -36,6 +37,7 @@
       boot.enable = true;
       gnome.enable = true;
       jellyfin.enable = true;
+      locale.enable = true;
       mobile.enable = true;
       network = {
         enable = true;

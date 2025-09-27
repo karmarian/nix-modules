@@ -189,10 +189,8 @@ git remote rm <remote>
 ```
 
 ## Known issues
-- Attribute sets in custom config are not used in modules
 - Attribute sets in custom config are not used for build outputs in flake.nix
 - Wireguard configuration is only a dummy implementation without actual keys
-- Musnix input is not activated, because it has to be added to default.nix
 - Disko module import not working in default.nix
 - Encrypted drives need key files to unlock in the disko virtual machine
 

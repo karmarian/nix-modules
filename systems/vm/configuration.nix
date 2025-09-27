@@ -27,6 +27,10 @@ let
     xkbVariant
     timeZone
     ;
+  inherit (config.mine.peripheralSubmodule.peripheralVm)
+    syncDevice
+    syncDeviceId
+    ;
 
 in
 {
@@ -41,27 +45,6 @@ in
   boot.loader.grub.efiInstallAsRemovable = lib.mkDefault true;
 
   networking.hostName = "${hostname}"; # Define your hostname.
-
-  # Set the time zone (run `tzselect`).
-  time.timeZone = "${timeZone}";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "${defaultLocale}";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "${extraLocale}";
-    LC_IDENTIFICATION = "${extraLocale}";
-    LC_MEASUREMENT = "${extraLocale}";
-    LC_MONETARY = "${extraLocale}";
-    LC_NAME = "${extraLocale}";
-    LC_NUMERIC = "${extraLocale}";
-    LC_PAPER = "${extraLocale}";
-    LC_TELEPHONE = "${extraLocale}";
-    LC_TIME = "${extraLocale}";
-  };
-
-  # Use the same keyboard layout in consoles as in the desktop.
-  console.useXkbConfig = true;
 
   # Optional. Useful for testing.
   # users.users.root.initialPassword = "root";
@@ -110,29 +93,26 @@ in
     vm-switch
   ];
 
-  # Auto-login the default user on consoles.
-  services.getty.autologinUser = "${username}";
-
-  # Xserver, but actually really wayland.
-  services = {
-    xserver.displayManager.gdm.autoSuspend = false;
-    # Set this to your own layout (run `setxkbmap -query`)
-    xserver.xkb = {
-      layout = "${xkbLayout}";
-      variant = "${xkbVariant}";
-    };
-    displayManager.autoLogin = {
-      enable = true;
-      user = "${username}";
-    };
-
-  };
-
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
     boot.enable = true;
-    gnome.enable = false;
-    jellyfin.enable = true;
+    gnome = {
+      enable = false;
+      autoLogin.enable = true;
+      autoLogin.user = username;
+      xkbLayout = xkbLayout;
+      xkbVariant = xkbVariant;
+    };
+    jellyfin = {
+      enable = true;
+      userName = username;
+    };
+    locale = {
+      enable = true;
+      defaultLocale = defaultLocale;
+      extraLocale = extraLocale;
+      timeZone = timeZone;
+    };
     mobile.enable = true;
     network = {
       enable = true;
@@ -146,14 +126,25 @@ in
     };
     pipewire.enable = true;
     printing.enable = false;
-    shell.enable = true;
-    syncthing.enable = true;
+    shell = {
+      enable = true;
+      autoLogin.enable = true;
+      autoLogin.user = username;
+    };
+    syncthing = {
+      enable = true;
+      userName = username;
+      syncDevice = syncDevice;
+      syncDeviceId = syncDeviceId;
+    };
     unfree.enable = true;
     virtualisation = {
       enable = true;
       binfmt.enable = false;
       container.enable = false;
       variant.enable = true;
+      vmCores = cores;
+      vmMemorySize = memorySize;
       waydroid.enable = false;
       waydroid.autostart = false;
     };

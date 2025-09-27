@@ -18,6 +18,16 @@ in
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
     variant.enable = lib.mkEnableOption "Vm Variant";
+    vmCores = lib.mkOption {
+      type = lib.types.int;
+      default = 2;
+      description = "Number of cores for virtual machine";
+    };
+    vmMemorySize = lib.mkOption {
+      type = lib.types.int;
+      default = 2048;
+      description = "Amount of MebiBytes for virtual machine";
+    };
     waydroid.enable = lib.mkEnableOption "Waydroid container";
     waydroid.autostart = lib.mkEnableOption "Autostart Waydroid service";
   };
@@ -58,28 +68,8 @@ in
 
         virtualisation.vmVariant.virtualisation = {
           # Following configuration is added only when building VM with build-vm.
-          memorySize = lib.mkDefault 4096; # Use 4096 MiB memory.
-          cores = lib.mkDefault 2;
-          # Make the screen size auto-scale
-          qemu.options = lib.mkDefault [ "-vga virtio" ];
-
-          # Don't persist any state, also allows Ctrl-C without problems
-          diskImage = lib.mkDefault null; # "./nixos.qcow2";
-
-          # Except the current directory, which is shared in /etc/nixos
-          sharedDirectories.share = {
-            source = lib.mkDefault (toString ./.);
-            target = lib.mkDefault "/etc/nixos";
-          };
-
-          # Allows Nix commands to re-use and write to the host's store
-          mountHostNixStore = lib.mkDefault true;
-          writableStoreUseTmpfs = lib.mkDefault false;
-        };
-        virtualisation.vmVariantWithDisko.virtualisation = {
-          # Following configuration is added only when building VM with build-vm.
-          memorySize = lib.mkDefault 4096; # Use 4096 MiB memory.
-          cores = lib.mkDefault 2;
+          memorySize = cfg.vmMemorySize;
+          cores = cfg.vmCores;
           # Make the screen size auto-scale
           qemu.options = lib.mkDefault [ "-vga virtio" ];
 

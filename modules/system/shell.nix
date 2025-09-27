@@ -15,23 +15,38 @@ in
 {
   options.mine.module.system.shell = {
     enable = lib.mkEnableOption "Shell utilities";
-  };
-
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      gparted
-      vim
-      wget
-    ];
-
-    programs = {
-      screen = {
-        enable = true;
-        screenrc = "
-          truecolor on
-        ";
-      };
-      mtr.enable = true;
+    autoLogin.enable = lib.mkEnableOption "Auto login into TTY session";
+    autoLogin.user = lib.mkOption {
+      type = lib.types.str;
+      default = "me";
+      description = "Auto login username";
     };
   };
+
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        environment.systemPackages = with pkgs; [
+          gparted
+          vim
+          wget
+        ];
+
+        programs = {
+          screen = {
+            enable = true;
+            screenrc = "
+          truecolor on
+        ";
+          };
+          mtr.enable = true;
+        };
+      }
+
+      (lib.mkIf cfg.autoLogin.enable {
+        # Auto-login the default user on consoles.
+        services.getty.autologinUser = cfg.autoLogin.user;
+      })
+    ]
+  );
 }
