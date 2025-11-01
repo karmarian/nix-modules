@@ -14,6 +14,7 @@
 
 let
   inherit (config.mine.userSubmodule.userVm) username email;
+  inherit (config.mine.machineSubmodule.machineVm) xkbLayout;
 
 in
 {
@@ -58,7 +59,10 @@ in
       userName = username;
       userEmail = email;
     };
-    gnome.enable = false;
+    gnome = {
+      enable = false;
+      xkbLayout = xkbLayout;
+    };
     home-manager = {
       enable = true;
       auto-expire = true;

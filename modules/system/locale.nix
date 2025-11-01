@@ -30,6 +30,11 @@ in
       default = "Europe/Berlin";
       description = "Extra locale setting";
     };
+    keyboardLayout = lib.mkOption {
+      type = lib.types.str;
+      default = "us_en";
+      description = "Keyboard layout";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -49,6 +54,10 @@ in
       LC_PAPER = cfg.extraLocale;
       LC_TELEPHONE = cfg.extraLocale;
       LC_TIME = cfg.extraLocale;
+    };
+
+    console = lib.mkIf (config.services.xserver.enable == false) {
+      keyMap = cfg.keyboardLayout;
     };
   };
 }

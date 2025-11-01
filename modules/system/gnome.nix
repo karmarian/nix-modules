@@ -44,11 +44,6 @@ in
           xserver.displayManager.gdm.enable = true;
           xserver.desktopManager.gnome = {
             enable = true;
-            # Set firefox and console as the apps in the dock.
-            favoriteAppsOverride = ''
-              [org.gnome.shell]
-              favorite-apps = [ 'firefox.desktop','org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop' ]
-            '';
           };
           # Set this to your own layout (run `setxkbmap -query`).
           xserver.xkb = {
@@ -61,28 +56,25 @@ in
         console.useXkbConfig = true;
 
         environment = {
-          gnome.excludePackages =
-            (with pkgs; [
-              gnome-tour
-            ])
-            ++ (with pkgs; [
-              epiphany
-              evince
-              geary
-              gedit
-              gnome-console
-              gnome-music
-              totem
-            ]);
-
           systemPackages = with pkgs; [
-            gnomeExtensions.astra-monitor
-            gnomeExtensions.appindicator
+            gnome-connections
+            gnome-tweaks
+            nautilus
+          ];
+
+          gnome.excludePackages = with pkgs; [
+            gnome-tour
           ];
         };
 
         programs = {
           gnome-terminal.enable = true;
+        };
+
+        services.gnome = {
+          core-apps.enable = false;
+          core-developer-tools.enable = false;
+          games.enable = false;
         };
 
         # Enable networking.

@@ -109,6 +109,7 @@ in
       defaultLocale = defaultLocale;
       extraLocale = extraLocale;
       timeZone = timeZone;
+      keyboardLayout = xkbLayout;
     };
     mobile.enable = true;
     network = {
