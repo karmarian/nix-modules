@@ -23,9 +23,9 @@ let
     extraLocale
     hostname
     memorySize
+    timeZone
     xkbLayout
     xkbVariant
-    timeZone
     ;
   inherit (config.mine.peripheralSubmodule.peripheralVm)
     syncDevice
@@ -130,7 +130,7 @@ in
       autoLogin.user = username;
     };
     syncthing = {
-      enable = true;
+      enable = false;
       userName = username;
       syncDevice = syncDevice;
       syncDeviceId = syncDeviceId;

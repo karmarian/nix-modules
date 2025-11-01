@@ -13,9 +13,11 @@
 let
   inherit (config.mine.userSubmodule.userVm) username isNormalUser extraGroups;
   inherit (config.mine.machineSubmodule.machineWsl)
+    cores
     defaultLocale
     extraLocale
     hostname
+    memorySize
     timeZone
     xkbLayout
     xkbVariant
@@ -31,27 +33,6 @@ in
 
   networking.hostName = "${hostname}"; # Define your hostname.
 
-  # Set the time zone.
-  time.timeZone = "${timeZone}";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "${defaultLocale}";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "${extraLocale}";
-    LC_IDENTIFICATION = "${extraLocale}";
-    LC_MEASUREMENT = "${extraLocale}";
-    LC_MONETARY = "${extraLocale}";
-    LC_NAME = "${extraLocale}";
-    LC_NUMERIC = "${extraLocale}";
-    LC_PAPER = "${extraLocale}";
-    LC_TELEPHONE = "${extraLocale}";
-    LC_TIME = "${extraLocale}";
-  };
-
-  # Use the same keyboard layout in consoles as in the desktop.
-  console.useXkbConfig = true;
-
   users.users = {
     ${username} = {
       isNormalUser = isNormalUser;
@@ -62,30 +43,36 @@ in
     };
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  ];
-
-  # List services that you want to enable:
-  services = {
-    # Xserver, but actually really wayland.
-    # Set this to your own layout (run `setxkbmap -query`).
-    xserver.xkb = {
-      layout = "${xkbLayout}";
-      variant = "${xkbVariant}";
-    };
-  };
-
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
+    locale = {
+      enable = true;
+      defaultLocale = defaultLocale;
+      extraLocale = extraLocale;
+      timeZone = timeZone;
+      keyboardLayout = xkbLayout;
+    };
     nix = {
       enable = true;
       store-optimisation.enable = true;
+      auto-upgrade.enable = true;
     };
     pipewire.enable = true;
-    shell.enable = true;
-    virtualisation.enable = true;
+    shell = {
+      enable = true;
+      autoLogin.enable = false;
+      autoLogin.user = username;
+    };
+    virtualisation = {
+      enable = true;
+      binfmt.enable = false;
+      container.enable = false;
+      variant.enable = true;
+      vmCores = (cores / 2);
+      vmMemorySize = (memorySize / 2);
+      waydroid.enable = false;
+      waydroid.autostart = false;
+    };
     zram.enable = true;
   };
   mine.module.wsl.enable = true;
