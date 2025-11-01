@@ -61,10 +61,14 @@ in
 
       (lib.mkIf cfg.variant.enable {
         # User for testing in VM with build-vm.
-        users.users.nixosvmtest.isSystemUser = lib.mkDefault true;
-        users.users.nixosvmtest.initialPassword = lib.mkDefault "test";
-        users.users.nixosvmtest.group = lib.mkDefault "nixosvmtest";
-        users.groups.nixosvmtest = lib.mkDefault { };
+        users.users.nixosvmtest = {
+          isNormalUser = lib.mkDefault true;
+          initialPassword = lib.mkDefault "test";
+          extraGroups = lib.mkDefault [
+            "nixosvmtest"
+            "wheel"
+          ];
+        };
 
         virtualisation.vmVariant.virtualisation = {
           # Following configuration is added only when building VM with build-vm.
@@ -75,16 +79,6 @@ in
 
           # Don't persist any state, also allows Ctrl-C without problems
           diskImage = lib.mkDefault null; # "./nixos.qcow2";
-
-          # Except the current directory, which is shared in /etc/nixos
-          sharedDirectories.share = {
-            source = lib.mkDefault (toString ./.);
-            target = lib.mkDefault "/etc/nixos";
-          };
-
-          # Allows Nix commands to re-use and write to the host's store
-          mountHostNixStore = lib.mkDefault true;
-          writableStoreUseTmpfs = lib.mkDefault false;
         };
       })
 

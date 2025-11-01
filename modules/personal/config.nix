@@ -53,8 +53,8 @@
       machineSubmodule.machineVm = {
         hostname = "vm";
         arch = "x86_64-linux";
-        cores = 2;
-        memorySize = 4 * 1024;
+        cores = 4;
+        memorySize = 16 * 1024;
         xkbLayout = "de";
         xkbVariant = "";
         timeZone = "Europe/Berlin";
@@ -64,8 +64,8 @@
       machineSubmodule.machineWsl = {
         hostname = "wsl";
         arch = "x86_64-linux";
-        cores = 2;
-        memorySize = 4 * 1024;
+        cores = 4;
+        memorySize = 16 * 1024;
         xkbLayout = "de";
         xkbVariant = "";
         timeZone = "Europe/Berlin";

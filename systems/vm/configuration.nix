@@ -141,8 +141,8 @@ in
       binfmt.enable = false;
       container.enable = false;
       variant.enable = true;
-      vmCores = cores;
-      vmMemorySize = memorySize;
+      vmCores = (cores / 2);
+      vmMemorySize = (memorySize / 2);
       waydroid.enable = false;
       waydroid.autostart = false;
     };
