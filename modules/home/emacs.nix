@@ -156,18 +156,28 @@ in
       })
 
       (lib.mkIf cfg.shell {
-        programs.emacs.extraPackages =
-          epkgs: with epkgs; [
-            eat
-            eshell-z
-            esh-autosuggest
-            xterm-color
-            exec-path-from-shell
-            pcmpl-args
-            eshell-syntax-highlighting
-            eshell-toggle
-            vterm
-          ];
+        programs = {
+          # Eat requires to run an init script for proper shell integration.
+          # :WARNING: The script is only sourced for bash in this case.
+          bash = {
+            bashrcExtra = ''
+              [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+                source "$EAT_SHELL_INTEGRATION_DIR/bash"
+            '';
+          };
+          emacs.extraPackages =
+            epkgs: with epkgs; [
+              eat
+              eshell-z
+              esh-autosuggest
+              xterm-color
+              exec-path-from-shell
+              pcmpl-args
+              eshell-syntax-highlighting
+              eshell-toggle
+              vterm
+            ];
+        };
       })
     ]
   );

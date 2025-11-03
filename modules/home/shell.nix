@@ -111,10 +111,6 @@ in
             SSH_OPTS = "-tt";
           };
           shellAliases = import ./shell/shell-aliases.nix // import ./shell/shell-aliases-custom.nix;
-          bashrcExtra = ''
-            [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-              source "$EAT_SHELL_INTEGRATION_DIR/bash"
-          '';
           profileExtra = ''
             eval "$(direnv hook bash)"
           '';
