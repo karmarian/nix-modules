@@ -57,6 +57,22 @@ in
           dircolors = {
             enable = true;
             enableBashIntegration = true;
+            settings = {
+              DIR = "00;34";
+              EXEC = "00;32";
+              LINK = "00;36";
+              SOCK = "00;35";
+              PIPE = "00;33";
+              BLK = "00;33";
+              CHR = "00;33";
+              ".tar" = "00;31";
+              ".gz" = "00;31";
+              ".zip" = "00;31";
+              ".rar" = "00;31";
+              ".jpg" = "00;35";
+              ".png" = "00;35";
+              ".gif" = "00;35";
+            };
           };
           gpg.enable = true;
           htop = {
@@ -104,9 +120,6 @@ in
           sessionVariables = {
             CLICOLOR = 1;
             COLORTERM = "truecolor";
-            LSCOLORS = "GxFxCxDxBxegedabagaced";
-            LC_ALL = "en_US.UTF-8";
-            LANG = "en_US.UTF-8";
             # Required for remote sudo authentication on target host.
             SSH_OPTS = "-tt";
           };
