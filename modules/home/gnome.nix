@@ -51,6 +51,14 @@ in
           ];
         };
 
+        "org/gnome/shell/app-switcher" = {
+          current-workspace-only = true;
+        };
+
+        "org/gnome/mutter" = {
+          workspace-only-on-primary = false;
+        };
+
         "org/gnome/desktop/interface" = {
           color-scheme = lib.mkDefault "prefer-light";
           enable-hot-corners = lib.mkDefault false;
