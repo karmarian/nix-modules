@@ -49,7 +49,8 @@ in
       dev = true;
       evil = true;
       music = true;
-      org = true;
+      # :BUG: Upstream build issues.
+      org = false;
       package = true;
       python = true;
       shell = true;
