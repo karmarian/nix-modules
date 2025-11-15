@@ -58,7 +58,8 @@
         xkbLayout = "de";
         xkbVariant = "";
         timeZone = "Europe/Berlin";
-        extraLocale = "de_DE.UTF-8";
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSet = "de_DE.UTF-8";
       };
 
       machineSubmodule.machineWsl = {
@@ -69,7 +70,8 @@
         xkbLayout = "de";
         xkbVariant = "";
         timeZone = "Europe/Berlin";
-        extraLocale = "de_DE.UTF-8";
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSet = "de_DE.UTF-8";
       };
 
       peripheralSubmodule.peripheralVm = {

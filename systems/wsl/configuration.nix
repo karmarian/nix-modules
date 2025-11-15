@@ -15,7 +15,7 @@ let
   inherit (config.mine.machineSubmodule.machineWsl)
     cores
     defaultLocale
-    extraLocale
+    extraLocaleSet
     hostname
     memorySize
     timeZone
@@ -48,7 +48,7 @@ in
     locale = {
       enable = true;
       defaultLocale = defaultLocale;
-      extraLocale = extraLocale;
+      extraLocaleSet = extraLocaleSet;
       timeZone = timeZone;
       keyboardLayout = xkbLayout;
     };

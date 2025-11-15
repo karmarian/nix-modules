@@ -88,7 +88,11 @@
                 type = lib.types.str;
                 default = "en_US.UTF-8";
               };
-              extraLocale = lib.mkOption {
+              extraLocales = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+              };
+              extraLocaleSet = lib.mkOption {
                 type = lib.types.str;
                 default = "en_US.UTF-8";
               };

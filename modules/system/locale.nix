@@ -18,17 +18,22 @@ in
     defaultLocale = lib.mkOption {
       type = lib.types.str;
       default = "en_US.UTF-8";
-      description = "Default locale setting";
+      description = "Default system-wide locale";
     };
-    extraLocale = lib.mkOption {
+    extraLocales = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Support additional locales";
+    };
+    extraLocaleSet = lib.mkOption {
       type = lib.types.str;
       default = "en_US.UTF-8";
-      description = "Extra locale setting";
+      description = "Partial set for extra locale settings";
     };
     timeZone = lib.mkOption {
       type = lib.types.str;
       default = "Europe/Berlin";
-      description = "Extra locale setting";
+      description = "Time zone setting";
     };
     keyboardLayout = lib.mkOption {
       type = lib.types.str;
@@ -41,19 +46,27 @@ in
     # Set the time zone (run `tzselect`).
     time.timeZone = cfg.timeZone;
 
-    # Select internationalisation properties.
+    # Select the default system-wide locale.
     i18n.defaultLocale = cfg.defaultLocale;
 
+    # Support additional locales.
+    i18n.extraLocales = cfg.extraLocales;
+
+    # Individually set internationalisation options based on the default LANG
+    # setting and some opinionated extra settings, which might need a different locale.
     i18n.extraLocaleSettings = {
-      LC_ADDRESS = cfg.extraLocale;
-      LC_IDENTIFICATION = cfg.extraLocale;
-      LC_MEASUREMENT = cfg.extraLocale;
-      LC_MONETARY = cfg.extraLocale;
-      LC_NAME = cfg.extraLocale;
-      LC_NUMERIC = cfg.extraLocale;
-      LC_PAPER = cfg.extraLocale;
-      LC_TELEPHONE = cfg.extraLocale;
-      LC_TIME = cfg.extraLocale;
+      LC_ADDRESS = cfg.extraLocaleSet;
+      LC_COLLATE = cfg.defaultLocale;
+      LC_CTYPE = cfg.defaultLocale;
+      LC_IDENTIFICATION = cfg.defaultLocale;
+      LC_MEASUREMENT = cfg.extraLocaleSet;
+      LC_MESSAGES = cfg.defaultLocale;
+      LC_MONETARY = cfg.defaultLocale;
+      LC_NAME = cfg.defaultLocale;
+      LC_NUMERIC = cfg.defaultLocale;
+      LC_PAPER = cfg.extraLocaleSet;
+      LC_TELEPHONE = cfg.extraLocaleSet;
+      LC_TIME = cfg.defaultLocale;
     };
 
     console = lib.mkIf (config.services.xserver.enable == false) {
