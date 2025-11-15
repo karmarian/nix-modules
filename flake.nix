@@ -14,6 +14,10 @@
       # The `follows` keyword in inputs is used for inheritance.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Disko source, used for declarative disk partitioning.
     disko = {
       url = "github:nix-community/disko";
@@ -37,6 +41,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
+      nixos-hardware,
       disko,
       musnix,
       nixos-wsl,
