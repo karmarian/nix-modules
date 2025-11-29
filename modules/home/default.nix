@@ -58,7 +58,7 @@
         enable = true;
         auto-expire = true;
         auto-upgrade = true;
-        standalone = true;
+        standalone = false;
       };
       media = {
         enable = true;
