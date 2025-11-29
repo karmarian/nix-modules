@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024 karmar <karmar@posteo.de>
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+let
+  cfg = config.mine.module.system.immich;
+
+in
+{
+  options.mine.module.system.immich = {
+    enable = lib.mkEnableOption "Immich photo and video management";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "immich";
+      description = "Immich user";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    services.immich = {
+      enable = true;
+      port = 2283;
+      host = "localhost";
+      mediaLocation = "/var/lib/immich";
+      openFirewall = true;
+      user = cfg.userName;
+    };
+  };
+}

@@ -100,6 +100,10 @@ in
       xkbLayout = xkbLayout;
       xkbVariant = xkbVariant;
     };
+    immich = {
+      enable = true;
+      userName = username;
+    };
     jellyfin = {
       enable = true;
       userName = username;

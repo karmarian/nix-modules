@@ -13,6 +13,7 @@
   imports = [
     ./boot.nix
     ./gnome.nix
+    ./immich.nix
     ./jellyfin.nix
     ./locale.nix
     ./mobile.nix
@@ -36,6 +37,7 @@
     mine.module.system = {
       boot.enable = true;
       gnome.enable = true;
+      immich.enable = true;
       jellyfin.enable = true;
       locale.enable = true;
       mobile.enable = true;
