@@ -55,7 +55,7 @@
       printing.enable = true;
       remote-desktop.enable = true;
       shell.enable = true;
-      syncthing.enable = true;
+      syncthing.firewall.open = true;
       unfree.enable = true;
       virtualisation = {
         enable = true;

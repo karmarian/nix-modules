@@ -14,60 +14,10 @@ let
 in
 {
   options.mine.module.system.syncthing = {
-    enable = lib.mkEnableOption "Syncthing app and service";
-    userName = lib.mkOption {
-      type = lib.types.str;
-      default = "me";
-      description = "Syncthing user";
-    };
-    syncDevice = lib.mkOption {
-      type = lib.types.str;
-      default = "mysync";
-      description = "Sync device name";
-    };
-    syncDeviceId = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "Sync device ID";
-    };
+    firewall.open = lib.mkEnableOption "Syncthing firewall rules";
   };
 
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      syncthing
-    ];
-
-    # :TODO: Input optional attributes to customize devices, keys and IDs.
-    services.syncthing = {
-      enable = true;
-      # overrides any devices added or deleted through the WebUI
-      overrideDevices = lib.mkDefault true;
-      # overrides any folders added or deleted through the WebUI
-      overrideFolders = lib.mkDefault true;
-      user = cfg.userName;
-      dataDir = "/home/${cfg.userName}/syncthing";
-      configDir = "/home/${cfg.userName}/syncthing/.config";
-      settings = {
-        devices = {
-          "${cfg.syncDevice}" = {
-            id = cfg.syncDeviceId;
-          };
-        };
-        folders = {
-          # Name of folder in Syncthing, also the folder ID
-          "share" = {
-            # Which folder to add to Syncthing
-            path = "/home/${cfg.userName}/syncthing/share";
-            # Which devices to share the folder with
-            devices = [ "${cfg.syncDevice}" ];
-          };
-        };
-      };
-      # syncthing init is required to generate these keys in the first place.
-      key = "/home/${cfg.userName}/.local/state/syncthing/key.pem";
-      cert = "/home/${cfg.userName}/.local/state/syncthing/cert.pem";
-    };
-
+  config = lib.mkIf cfg.firewall.open {
     # Open ports in the firewall.
     # Syncthing ports: 8384 for remote access to GUI
     # 22000 TCP and/or UDP for sync traffic

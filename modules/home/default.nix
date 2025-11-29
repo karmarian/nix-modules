@@ -22,6 +22,7 @@
     ./programming.nix
     ./shell.nix
     ./ssh.nix
+    ./syncthing.nix
     ./tex.nix
     ./tmux.nix
     ./vim.nix
@@ -80,6 +81,7 @@
         ollama.autostart = true;
       };
       ssh.enable = true;
+      syncthing.enable = true;
       tex.enable = true;
       tmux.enable = true;
       vim.enable = true;

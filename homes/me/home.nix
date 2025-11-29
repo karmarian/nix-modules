@@ -15,6 +15,10 @@
 let
   inherit (config.mine.userSubmodule.userVm) username email;
   inherit (config.mine.machineSubmodule.machineVm) xkbLayout;
+  inherit (config.mine.peripheralSubmodule.peripheralVm)
+    syncDevice
+    syncDeviceId
+    ;
 
 in
 {
@@ -91,6 +95,13 @@ in
       ollama.autostart = false;
     };
     ssh.enable = true;
+    syncthing = {
+      enable = true;
+      pregeneratedFiles = false;
+      userName = username;
+      syncDevice = syncDevice;
+      syncDeviceId = syncDeviceId;
+    };
     tex.enable = true;
     tmux.enable = true;
     vim.enable = true;

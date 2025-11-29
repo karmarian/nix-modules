@@ -27,10 +27,6 @@ let
     xkbLayout
     xkbVariant
     ;
-  inherit (config.mine.peripheralSubmodule.peripheralVm)
-    syncDevice
-    syncDeviceId
-    ;
 
 in
 {
@@ -133,12 +129,7 @@ in
       autoLogin.enable = true;
       autoLogin.user = username;
     };
-    syncthing = {
-      enable = false;
-      userName = username;
-      syncDevice = syncDevice;
-      syncDeviceId = syncDeviceId;
-    };
+    syncthing.firewall.open = true;
     unfree.enable = true;
     virtualisation = {
       enable = true;
