@@ -11,6 +11,7 @@
 
 {
   imports = [
+    ./audiobookshelf.nix
     ./boot.nix
     ./gnome.nix
     ./immich.nix
@@ -35,6 +36,7 @@
 
   config = lib.mkIf config.mine.module.system.all.enable {
     mine.module.system = {
+      audiobookshelf.enable = true;
       boot.enable = true;
       gnome.enable = true;
       immich.enable = true;

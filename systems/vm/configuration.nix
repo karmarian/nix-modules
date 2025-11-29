@@ -88,6 +88,10 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
+    audiobookshelf = {
+      enable = true;
+      userName = username;
+    };
     boot.enable = true;
     gnome = {
       enable = false;
