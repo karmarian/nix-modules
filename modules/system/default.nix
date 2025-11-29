@@ -31,7 +31,7 @@
   ];
 
   options.mine.module.system.all = {
-    enable = lib.mkEnableOption "All system apps";
+    enable = lib.mkEnableOption "All basic system modules";
   };
 
   config = lib.mkIf config.mine.module.system.all.enable {
@@ -43,30 +43,15 @@
       jellyfin.enable = true;
       locale.enable = true;
       mobile.enable = true;
-      network = {
-        enable = true;
-        # VPN profile is not generic and correct settings have to applied.
-        wireguard.enable = true;
-      };
-      nix = {
-        enable = true;
-        store-optimisation.enable = true;
-        auto-upgrade.enable = true;
-      };
+      network.enable = true;
+      nix.enable = true;
       pipewire.enable = true;
       printing.enable = true;
       remote-desktop.enable = true;
       shell.enable = true;
       syncthing.firewall.open = true;
       unfree.enable = true;
-      virtualisation = {
-        enable = true;
-        binfmt.enable = true;
-        container.enable = true;
-        variant.enable = true;
-        waydroid.enable = true;
-        waydroid.autostart = true;
-      };
+      virtualisation.enable = true;
       zram.enable = true;
     };
   };

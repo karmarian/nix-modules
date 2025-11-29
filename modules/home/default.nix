@@ -29,57 +29,22 @@
   ];
 
   options.mine.module.home.all = {
-    enable = lib.mkEnableOption "All home apps";
+    enable = lib.mkEnableOption "All basic home modules";
   };
 
   config = lib.mkIf config.mine.module.home.all.enable {
     mine.module.home = {
       container.enable = true;
-      desktop = {
-        enable = true;
-        comms.enable = true;
-        extra-browser.enable = true;
-      };
-      emacs = {
-        enable = true;
-        comms = true;
-        core = true;
-        dev = true;
-        evil = true;
-        music = true;
-        org = true;
-        package = true;
-        python = true;
-        shell = true;
-      };
+      desktop.enable = true;
+      emacs.enable = true;
       git.enable = true;
       gnome.enable = true;
-      home-manager = {
-        enable = true;
-        auto-expire = true;
-        auto-upgrade = true;
-        standalone = false;
-      };
-      media = {
-        enable = true;
-        mpd.enable = true;
-        gstreamer.enable = true;
-      };
+      home-manager.enable = true;
+      media.enable = true;
       music.enable = true;
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
-      programming = {
-        enable = true;
-        python.enable = true;
-      };
-      shell = {
-        enable = true;
-        bash.enable = true;
-        ollama.enable = true;
-        ollama.autostart = true;
-      };
+      network.enable = true;
+      programming.enable = true;
+      shell.enable = true;
       ssh.enable = true;
       syncthing.enable = true;
       tex.enable = true;
