@@ -88,64 +88,34 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
+    default.scheme = "headless";
     audiobookshelf = {
-      enable = true;
       userName = username;
     };
-    boot.enable = true;
     gnome = {
-      enable = false;
-      autoLogin.enable = true;
       autoLogin.user = username;
       xkbLayout = xkbLayout;
       xkbVariant = xkbVariant;
     };
     immich = {
-      enable = true;
       userName = username;
     };
     jellyfin = {
-      enable = true;
       userName = username;
     };
     locale = {
-      enable = true;
       defaultLocale = defaultLocale;
       extraLocaleSet = extraLocaleSet;
       timeZone = timeZone;
       keyboardLayout = xkbLayout;
     };
-    mobile.enable = true;
-    network = {
-      enable = true;
-      # VPN profile is not generic and correct settings have to applied.
-      wireguard.enable = false;
-    };
-    nix = {
-      enable = true;
-      store-optimisation.enable = true;
-      auto-upgrade.enable = true;
-    };
-    pipewire.enable = true;
-    printing.enable = false;
     shell = {
-      enable = true;
-      autoLogin.enable = true;
       autoLogin.user = username;
     };
-    syncthing.firewall.open = true;
-    unfree.enable = true;
     virtualisation = {
-      enable = true;
-      binfmt.enable = false;
-      container.enable = false;
-      variant.enable = true;
       vmCores = (cores / 2);
       vmMemorySize = (memorySize / 2);
-      waydroid.enable = false;
-      waydroid.autostart = false;
     };
-    zram.enable = true;
   };
   mine.module.musnix.enable = true;
 

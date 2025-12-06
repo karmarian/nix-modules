@@ -30,29 +30,136 @@
     ./zram.nix
   ];
 
-  options.mine.module.system.all = {
-    enable = lib.mkEnableOption "All basic system modules";
-  };
-
-  config = lib.mkIf config.mine.module.system.all.enable {
-    mine.module.system = {
-      audiobookshelf.enable = true;
-      boot.enable = true;
-      gnome.enable = true;
-      immich.enable = true;
-      jellyfin.enable = true;
-      locale.enable = true;
-      mobile.enable = true;
-      network.enable = true;
-      nix.enable = true;
-      pipewire.enable = true;
-      printing.enable = true;
-      remote-desktop.enable = true;
-      shell.enable = true;
-      syncthing.firewall.open = true;
-      unfree.enable = true;
-      virtualisation.enable = true;
-      zram.enable = true;
+  options.mine.module.system.default = {
+    scheme = lib.mkOption {
+      type = lib.types.str;
+      default = "all";
+      description = "Enable supported scheme like 'all' or 'headless'";
     };
   };
+
+  config.mine.module.system = lib.mkMerge [
+    (lib.mkIf (config.mine.module.system.default.scheme == "all") {
+      audiobookshelf = {
+        enable = true;
+      };
+      boot.enable = true;
+      gnome = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      immich = {
+        enable = true;
+      };
+      jellyfin = {
+        enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      mobile.enable = true;
+      network = {
+        enable = true;
+        # VPN profile is not generic and correct settings have to applied.
+        wireguard.enable = false;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      printing.enable = true;
+      shell = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      syncthing.firewall.open = true;
+      unfree.enable = true;
+      virtualisation = {
+        enable = true;
+        binfmt.enable = true;
+        container.enable = true;
+        variant.enable = true;
+        waydroid.enable = true;
+        waydroid.autostart = true;
+      };
+      zram.enable = true;
+    })
+    (lib.mkIf (config.mine.module.system.default.scheme == "desktop") {
+      boot.enable = true;
+      gnome = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      mobile.enable = true;
+      network = {
+        enable = true;
+        # VPN profile is not generic and correct settings have to applied.
+        wireguard.enable = false;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      printing.enable = true;
+      shell = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      syncthing.firewall.open = true;
+      virtualisation = {
+        enable = true;
+        binfmt.enable = true;
+        container.enable = true;
+        variant.enable = true;
+        waydroid.enable = true;
+        waydroid.autostart = true;
+      };
+      zram.enable = true;
+    })
+    (lib.mkIf (config.mine.module.system.default.scheme == "headless") {
+      audiobookshelf = {
+        enable = true;
+      };
+      boot.enable = true;
+      immich = {
+        enable = true;
+      };
+      jellyfin = {
+        enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      network = {
+        enable = true;
+        # VPN profile is not generic and correct settings have to applied.
+        wireguard.enable = false;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      shell = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      syncthing.firewall.open = true;
+      virtualisation = {
+        enable = true;
+        binfmt.enable = true;
+        container.enable = true;
+        variant.enable = true;
+      };
+      zram.enable = true;
+    })
+  ];
 }

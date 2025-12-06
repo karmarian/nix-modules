@@ -28,28 +28,125 @@
     ./vim.nix
   ];
 
-  options.mine.module.home.all = {
-    enable = lib.mkEnableOption "All basic home modules";
+  options.mine.module.home.default = {
+    scheme = lib.mkOption {
+      type = lib.types.str;
+      default = "all";
+      description = "Enable supported scheme like 'all' or 'headless'";
+    };
   };
 
-  config = lib.mkIf config.mine.module.home.all.enable {
-    mine.module.home = {
+  config.mine.module.home = lib.mkMerge [
+    (lib.mkIf (config.mine.module.home.default.scheme == "all") {
       container.enable = true;
-      desktop.enable = true;
-      emacs.enable = true;
-      git.enable = true;
-      gnome.enable = true;
-      home-manager.enable = true;
-      media.enable = true;
+      desktop = {
+        enable = true;
+        comms.enable = true;
+        extra-browser.enable = true;
+      };
+      emacs = {
+        enable = true;
+        comms = true;
+        core = true;
+        dev = true;
+        evil = true;
+        music = true;
+        # :BUG: Upstream build issues.
+        org = false;
+        package = true;
+        python = true;
+        shell = true;
+      };
+      git = {
+        enable = true;
+      };
+      gnome = {
+        enable = true;
+      };
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = true;
+        standalone = false;
+      };
+      media = {
+        enable = true;
+        mpd.enable = true;
+        gstreamer.enable = true;
+      };
       music.enable = true;
-      network.enable = true;
-      programming.enable = true;
-      shell.enable = true;
+      network = {
+        enable = true;
+        vpn.enable = true;
+      };
+      programming = {
+        enable = true;
+        python.enable = true;
+      };
+      shell = {
+        enable = true;
+        bash.enable = true;
+        ollama.enable = true;
+        ollama.autostart = true;
+      };
       ssh.enable = true;
-      syncthing.enable = true;
+      syncthing = {
+        enable = true;
+        pregeneratedFiles = false;
+      };
       tex.enable = true;
       tmux.enable = true;
       vim.enable = true;
-    };
-  };
+    })
+    (lib.mkIf (config.mine.module.home.default.scheme == "headless") {
+      emacs = {
+        enable = true;
+        comms = true;
+        core = true;
+        dev = true;
+        evil = true;
+        music = true;
+        # :BUG: Upstream build issues.
+        org = false;
+        package = true;
+        python = true;
+        shell = true;
+      };
+      git = {
+        enable = true;
+      };
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = false;
+        standalone = false;
+      };
+      media = {
+        enable = true;
+        mpd.enable = true;
+        gstreamer.enable = true;
+      };
+      network = {
+        enable = true;
+        vpn.enable = true;
+      };
+      programming = {
+        enable = true;
+        python.enable = true;
+      };
+      shell = {
+        enable = true;
+        bash.enable = true;
+        ollama.enable = true;
+        ollama.autostart = true;
+      };
+      ssh.enable = true;
+      syncthing = {
+        enable = true;
+        pregeneratedFiles = false;
+      };
+      tmux.enable = true;
+      vim.enable = true;
+    })
+  ];
 }

@@ -8,7 +8,12 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (config.mine.userSubmodule.userVm) username isNormalUser extraGroups;
@@ -45,35 +50,35 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
+    default.scheme = "headless";
+    audiobookshelf = {
+      userName = username;
+    };
+    boot.enable = lib.mkForce false;
+    gnome = {
+      autoLogin.user = username;
+      xkbLayout = xkbLayout;
+      xkbVariant = xkbVariant;
+    };
+    immich = {
+      userName = username;
+    };
+    jellyfin = {
+      userName = username;
+    };
     locale = {
-      enable = true;
       defaultLocale = defaultLocale;
       extraLocaleSet = extraLocaleSet;
       timeZone = timeZone;
       keyboardLayout = xkbLayout;
     };
-    nix = {
-      enable = true;
-      store-optimisation.enable = true;
-      auto-upgrade.enable = true;
-    };
-    pipewire.enable = true;
     shell = {
-      enable = true;
-      autoLogin.enable = false;
       autoLogin.user = username;
     };
     virtualisation = {
-      enable = true;
-      binfmt.enable = false;
-      container.enable = false;
-      variant.enable = true;
       vmCores = (cores / 2);
       vmMemorySize = (memorySize / 2);
-      waydroid.enable = false;
-      waydroid.autostart = false;
     };
-    zram.enable = true;
   };
   mine.module.wsl.enable = true;
 

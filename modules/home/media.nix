@@ -37,7 +37,7 @@ in
       (lib.mkIf cfg.mpd.enable {
         services.mpd = {
           enable = true;
-          musicDirectory = "${home.homeDirectory}/music";
+          musicDirectory = "${config.home.homeDirectory}/music";
         };
       })
 
