@@ -6,11 +6,11 @@
 
   inputs = {
     # Official NixOS package source, using unstable and stable branches.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # Home-manager source, used for managing user configurations.
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       # The `follows` keyword in inputs is used for inheritance.
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -46,8 +46,8 @@
     }:
 
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      stdenv.hostPlatform.system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
 
       # :TODO: Import and inherit attributes from peronal config module.
       userVm = "me";
@@ -55,7 +55,7 @@
       machineWsl = "wsl";
 
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        unstable = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
       };
 
     in
@@ -65,7 +65,6 @@
         # configuration on any NixOS system:
         # sudo nixos-rebuild switch --flake .#vm
         ${machineVm} = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
 
           # Pass flake inputs into all sub modules of NixOS config.
           specialArgs = { inherit inputs; };
@@ -97,7 +96,6 @@
         };
 
         ${machineWsl} = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
 
           specialArgs = { inherit inputs; };
 

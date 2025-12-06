@@ -33,24 +33,30 @@ in
       git-lfs
     ];
 
-    programs.git = {
-      enable = lib.mkDefault true;
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
-      lfs.enable = lib.mkDefault true;
-      delta.enable = lib.mkDefault true;
-      extraConfig = {
-        credential.helper = lib.mkDefault "store";
-        init.defaultBranch = lib.mkDefault "main";
-        push.autoSetupRemote = lib.mkDefault true;
+    programs = {
+      git = {
+        enable = lib.mkDefault true;
+        settings = {
+          user.name = cfg.userName;
+          user.email = cfg.userEmail;
+          alias = {
+            pushfwl = lib.mkDefault "push --force-with-lease";
+            co = lib.mkDefault "checkout";
+            cp = lib.mkDefault "cherry-pick";
+          };
+          extraConfig = {
+            credential.helper = lib.mkDefault "store";
+            init.defaultBranch = lib.mkDefault "main";
+            push.autoSetupRemote = lib.mkDefault true;
+          };
+        };
+        lfs.enable = lib.mkDefault true;
       };
-      aliases = {
-        pushfwl = lib.mkDefault "push --force-with-lease";
-        co = lib.mkDefault "checkout";
-        cp = lib.mkDefault "cherry-pick";
+      delta = {
+        enable = lib.mkDefault true;
+        enableGitIntegration = lib.mkDefault true;
       };
+      lazygit.enable = lib.mkDefault false;
     };
-
-    programs.lazygit.enable = lib.mkDefault false;
   };
 }

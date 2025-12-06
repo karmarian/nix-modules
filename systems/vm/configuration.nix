@@ -37,6 +37,7 @@ in
     ../../modules/musnix
   ];
 
+  nixpkgs.hostPlatform.system = "x86_64-linux";
   networking.hostName = "${hostname}"; # Define your hostname.
 
   # Optional. Useful for testing.

@@ -41,8 +41,8 @@ in
           xserver.enable = true;
 
           # Enable the GNOME Desktop Environment.
-          xserver.displayManager.gdm.enable = true;
-          xserver.desktopManager.gnome = {
+          displayManager.gdm.enable = true;
+          desktopManager.gnome = {
             enable = true;
           };
           # Set this to your own layout (run `setxkbmap -query`).
@@ -82,9 +82,9 @@ in
       }
 
       (lib.mkIf cfg.autoLogin.enable {
-        services = {
-          xserver.displayManager.gdm.autoSuspend = false;
-          displayManager.autoLogin = {
+        services.displayManager = {
+          gdm.autoSuspend = false;
+          autoLogin = {
             enable = true;
             user = cfg.autoLogin.user;
           };

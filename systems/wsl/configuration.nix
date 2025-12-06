@@ -36,6 +36,8 @@ in
     ../../modules/wsl
   ];
 
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+
   networking.hostName = "${hostname}"; # Define your hostname.
 
   users.users = {

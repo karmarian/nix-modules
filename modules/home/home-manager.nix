@@ -24,7 +24,7 @@ in
       {
         nix.gc = {
           automatic = true;
-          frequency = "weekly";
+          dates = "weekly";
           randomizedDelaySec = "30min";
         };
 

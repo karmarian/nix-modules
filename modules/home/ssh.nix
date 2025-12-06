@@ -20,7 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
-      addKeysToAgent = "yes";
+      matchBlocks = import ./ssh/match-block.nix;
       extraConfig = import ./ssh/extra-config.nix;
     };
 
