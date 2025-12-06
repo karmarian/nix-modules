@@ -31,7 +31,7 @@
   options.mine.module.home.default = {
     scheme = lib.mkOption {
       type = lib.types.str;
-      default = "all";
+      default = "";
       description = "Enable supported scheme like 'all' or 'headless'";
     };
   };
