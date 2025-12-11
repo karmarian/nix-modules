@@ -22,6 +22,7 @@
     ./programming.nix
     ./shell.nix
     ./ssh.nix
+    ./sway.nix
     ./syncthing.nix
     ./tex.nix
     ./tmux.nix
@@ -32,7 +33,7 @@
     scheme = lib.mkOption {
       type = lib.types.str;
       default = "";
-      description = "Enable supported scheme like 'all' or 'headless'";
+      description = "Enable supported scheme like 'all', 'sway' or 'headless'";
     };
   };
 
@@ -66,7 +67,7 @@
       home-manager = {
         enable = true;
         auto-expire = true;
-        auto-upgrade = true;
+        auto-upgrade = false;
         standalone = false;
       };
       media = {
@@ -90,11 +91,37 @@
         ollama.autostart = true;
       };
       ssh.enable = true;
+      sway.enable = false;
       syncthing = {
         enable = true;
         pregeneratedFiles = false;
       };
       tex.enable = true;
+      tmux.enable = true;
+      vim.enable = true;
+    })
+    (lib.mkIf (config.mine.module.home.default.scheme == "sway") {
+      desktop = {
+        enable = true;
+      };
+      git = {
+        enable = true;
+      };
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = false;
+      };
+      network = {
+        enable = true;
+        vpn.enable = true;
+      };
+      shell = {
+        enable = true;
+        bash.enable = true;
+      };
+      ssh.enable = true;
+      sway.enable = true;
       tmux.enable = true;
       vim.enable = true;
     })

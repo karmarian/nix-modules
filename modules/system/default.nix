@@ -24,6 +24,7 @@
     ./printing.nix
     ./remote-desktop.nix
     ./shell.nix
+    ./sway.nix
     ./syncthing.nix
     ./unfree.nix
     ./virtualisation.nix
@@ -34,7 +35,7 @@
     scheme = lib.mkOption {
       type = lib.types.str;
       default = "";
-      description = "Enable supported scheme like 'all', 'desktop' or 'headless'";
+      description = "Enable supported scheme like 'all', 'gnome', 'sway' or 'headless'";
     };
   };
 
@@ -74,6 +75,7 @@
         enable = true;
         autoLogin.enable = true;
       };
+      sway.enable = false;
       syncthing.firewall.open = true;
       unfree.enable = true;
       virtualisation = {
@@ -86,7 +88,7 @@
       };
       zram.enable = true;
     })
-    (lib.mkIf (config.mine.module.system.default.scheme == "desktop") {
+    (lib.mkIf (config.mine.module.system.default.scheme == "gnome") {
       boot.enable = true;
       gnome = {
         enable = true;
@@ -121,6 +123,29 @@
         waydroid.enable = true;
         waydroid.autostart = true;
       };
+      zram.enable = true;
+    })
+    (lib.mkIf (config.mine.module.system.default.scheme == "sway") {
+      boot.enable = true;
+      locale = {
+        enable = true;
+      };
+      network = {
+        enable = true;
+        # VPN profile is not generic and correct settings have to applied.
+        wireguard.enable = false;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      shell = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      sway.enable = true;
       zram.enable = true;
     })
     (lib.mkIf (config.mine.module.system.default.scheme == "headless") {
