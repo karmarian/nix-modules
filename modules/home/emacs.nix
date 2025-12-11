@@ -175,7 +175,6 @@ in
               pcmpl-args
               eshell-syntax-highlighting
               eshell-toggle
-              vterm
             ];
         };
       })
