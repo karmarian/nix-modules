@@ -75,10 +75,7 @@
         gstreamer.enable = true;
       };
       music.enable = true;
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
+      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;
@@ -126,10 +123,7 @@
         mpd.enable = true;
         gstreamer.enable = true;
       };
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
+      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;

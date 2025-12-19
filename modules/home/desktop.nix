@@ -64,12 +64,9 @@ in
 
       (lib.mkIf cfg.extra-browser.enable {
         home.packages = with pkgs; [
+          mullvad-browser
           tor-browser
         ];
-
-        programs = {
-          librewolf.enable = true;
-        };
       })
 
       (lib.mkIf cfg.comms.enable {

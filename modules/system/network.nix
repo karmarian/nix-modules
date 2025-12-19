@@ -11,10 +11,17 @@
 let
   cfg = config.mine.module.system.network;
 
+  mullvad-autostart = pkgs.makeAutostartItem {
+    name = "mullvad-vpn";
+    package = pkgs.mullvad-vpn;
+  };
+
 in
 {
   options.mine.module.system.network = {
     enable = lib.mkEnableOption "Networking config";
+    mullvad-vpn.enable = lib.mkEnableOption "Mullvad Virtual Private Networking app";
+    protonvpn.enable = lib.mkEnableOption "Proton Virtual Private Networking app";
     wireguard.enable = lib.mkEnableOption "Wireguard";
   };
 
@@ -26,6 +33,21 @@ in
           package = pkgs.wireshark;
         };
       }
+
+      (lib.mkIf cfg.mullvad-vpn.enable {
+        environment.systemPackages = [ mullvad-autostart ];
+
+        services.mullvad-vpn = {
+          enable = true;
+          package = pkgs.mullvad-vpn;
+        };
+      })
+
+      (lib.mkIf cfg.protonvpn.enable {
+        environment.systemPackages = with pkgs; [
+          protonvpn-gui
+        ];
+      })
 
       (lib.mkIf cfg.wireguard.enable {
         networking.firewall = {

@@ -60,6 +60,8 @@
       mobile.enable = true;
       network = {
         enable = true;
+        mullvad-vpn.enable = true;
+        protonvpn.enable = true;
         # VPN profile is not generic and correct settings have to applied.
         wireguard.enable = false;
       };
@@ -98,8 +100,7 @@
       mobile.enable = true;
       network = {
         enable = true;
-        # VPN profile is not generic and correct settings have to applied.
-        wireguard.enable = false;
+        mullvad-vpn.enable = true;
       };
       nix = {
         enable = true;
@@ -139,8 +140,6 @@
       };
       network = {
         enable = true;
-        # VPN profile is not generic and correct settings have to applied.
-        wireguard.enable = false;
       };
       nix = {
         enable = true;
