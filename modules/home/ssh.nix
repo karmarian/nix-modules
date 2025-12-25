@@ -20,7 +20,22 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
-      matchBlocks = import ./ssh/match-block.nix;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          forwardAgent = false;
+          addKeysToAgent = "yes";
+          compression = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+          hashKnownHosts = false;
+          userKnownHostsFile = "~/.ssh/known_hosts";
+          controlMaster = "no";
+          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPersist = "no";
+        };
+      }
+      // import ./ssh/match-block.nix;
       extraConfig = import ./ssh/extra-config.nix;
     };
 
