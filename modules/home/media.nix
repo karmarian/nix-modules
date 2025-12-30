@@ -29,6 +29,7 @@ in
           audacity
           ffmpeg
           unstable.freetube
+          millisecond
           mpd
           vlc
         ];
