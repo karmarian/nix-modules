@@ -38,12 +38,12 @@ in
       {
         services = {
           # Enable the XServer windowing system, but actually really wayland.
-          xserver.enable = true;
+          xserver.enable = lib.mkDefault true;
 
           # Enable the GNOME Desktop Environment.
-          displayManager.gdm.enable = true;
+          displayManager.gdm.enable = lib.mkDefault true;
           desktopManager.gnome = {
-            enable = true;
+            enable = lib.mkDefault true;
           };
           # Set this to your own layout (run `setxkbmap -query`).
           xserver.xkb = {
@@ -53,7 +53,7 @@ in
         };
 
         # Use the same keyboard layout in consoles as in the desktop.
-        console.useXkbConfig = true;
+        console.useXkbConfig = lib.mkDefault true;
 
         environment = {
           systemPackages = with pkgs; [
@@ -68,13 +68,14 @@ in
         };
 
         programs = {
-          gnome-terminal.enable = true;
+          gnome-terminal.enable = lib.mkDefault true;
         };
 
         services.gnome = {
+          # Gnome desktop-manager service enables core-apps by default.
           core-apps.enable = false;
-          core-developer-tools.enable = false;
-          games.enable = false;
+          core-developer-tools.enable = lib.mkDefault false;
+          games.enable = lib.mkDefault false;
         };
 
         # Enable networking.
@@ -83,15 +84,15 @@ in
 
       (lib.mkIf cfg.autoLogin.enable {
         services.displayManager = {
-          gdm.autoSuspend = false;
+          gdm.autoSuspend = lib.mkDefault false;
           autoLogin = {
-            enable = true;
+            enable = lib.mkDefault true;
             user = cfg.autoLogin.user;
           };
         };
         # Workaround for issue on 25.05 (https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229).
-        systemd.services."getty@tty1".enable = false;
-        systemd.services."autovt@tty1".enable = false;
+        systemd.services."getty@tty1".enable = lib.mkDefault false;
+        systemd.services."autovt@tty1".enable = lib.mkDefault false;
       })
     ]
   );

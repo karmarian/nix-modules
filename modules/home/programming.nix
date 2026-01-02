@@ -34,8 +34,8 @@ in
         ];
 
         programs.direnv = {
-          enable = true;
-          nix-direnv.enable = true;
+          enable = lib.mkDefault true;
+          nix-direnv.enable = lib.mkDefault true;
         };
       }
 
@@ -54,18 +54,18 @@ in
         ];
 
         programs.poetry = {
-          enable = true;
+          enable = lib.mkDefault true;
           settings = {
-            virtualenvs.create = true;
-            virtualenvs.in-project = true;
+            virtualenvs.create = lib.mkDefault true;
+            virtualenvs.in-project = lib.mkDefault true;
           };
         };
-        programs.uv.enable = true;
+        programs.uv.enable = lib.mkDefault true;
         programs.pyenv = {
-          enable = true;
-          enableBashIntegration = true;
+          enable = lib.mkDefault true;
+          enableBashIntegration = lib.mkDefault true;
         };
-        programs.pylint.enable = true;
+        programs.pylint.enable = lib.mkDefault true;
       })
     ]
   );

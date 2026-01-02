@@ -18,17 +18,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
+    home.sessionVariables = lib.mkDefault {
       EDITOR = "vim";
       VISUAL = "vim";
     };
 
     programs.neovim = {
-      enable = true;
-      vimAlias = true;
-      viAlias = false;
-      vimdiffAlias = true;
-      withNodeJs = true;
+      enable = lib.mkDefault true;
+      vimAlias = lib.mkDefault true;
+      viAlias = lib.mkDefault false;
+      vimdiffAlias = lib.mkDefault true;
+      withNodeJs = lib.mkDefault true;
       extraConfig = builtins.readFile ./vim/vimrc;
       plugins = with pkgs.vimPlugins; [
         telescope-nvim

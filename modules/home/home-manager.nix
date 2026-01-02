@@ -23,30 +23,30 @@ in
     lib.mkMerge [
       {
         nix.gc = {
-          automatic = true;
-          dates = "weekly";
-          randomizedDelaySec = "30min";
+          automatic = lib.mkDefault true;
+          dates = lib.mkDefault "weekly";
+          randomizedDelaySec = lib.mkDefault "30min";
         };
 
       }
 
       (lib.mkIf cfg.auto-expire {
         services.home-manager.autoExpire = {
-          enable = true;
-          store.cleanup = true;
+          enable = lib.mkDefault true;
+          store.cleanup = lib.mkDefault true;
         };
       })
 
       (lib.mkIf cfg.auto-upgrade {
         services.home-manager.autoUpgrade = {
-          enable = true;
-          frequency = "weekly";
+          enable = lib.mkDefault true;
+          frequency = lib.mkDefault "weekly";
         };
       })
 
       (lib.mkIf cfg.standalone {
         programs.home-manager = {
-          enable = true;
+          enable = lib.mkDefault true;
         };
       })
     ]

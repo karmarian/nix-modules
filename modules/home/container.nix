@@ -27,17 +27,17 @@ in
     ];
 
     programs.distrobox = {
-      enable = true;
-      enableSystemdUnit = true;
+      enable = lib.mkDefault true;
+      enableSystemdUnit = lib.mkDefault true;
       settings = {
-        container_always_pull = "1";
-        container_generate_entry = 0;
-        container_manager = "podman";
-        container_image_default = "docker.io/library/debian:unstable";
-        container_name_default = "debian-unstable";
-        container_user_custom_home = "$HOME/.local/share/distrobox/default";
-        non_interactive = "0";
-        skip_workdir = "0";
+        container_always_pull = lib.mkDefault "1";
+        container_generate_entry = lib.mkDefault 0;
+        container_manager = lib.mkDefault "podman";
+        container_image_default = lib.mkDefault "docker.io/library/debian:unstable";
+        container_name_default = lib.mkDefault "debian-unstable";
+        container_user_custom_home = lib.mkDefault "$HOME/.local/share/distrobox/default";
+        non_interactive = lib.mkDefault "0";
+        skip_workdir = lib.mkDefault "0";
       };
       containers = {
         alpine-edge = {
@@ -68,17 +68,17 @@ in
     };
 
     services.podman = {
-      enable = true;
+      enable = lib.mkDefault true;
       settings = {
-        registries.search = [
+        registries.search = lib.mkDefault [
           "registry.access.redhat.com"
           "registry.redhat.io"
           "docker.io"
         ];
         policy = {
-          default = [ { type = "reject"; } ];
+          default = lib.mkDefault [ { type = "reject"; } ];
           transports = {
-            docker = {
+            docker = lib.mkDefault {
               "docker.io" = [ { type = "insecureAcceptAnything"; } ];
             };
           };

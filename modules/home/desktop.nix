@@ -58,7 +58,7 @@ in
               };
             };
           };
-          keepassxc.enable = true;
+          keepassxc.enable = lib.mkDefault true;
         };
       }
 
@@ -77,8 +77,8 @@ in
         ];
 
         programs.thunderbird = {
-          enable = true;
-          profiles.default.isDefault = true;
+          enable = lib.mkDefault true;
+          profiles.default.isDefault = lib.mkDefault true;
         };
       })
     ]

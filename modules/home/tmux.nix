@@ -28,17 +28,17 @@ in
       ];
 
     programs.tmux = {
-      enable = true;
-      aggressiveResize = true;
-      clock24 = true;
-      escapeTime = 200;
-      historyLimit = 5000;
-      keyMode = "vi";
-      newSession = true;
-      sensibleOnTop = true;
-      shortcut = "a";
-      terminal = "tmux-direct";
-      extraConfig = ''
+      enable = lib.mkDefault true;
+      aggressiveResize = lib.mkDefault true;
+      clock24 = lib.mkDefault true;
+      escapeTime = lib.mkDefault 200;
+      historyLimit = lib.mkDefault 5000;
+      keyMode = lib.mkDefault "vi";
+      newSession = lib.mkDefault true;
+      sensibleOnTop = lib.mkDefault true;
+      shortcut = lib.mkDefault "a";
+      terminal = lib.mkDefault "tmux-direct";
+      extraConfig = lib.mkDefault ''
         set -as terminal-overrides ',xterm-256color:RGB'
         set -g terminal-overrides 'xterm*:smcup@:rmcup@'
         set -g mouse on

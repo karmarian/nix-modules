@@ -19,20 +19,20 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.ssh = {
-      enable = true;
-      enableDefaultConfig = false;
+      enable = lib.mkDefault true;
+      enableDefaultConfig = lib.mkDefault false;
       matchBlocks = {
         "*" = {
-          forwardAgent = false;
-          addKeysToAgent = "yes";
-          compression = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 3;
-          hashKnownHosts = false;
-          userKnownHostsFile = "~/.ssh/known_hosts";
-          controlMaster = "no";
-          controlPath = "~/.ssh/master-%r@%n:%p";
-          controlPersist = "no";
+          forwardAgent = lib.mkDefault false;
+          addKeysToAgent = lib.mkDefault "yes";
+          compression = lib.mkDefault false;
+          serverAliveInterval = lib.mkDefault 0;
+          serverAliveCountMax = lib.mkDefault 3;
+          hashKnownHosts = lib.mkDefault false;
+          userKnownHostsFile = lib.mkDefault "~/.ssh/known_hosts";
+          controlMaster = lib.mkDefault "no";
+          controlPath = lib.mkDefault "~/.ssh/master-%r@%n:%p";
+          controlPersist = lib.mkDefault "no";
         };
       }
       // import ./ssh/match-block.nix;
@@ -41,7 +41,7 @@ in
 
     services = {
       ssh-agent = {
-        enable = true;
+        enable = lib.mkDefault true;
       };
     };
   };

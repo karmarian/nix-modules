@@ -32,31 +32,31 @@ in
     # (e.g. in dconf-editor), then set them here.
     # Use `dconf dump /org/gnome/desktop/wm/` to see current values.
     dconf = {
-      enable = true;
+      enable = lib.mkDefault true;
       settings = {
         # Don't show a welcome dialog
         "org/gnome/shell" = {
-          welcome-dialog-last-shown-version = "9999999999";
+          welcome-dialog-last-shown-version = lib.mkDefault "9999999999";
           # Setup apps in the dock.
-          favorite-apps = [
+          favorite-apps = lib.mkDefault [
             "firefox.desktop"
             "org.gnome.Nautilus.desktop"
             "org.gnome.Terminal.desktop"
           ];
-          disable-user-extensions = false;
+          disable-user-extensions = lib.mkDefault false;
           # Run `gnome-extensions list` for a list.
-          enabled-extensions = [
+          enabled-extensions = lib.mkDefault [
             "appindicatorsupport@rgcjonas.gmail.com"
             "monitor@astraext.github.io"
           ];
         };
 
         "org/gnome/shell/app-switcher" = {
-          current-workspace-only = true;
+          current-workspace-only = lib.mkDefault true;
         };
 
         "org/gnome/mutter" = {
-          workspace-only-on-primary = false;
+          workspace-only-on-primary = lib.mkDefault false;
         };
 
         "org/gnome/desktop/interface" = {

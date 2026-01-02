@@ -24,11 +24,11 @@ in
 
   config = lib.mkIf cfg.enable {
     services.jellyfin = {
-      enable = true;
+      enable = lib.mkDefault true;
       user = cfg.userName;
-      group = "users";
+      group = lib.mkDefault "users";
       # Open ports for jellyfin server automatically.
-      openFirewall = true;
+      openFirewall = lib.mkDefault true;
     };
   };
 }

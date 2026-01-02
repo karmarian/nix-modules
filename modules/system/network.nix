@@ -29,8 +29,8 @@ in
     lib.mkMerge [
       {
         programs.wireshark = {
-          enable = true;
-          package = pkgs.wireshark;
+          enable = lib.mkDefault true;
+          package = lib.mkDefault pkgs.wireshark;
         };
       }
 
@@ -38,8 +38,8 @@ in
         environment.systemPackages = [ mullvad-autostart ];
 
         services.mullvad-vpn = {
-          enable = true;
-          package = pkgs.mullvad-vpn;
+          enable = lib.mkDefault true;
+          package = lib.mkDefault pkgs.mullvad-vpn;
         };
       })
 
@@ -51,11 +51,11 @@ in
 
       (lib.mkIf cfg.wireguard.enable {
         networking.firewall = {
-          allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
+          allowedUDPPorts = lib.mkDefault [ 51820 ]; # Clients and peers can use the same port, see listenport
         };
 
         # Enable WireGuard interfaces.
-        networking.wireguard.interfaces = {
+        networking.wireguard.interfaces = lib.mkDefault {
           # :TODO: Add optional inputs for configuring IPs, keys and other private
           # information.
           wg0 = {

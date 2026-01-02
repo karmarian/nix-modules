@@ -20,12 +20,12 @@ in
   config = lib.mkIf cfg.enable {
     programs = {
       kdeconnect = {
-        enable = true;
-        package = pkgs.gnomeExtensions.gsconnect;
+        enable = lib.mkDefault true;
+        package = lib.mkDefault pkgs.gnomeExtensions.gsconnect;
       };
 
       # Android debuging tools environment
-      adb.enable = true;
+      adb.enable = lib.mkDefault true;
     };
   };
 }

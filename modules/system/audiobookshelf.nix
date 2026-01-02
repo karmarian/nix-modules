@@ -24,13 +24,13 @@ in
 
   config = lib.mkIf cfg.enable {
     services.audiobookshelf = {
-      enable = true;
-      dataDir = "audiobookshelf";
-      host = "localhost";
-      port = 8000;
+      enable = lib.mkDefault true;
+      dataDir = lib.mkDefault "audiobookshelf";
+      host = lib.mkDefault "localhost";
+      port = lib.mkDefault 8000;
       user = cfg.userName;
-      group = "audiobookshelf";
-      openFirewall = true;
+      group = lib.mkDefault "audiobookshelf";
+      openFirewall = lib.mkDefault true;
     };
   };
 }
