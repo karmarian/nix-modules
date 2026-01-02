@@ -16,10 +16,10 @@
   config = lib.mkIf config.mine.module.musnix.enable {
     musnix = {
       enable = true;
-      rtcqs.enable = true;
-      rtirq.enable = true;
+      rtcqs.enable = lib.mkDefault true;
+      rtirq.enable = lib.mkDefault true;
       kernel = {
-        realtime = true;
+        realtime = lib.mkDefault true;
         packages = pkgs.linuxPackages_latest_rt;
       };
     };

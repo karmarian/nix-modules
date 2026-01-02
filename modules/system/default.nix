@@ -160,5 +160,19 @@
       };
       zram.enable = true;
     })
+    (lib.mkIf (config.mine.module.system.default.scheme == "music") {
+      boot.enable = true;
+      gnome = {
+        enable = true;
+        autoLogin.enable = false;
+      };
+      locale = {
+        enable = true;
+      };
+      nix = {
+        enable = true;
+      };
+      pipewire.enable = true;
+    })
   ];
 }

@@ -119,7 +119,10 @@ in
       vmMemorySize = (memorySize / 2);
     };
   };
-  mine.module.musnix.enable = true;
+
+  mine.module.musnix = lib.mkIf (scheme == "music") {
+    enable = true;
+  };
 
   # Avoid the stateVersion warning.
   # Setting this to system.nixos.release is fine because we have no state.
