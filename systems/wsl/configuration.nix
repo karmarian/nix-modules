@@ -23,6 +23,7 @@ let
     extraLocaleSet
     hostname
     memorySize
+    scheme
     timeZone
     xkbLayout
     xkbVariant
@@ -52,7 +53,7 @@ in
 
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
-    default.scheme = "headless";
+    default.scheme = scheme;
     audiobookshelf = {
       userName = username;
     };

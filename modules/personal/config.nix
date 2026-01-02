@@ -60,6 +60,7 @@
         timeZone = "Europe/Berlin";
         defaultLocale = "en_US.UTF-8";
         extraLocaleSet = "de_DE.UTF-8";
+        scheme = "headless";
       };
 
       machineSubmodule.machineWsl = {
@@ -72,6 +73,7 @@
         timeZone = "Europe/Berlin";
         defaultLocale = "en_US.UTF-8";
         extraLocaleSet = "de_DE.UTF-8";
+        scheme = "headless";
       };
 
       peripheralSubmodule.peripheralVm = {
