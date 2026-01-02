@@ -19,7 +19,8 @@
       rtcqs.enable = lib.mkDefault true;
       rtirq.enable = lib.mkDefault true;
       kernel = {
-        realtime = lib.mkDefault true;
+        # Rebuilds the Linux kernel.
+        realtime = lib.mkDefault false;
         packages = pkgs.linuxPackages_latest_rt;
       };
     };
