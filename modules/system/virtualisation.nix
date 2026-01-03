@@ -17,6 +17,11 @@ in
     enable = lib.mkEnableOption "Virtualisation apps";
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "libvirt";
+      description = "User of libvirt";
+    };
     variant.enable = lib.mkEnableOption "Vm Variant";
     vmCores = lib.mkOption {
       type = lib.types.int;
@@ -49,6 +54,8 @@ in
 
         # Install and enable libvirt daemon.
         virtualisation.libvirtd.enable = lib.mkDefault true;
+
+        users.users.${cfg.userName}.extraGroups = [ "libvirt" ];
       }
 
       (lib.mkIf cfg.binfmt.enable {

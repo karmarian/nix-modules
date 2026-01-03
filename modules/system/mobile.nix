@@ -15,6 +15,11 @@ in
 {
   options.mine.module.system.mobile = {
     enable = lib.mkEnableOption "Smartphone utilities";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "adbuser";
+      description = "User of ADB";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -27,5 +32,7 @@ in
       # Android debuging tools environment
       adb.enable = lib.mkDefault true;
     };
+
+    users.users.${cfg.userName}.extraGroups = [ "adbuser" ];
   };
 }

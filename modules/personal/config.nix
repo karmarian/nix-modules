@@ -36,15 +36,12 @@
         username = "me";
         fullname = "Me";
         extraGroups = [
-          "adbusers"
           "audio"
           "kvm"
-          "libvirt"
           "lp"
           "networkmanager"
           "video"
           "wheel"
-          "wireshark"
         ];
         email = "me@wsl.de";
         sshKey = "ssh-ed25519";

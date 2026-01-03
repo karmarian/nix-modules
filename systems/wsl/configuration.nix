@@ -79,6 +79,7 @@ in
       autoLogin.user = username;
     };
     virtualisation = {
+      userName = username;
       vmCores = (cores / 2);
       vmMemorySize = (memorySize / 2);
     };

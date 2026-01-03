@@ -111,10 +111,17 @@ in
       timeZone = timeZone;
       keyboardLayout = xkbLayout;
     };
+    mobile = {
+      userName = username;
+    };
+    network = {
+      userName = username;
+    };
     shell = {
       autoLogin.user = username;
     };
     virtualisation = {
+      userName = username;
       vmCores = (cores / 2);
       vmMemorySize = (memorySize / 2);
     };

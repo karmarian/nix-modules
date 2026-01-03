@@ -65,6 +65,7 @@
         protonvpn.enable = true;
         # VPN profile is not generic and correct settings have to applied.
         wireguard.enable = false;
+        wireshark.enable = true;
       };
       nix = {
         enable = true;

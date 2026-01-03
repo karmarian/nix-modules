@@ -22,17 +22,24 @@ in
     enable = lib.mkEnableOption "Networking config";
     mullvad-vpn.enable = lib.mkEnableOption "Mullvad Virtual Private Networking app";
     protonvpn.enable = lib.mkEnableOption "Proton Virtual Private Networking app";
+    userName = lib.mkOption {
+      type = lib.types.str;
+      default = "wireshark";
+      description = "User of Wireshark";
+    };
     wireguard.enable = lib.mkEnableOption "Wireguard";
+    wireshark.enable = lib.mkEnableOption "Wireshark";
   };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      {
+      (lib.mkIf cfg.wireshark.enable {
         programs.wireshark = {
           enable = lib.mkDefault true;
           package = lib.mkDefault pkgs.wireshark;
         };
-      }
+        users.users.${cfg.userName}.extraGroups = [ "wireshark" ];
+      })
 
       (lib.mkIf cfg.mullvad-vpn.enable {
         environment.systemPackages = [ mullvad-autostart ];
