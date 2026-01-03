@@ -34,12 +34,12 @@ in
 
         programs = {
           screen = {
-            enable = true;
-            screenrc = "
+            enable = lib.mkDefault true;
+            screenrc = lib.mkDefault "
           truecolor on
         ";
           };
-          mtr.enable = true;
+          mtr.enable = lib.mkDefault true;
         };
       }
 

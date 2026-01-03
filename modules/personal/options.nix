@@ -96,6 +96,10 @@
                 type = lib.types.str;
                 default = "en_US.UTF-8";
               };
+              scheme = lib.mkOption {
+                type = lib.types.str;
+                default = "";
+              };
             };
           });
       };

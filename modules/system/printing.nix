@@ -26,9 +26,9 @@ in
     services = {
       # Enable CUPS to print documents.
       printing = {
-        enable = true;
+        enable = lib.mkDefault true;
         # Disable browsed for security reasons (cups vulnerability)
-        browsed.enable = false;
+        browsed.enable = lib.mkDefault false;
       };
     };
   };

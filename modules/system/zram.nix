@@ -18,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    zramSwap.enable = true;
+    zramSwap.enable = lib.mkDefault true;
 
     environment.systemPackages = with pkgs; [
       gtop

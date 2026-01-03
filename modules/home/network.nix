@@ -15,7 +15,6 @@ in
 {
   options.mine.module.home.network = {
     enable = lib.mkEnableOption "Networking apps";
-    vpn.enable = lib.mkEnableOption "Virtual Private Networking apps";
   };
 
   config = lib.mkIf cfg.enable (
@@ -31,12 +30,6 @@ in
           transmission_4-gtk
         ];
       }
-
-      (lib.mkIf cfg.vpn.enable {
-        home.packages = with pkgs; [
-          protonvpn-gui
-        ];
-      })
     ]
   );
 }

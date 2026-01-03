@@ -47,28 +47,28 @@ in
       (lib.mkIf cfg.store-optimisation.enable {
         nix = {
           # Store optimization on every build.
-          settings.auto-optimise-store = true;
+          settings.auto-optimise-store = lib.mkDefault true;
 
           # Automatic scheduled garbage collection.
           gc = {
-            automatic = true;
-            dates = "daily";
-            options = "--delete-older-than 30d";
+            automatic = lib.mkDefault true;
+            dates = lib.mkDefault "monthly";
+            options = lib.mkDefault "--delete-older-than 30d";
           };
 
           # Automatic scheduled store optimisation.
           optimise = {
-            automatic = true;
-            dates = [ "20:15" ];
+            automatic = lib.mkDefault true;
+            dates = lib.mkDefault [ "20:15" ];
           };
         };
       })
 
       (lib.mkIf cfg.auto-upgrade.enable {
         system.autoUpgrade = {
-          enable = true;
-          flake = inputs.self.outPath;
-          flags = [
+          enable = lib.mkDefault true;
+          flake = lib.mkDefault inputs.self.outPath;
+          flags = lib.mkDefault [
             "--update-input"
             "home-manager"
             "musnix"
@@ -76,8 +76,8 @@ in
             "nixpkgs-unstable"
             "-L"
           ];
-          dates = "19:00";
-          randomizedDelaySec = "45min";
+          dates = lib.mkDefault "19:00";
+          randomizedDelaySec = lib.mkDefault "45min";
         };
       })
     ]

@@ -56,7 +56,7 @@ in
           "aarch64-linux"
           "armv7l-linux"
         ];
-        nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
+        nix.settings.extra-platforms = lib.mkDefault config.boot.binfmt.emulatedSystems;
       })
 
       (lib.mkIf cfg.variant.enable {

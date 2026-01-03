@@ -24,11 +24,11 @@ in
 
   config = lib.mkIf cfg.enable {
     services.immich = {
-      enable = true;
-      port = 2283;
-      host = "localhost";
-      mediaLocation = "/var/lib/immich";
-      openFirewall = true;
+      enable = lib.mkDefault true;
+      port = lib.mkDefault 2283;
+      host = lib.mkDefault "localhost";
+      mediaLocation = lib.mkDefault "/var/lib/immich";
+      openFirewall = lib.mkDefault true;
       user = cfg.userName;
     };
   };

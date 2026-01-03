@@ -19,15 +19,15 @@ in
 
   config = lib.mkIf cfg.enable {
     # Enable the GNOME RDP components.
-    services.gnome.gnome-remote-desktop.enable = true;
+    services.gnome.gnome-remote-desktop.enable = lib.mkDefault true;
 
     # Ensure the service starts automatically at boot so the settings panel appears.
     systemd.services.gnome-remote-desktop = {
-      wantedBy = [ "graphical.target" ];
+      wantedBy = lib.mkDefault [ "graphical.target" ];
     };
 
     # Open the default RDP port (3389).
-    networking.firewall.allowedTCPPorts = [ 3389 ];
+    networking.firewall.allowedTCPPorts = lib.mkDefault [ 3389 ];
 
     # Disable autologin to avoid session conflicts.
     services.displayManager.autoLogin.enable = lib.mkDefault false;

@@ -11,10 +11,17 @@
 let
   cfg = config.mine.module.system.network;
 
+  mullvad-autostart = pkgs.makeAutostartItem {
+    name = "mullvad-vpn";
+    package = pkgs.mullvad-vpn;
+  };
+
 in
 {
   options.mine.module.system.network = {
     enable = lib.mkEnableOption "Networking config";
+    mullvad-vpn.enable = lib.mkEnableOption "Mullvad Virtual Private Networking app";
+    protonvpn.enable = lib.mkEnableOption "Proton Virtual Private Networking app";
     wireguard.enable = lib.mkEnableOption "Wireguard";
   };
 
@@ -22,18 +29,33 @@ in
     lib.mkMerge [
       {
         programs.wireshark = {
-          enable = true;
-          package = pkgs.wireshark;
+          enable = lib.mkDefault true;
+          package = lib.mkDefault pkgs.wireshark;
         };
       }
 
+      (lib.mkIf cfg.mullvad-vpn.enable {
+        environment.systemPackages = [ mullvad-autostart ];
+
+        services.mullvad-vpn = {
+          enable = lib.mkDefault true;
+          package = lib.mkDefault pkgs.mullvad-vpn;
+        };
+      })
+
+      (lib.mkIf cfg.protonvpn.enable {
+        environment.systemPackages = with pkgs; [
+          protonvpn-gui
+        ];
+      })
+
       (lib.mkIf cfg.wireguard.enable {
         networking.firewall = {
-          allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
+          allowedUDPPorts = lib.mkDefault [ 51820 ]; # Clients and peers can use the same port, see listenport
         };
 
         # Enable WireGuard interfaces.
-        networking.wireguard.interfaces = {
+        networking.wireguard.interfaces = lib.mkDefault {
           # :TODO: Add optional inputs for configuring IPs, keys and other private
           # information.
           wg0 = {

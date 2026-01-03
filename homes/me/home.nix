@@ -14,7 +14,7 @@
 
 let
   inherit (config.mine.userSubmodule.userVm) username email;
-  inherit (config.mine.machineSubmodule.machineVm) xkbLayout;
+  inherit (config.mine.machineSubmodule.machineVm) scheme xkbLayout;
   inherit (config.mine.peripheralSubmodule.peripheralVm)
     syncDevice
     syncDeviceId
@@ -40,7 +40,7 @@ in
 
   # Home Manager gets customized by home modules, which are enabled here.
   mine.module.home = {
-    default.scheme = "headless";
+    default.scheme = scheme;
     git = {
       userName = username;
       userEmail = email;

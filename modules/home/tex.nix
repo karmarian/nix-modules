@@ -25,6 +25,6 @@ in
       librsvg
     ];
 
-    programs.pandoc.enable = true;
+    programs.pandoc.enable = lib.mkDefault true;
   };
 }

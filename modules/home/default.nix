@@ -76,10 +76,7 @@
         gstreamer.enable = true;
       };
       music.enable = true;
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
+      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;
@@ -153,10 +150,7 @@
         mpd.enable = true;
         gstreamer.enable = true;
       };
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
+      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;
@@ -174,6 +168,15 @@
       };
       tmux.enable = true;
       vim.enable = true;
+    })
+    (lib.mkIf (config.mine.module.home.default.scheme == "music") {
+      gnome = {
+        enable = true;
+      };
+      media = {
+        enable = true;
+      };
+      music.enable = true;
     })
   ];
 }

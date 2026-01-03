@@ -58,18 +58,15 @@ in
               };
             };
           };
-          keepassxc.enable = true;
+          keepassxc.enable = lib.mkDefault true;
         };
       }
 
       (lib.mkIf cfg.extra-browser.enable {
         home.packages = with pkgs; [
+          mullvad-browser
           tor-browser
         ];
-
-        programs = {
-          librewolf.enable = true;
-        };
       })
 
       (lib.mkIf cfg.comms.enable {
@@ -80,8 +77,8 @@ in
         ];
 
         programs.thunderbird = {
-          enable = true;
-          profiles.default.isDefault = true;
+          enable = lib.mkDefault true;
+          profiles.default.isDefault = lib.mkDefault true;
         };
       })
     ]

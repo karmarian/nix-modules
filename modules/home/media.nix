@@ -29,6 +29,7 @@ in
           audacity
           ffmpeg
           unstable.freetube
+          millisecond
           mpd
           vlc
         ];
@@ -36,8 +37,8 @@ in
 
       (lib.mkIf cfg.mpd.enable {
         services.mpd = {
-          enable = true;
-          musicDirectory = "${config.home.homeDirectory}/music";
+          enable = lib.mkDefault true;
+          musicDirectory = lib.mkDefault "${config.home.homeDirectory}/music";
         };
       })
 

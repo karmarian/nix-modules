@@ -45,19 +45,19 @@ in
 
         programs = {
           autojump = {
-            enable = true;
-            enableBashIntegration = true;
+            enable = lib.mkDefault true;
+            enableBashIntegration = lib.mkDefault true;
           };
-          command-not-found.enable = true;
+          command-not-found.enable = lib.mkDefault true;
           direnv = {
-            enable = true;
-            enableBashIntegration = true;
-            nix-direnv.enable = true;
+            enable = lib.mkDefault true;
+            enableBashIntegration = lib.mkDefault true;
+            nix-direnv.enable = lib.mkDefault true;
           };
           dircolors = {
-            enable = true;
-            enableBashIntegration = true;
-            settings = {
+            enable = lib.mkDefault true;
+            enableBashIntegration = lib.mkDefault true;
+            settings = lib.mkDefault {
               DIR = "00;34";
               EXEC = "00;32";
               LINK = "00;36";
@@ -74,15 +74,15 @@ in
               ".gif" = "00;35";
             };
           };
-          gpg.enable = true;
+          gpg.enable = lib.mkDefault true;
           htop = {
-            enable = true;
+            enable = lib.mkDefault true;
             settings = {
-              color_scheme = 6;
-              cpu_count_from_zero = true;
-              highlight_base_name = true;
-              highlight_megabytes = true;
-              highlight_threads = true;
+              color_scheme = lib.mkDefault 6;
+              cpu_count_from_zero = lib.mkDefault true;
+              highlight_base_name = lib.mkDefault true;
+              highlight_megabytes = lib.mkDefault true;
+              highlight_threads = lib.mkDefault true;
             }
             // (
               with config.lib.htop;
@@ -103,9 +103,9 @@ in
               ]
             );
           };
-          man.enable = true;
-          ptyxis.enable = true;
-          ripgrep.enable = true;
+          man.enable = lib.mkDefault true;
+          ptyxis.enable = lib.mkDefault true;
+          ripgrep.enable = lib.mkDefault true;
         };
       }
 
@@ -116,15 +116,15 @@ in
         ];
 
         programs.bash = {
-          enable = true;
+          enable = lib.mkDefault true;
           sessionVariables = {
-            CLICOLOR = 1;
-            COLORTERM = "truecolor";
+            CLICOLOR = lib.mkDefault 1;
+            COLORTERM = lib.mkDefault "truecolor";
             # Required for remote sudo authentication on target host.
-            SSH_OPTS = "-tt";
+            SSH_OPTS = lib.mkDefault "-tt";
           };
           shellAliases = import ./shell/shell-aliases.nix // import ./shell/shell-aliases-custom.nix;
-          profileExtra = ''
+          profileExtra = lib.mkDefault ''
             eval "$(direnv hook bash)"
           '';
         };
@@ -132,7 +132,7 @@ in
 
       (lib.mkIf cfg.ollama.enable {
         # Enable Ollama framework for local large language model deployments.
-        services.ollama.enable = true;
+        services.ollama.enable = lib.mkDefault true;
         # Disable Ollama service at startup.
         systemd.user.services.ollama.Install.WantedBy = lib.mkIf (!cfg.ollama.autostart) (lib.mkForce [ ]);
       })
