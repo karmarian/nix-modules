@@ -133,8 +133,7 @@
       };
       network = {
         enable = true;
-        # VPN profile is not generic and correct settings have to applied.
-        wireguard.enable = false;
+        mullvad-vpn.enable = true;
       };
       nix = {
         enable = true;

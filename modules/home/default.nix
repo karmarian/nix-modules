@@ -33,7 +33,7 @@
     scheme = lib.mkOption {
       type = lib.types.str;
       default = "";
-      description = "Enable supported scheme like 'all', 'sway' or 'headless'";
+      description = "Enable supported scheme like 'all', 'gnome', 'sway' or 'headless'";
     };
   };
 
@@ -97,6 +97,30 @@
       tmux.enable = true;
       vim.enable = true;
     })
+    (lib.mkIf (config.mine.module.home.default.scheme == "gnome") {
+      desktop = {
+        enable = true;
+      };
+      git = {
+        enable = true;
+      };
+      gnome = {
+        enable = true;
+      };
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = false;
+      };
+      network.enable = true;
+      shell = {
+        enable = true;
+        bash.enable = true;
+      };
+      ssh.enable = true;
+      tmux.enable = true;
+      vim.enable = true;
+    })
     (lib.mkIf (config.mine.module.home.default.scheme == "sway") {
       desktop = {
         enable = true;
@@ -109,10 +133,7 @@
         auto-expire = true;
         auto-upgrade = false;
       };
-      network = {
-        enable = true;
-        vpn.enable = true;
-      };
+      network.enable = true;
       shell = {
         enable = true;
         bash.enable = true;
