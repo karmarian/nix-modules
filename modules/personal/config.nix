@@ -18,15 +18,11 @@
         fullname = "Me";
         uid = 1000;
         extraGroups = [
-          "adbusers"
           "audio"
-          "kvm"
-          "libvirt"
           "lp"
           "networkmanager"
           "video"
           "wheel"
-          "wireshark"
         ];
         email = "me@vm.de";
         sshKey = "ssh-ed25519";
@@ -37,7 +33,6 @@
         fullname = "Me";
         extraGroups = [
           "audio"
-          "kvm"
           "lp"
           "networkmanager"
           "video"

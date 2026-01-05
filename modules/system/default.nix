@@ -58,7 +58,10 @@
       locale = {
         enable = true;
       };
-      mobile.enable = true;
+      mobile = {
+        enable = true;
+        adb.enable = true;
+      };
       network = {
         enable = true;
         mullvad-vpn.enable = true;

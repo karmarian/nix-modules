@@ -20,19 +20,30 @@ in
       default = "adbuser";
       description = "User of ADB";
     };
+    adb.enable = lib.mkEnableOption "Android debugging utilities";
   };
 
-  config = lib.mkIf cfg.enable {
-    programs = {
-      kdeconnect = {
-        enable = lib.mkDefault true;
-        package = lib.mkDefault pkgs.gnomeExtensions.gsconnect;
-      };
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        programs = {
+          kdeconnect = {
+            enable = lib.mkDefault true;
+            package = lib.mkDefault pkgs.gnomeExtensions.gsconnect;
+          };
+        };
+      }
 
-      # Android debuging tools environment
-      adb.enable = lib.mkDefault true;
-    };
+      (lib.mkIf cfg.adb.enable {
 
-    users.users.${cfg.userName}.extraGroups = [ "adbuser" ];
-  };
+        # Android debuging tools environment
+        programs.adb.enable = lib.mkDefault true;
+
+        users.users.${cfg.userName}.extraGroups = [
+          "adbusers"
+          "kvm"
+        ];
+      })
+    ]
+  );
 }

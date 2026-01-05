@@ -53,9 +53,19 @@ in
         ];
 
         # Install and enable libvirt daemon.
-        virtualisation.libvirtd.enable = lib.mkDefault true;
+        virtualisation.libvirtd = {
+          enable = lib.mkDefault true;
+          qemu = {
+            package = lib.mkDefault pkgs.qemu_kvm;
+            runAsRoot = lib.mkDefault true;
+            swtpm.enable = lib.mkDefault true;
+          };
+        };
 
-        users.users.${cfg.userName}.extraGroups = [ "libvirt" ];
+        users.users.${cfg.userName}.extraGroups = [
+          "kvm"
+          "libvirtd"
+        ];
       }
 
       (lib.mkIf cfg.binfmt.enable {
