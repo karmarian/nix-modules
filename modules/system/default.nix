@@ -100,7 +100,6 @@
       locale = {
         enable = true;
       };
-      mobile.enable = true;
       network = {
         enable = true;
         mullvad-vpn.enable = true;
@@ -115,15 +114,6 @@
       shell = {
         enable = true;
         autoLogin.enable = true;
-      };
-      syncthing.firewall.open = true;
-      virtualisation = {
-        enable = true;
-        binfmt.enable = true;
-        container.enable = true;
-        variant.enable = true;
-        waydroid.enable = true;
-        waydroid.autostart = true;
       };
       zram.enable = true;
     })
@@ -176,7 +166,6 @@
         enable = true;
         autoLogin.enable = true;
       };
-      syncthing.firewall.open = true;
       virtualisation = {
         enable = true;
         binfmt.enable = true;

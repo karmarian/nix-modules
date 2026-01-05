@@ -144,19 +144,6 @@
       vim.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "headless") {
-      emacs = {
-        enable = true;
-        comms = true;
-        core = true;
-        dev = true;
-        evil = true;
-        music = true;
-        # :BUG: Upstream build issues.
-        org = false;
-        package = true;
-        python = true;
-        shell = true;
-      };
       git = {
         enable = true;
       };
@@ -172,10 +159,6 @@
         gstreamer.enable = true;
       };
       network.enable = true;
-      programming = {
-        enable = true;
-        python.enable = true;
-      };
       shell = {
         enable = true;
         bash.enable = true;
@@ -183,10 +166,6 @@
         ollama.autostart = true;
       };
       ssh.enable = true;
-      syncthing = {
-        enable = true;
-        pregeneratedFiles = false;
-      };
       tmux.enable = true;
       vim.enable = true;
     })
