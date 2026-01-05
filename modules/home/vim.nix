@@ -18,9 +18,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = lib.mkDefault {
-      EDITOR = "vim";
-      VISUAL = "vim";
+    home.sessionVariables = {
+      EDITOR = lib.mkDefault "vim";
+      VISUAL = lib.mkDefault "vim";
     };
 
     programs.neovim = {

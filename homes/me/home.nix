@@ -30,14 +30,6 @@ in
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
 
-  home.packages = with pkgs; [ ];
-
-  # Manage plain dotfiles.
-  home.file = { };
-
-  # Manage environment session variables.
-  home.sessionVariables = { };
-
   # Home Manager gets customized by home modules, which are enabled here.
   mine.module.home = {
     default.scheme = scheme;
