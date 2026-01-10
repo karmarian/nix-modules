@@ -26,7 +26,7 @@ in
     services.immich = {
       enable = lib.mkDefault true;
       port = lib.mkDefault 2283;
-      host = lib.mkDefault "localhost";
+      host = lib.mkDefault "0.0.0.0";
       mediaLocation = lib.mkDefault "/var/lib/immich";
       openFirewall = lib.mkDefault true;
       user = cfg.userName;

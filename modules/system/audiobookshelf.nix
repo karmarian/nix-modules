@@ -26,8 +26,8 @@ in
     services.audiobookshelf = {
       enable = lib.mkDefault true;
       dataDir = lib.mkDefault "audiobookshelf";
-      host = lib.mkDefault "localhost";
-      port = lib.mkDefault 8000;
+      host = lib.mkDefault "0.0.0.0";
+      port = lib.mkDefault 8113;
       user = cfg.userName;
       group = lib.mkDefault "audiobookshelf";
       openFirewall = lib.mkDefault true;
