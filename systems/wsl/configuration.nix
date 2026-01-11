@@ -54,20 +54,11 @@ in
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
     default.scheme = scheme;
-    audiobookshelf = {
-      userName = username;
-    };
     boot.enable = lib.mkForce false;
     gnome = {
       autoLogin.user = username;
       xkbLayout = xkbLayout;
       xkbVariant = xkbVariant;
-    };
-    immich = {
-      userName = username;
-    };
-    jellyfin = {
-      userName = username;
     };
     locale = {
       defaultLocale = defaultLocale;
@@ -84,6 +75,7 @@ in
       vmMemorySize = (memorySize / 2);
     };
   };
+
   mine.module.wsl.enable = true;
 
   # This value determines the NixOS release from which the default
