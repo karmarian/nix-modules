@@ -17,8 +17,13 @@ in
     enable = lib.mkEnableOption "Jellyfin media server";
     userName = lib.mkOption {
       type = lib.types.str;
-      default = "me";
-      description = "Jellyfin username";
+      default = "jellyfin";
+      description = "Jellyfin user name";
+    };
+    groupName = lib.mkOption {
+      type = lib.types.str;
+      default = "jellyfin";
+      description = "Jellyfin group name";
     };
   };
 
@@ -26,7 +31,7 @@ in
     services.jellyfin = {
       enable = lib.mkDefault true;
       user = cfg.userName;
-      group = lib.mkDefault "users";
+      group = cfg.groupName;
       # Open ports for jellyfin server automatically.
       openFirewall = lib.mkDefault true;
     };

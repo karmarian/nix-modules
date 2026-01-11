@@ -92,7 +92,7 @@ in
   mine.module.system = {
     default.scheme = scheme;
     audiobookshelf = {
-      userName = username;
+      userName = "audiobookshelf";
     };
     gnome = {
       autoLogin.user = username;
@@ -100,10 +100,11 @@ in
       xkbVariant = xkbVariant;
     };
     immich = {
-      userName = username;
+      userName = "immich";
     };
     jellyfin = {
-      userName = username;
+      userName = "jellyfin";
+      groupName = "jellyfin";
     };
     locale = {
       defaultLocale = defaultLocale;
