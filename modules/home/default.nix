@@ -42,8 +42,9 @@
       container.enable = true;
       desktop = {
         enable = true;
+        browser.enable = true;
+        browser.privacy.enable = true;
         comms.enable = true;
-        extra-browser.enable = true;
       };
       emacs = {
         enable = true;
@@ -177,6 +178,28 @@
         enable = true;
       };
       music.enable = true;
+    })
+    (lib.mkIf (config.mine.module.home.default.scheme == "phone") {
+      desktop = {
+        enable = true;
+        comms.enable = true;
+      };
+      home-manager = {
+        enable = true;
+        auto-expire = true;
+        auto-upgrade = false;
+        standalone = true;
+      };
+      shell = {
+        enable = true;
+        bash.enable = true;
+      };
+      syncthing = {
+        enable = false;
+        pregeneratedFiles = false;
+      };
+      tmux.enable = true;
+      vim.enable = true;
     })
   ];
 }
