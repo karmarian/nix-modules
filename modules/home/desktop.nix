@@ -15,8 +15,9 @@ in
 {
   options.mine.module.home.desktop = {
     enable = lib.mkEnableOption "Desktop apps and browser settings";
+    browser.enable = lib.mkEnableOption "Browsers";
+    browser.privacy.enable = lib.mkEnableOption "Extra privacy focused browsers";
     comms.enable = lib.mkEnableOption "Communication apps";
-    extra-browser.enable = lib.mkEnableOption "Extra browsers";
   };
 
   config = lib.mkIf cfg.enable (
@@ -29,6 +30,12 @@ in
 
         manual.html.enable = lib.mkDefault true;
 
+        programs = {
+          keepassxc.enable = lib.mkDefault true;
+        };
+      }
+
+      (lib.mkIf cfg.browser.enable {
         programs = {
           firefox = {
             enable = lib.mkDefault true;
@@ -58,11 +65,10 @@ in
               };
             };
           };
-          keepassxc.enable = lib.mkDefault true;
         };
-      }
+      })
 
-      (lib.mkIf cfg.extra-browser.enable {
+      (lib.mkIf cfg.browser.privacy.enable {
         home.packages = with pkgs; [
           mullvad-browser
           tor-browser
@@ -73,6 +79,7 @@ in
         home.packages = with pkgs; [
           element-desktop
           jami
+          lomiri.teleports
           signal-desktop-bin
         ];
 
