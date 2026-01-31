@@ -170,13 +170,11 @@
       vim.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "music") {
-      gnome = {
-        enable = true;
-      };
       media = {
         enable = true;
       };
       music.enable = true;
+      sway.enable = true;
     })
   ];
 }

@@ -179,10 +179,6 @@
     })
     (lib.mkIf (config.mine.module.system.default.scheme == "music") {
       boot.enable = true;
-      gnome = {
-        enable = true;
-        autoLogin.enable = false;
-      };
       locale = {
         enable = true;
       };
@@ -190,6 +186,7 @@
         enable = true;
       };
       pipewire.enable = true;
+      sway.enable = true;
     })
   ];
 }

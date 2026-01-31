@@ -36,8 +36,8 @@ in
           screen = {
             enable = lib.mkDefault true;
             screenrc = lib.mkDefault "
-          truecolor on
-        ";
+              truecolor on
+            ";
           };
           mtr.enable = lib.mkDefault true;
         };
