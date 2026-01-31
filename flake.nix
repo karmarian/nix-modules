@@ -46,14 +46,14 @@
     }:
 
     let
-      stdenv.hostPlatform.system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
-
       # :TODO: Import and inherit attributes from peronal config module.
       userVm = "me";
       machineVm = "vm";
       machineWsl = "wsl";
+      system = "x86_64-linux";
 
+      stdenv.hostPlatform.system = system;
+      pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
       };
