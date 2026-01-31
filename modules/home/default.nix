@@ -170,12 +170,81 @@
       tmux.enable = true;
       vim.enable = true;
     })
+    (lib.mkIf (config.mine.module.home.default.scheme == "workstation") {
+      container.enable = true;
+      desktop = {
+        enable = true;
+        browser.enable = true;
+        browser.privacy.enable = true;
+        comms.enable = true;
+      };
+      emacs = {
+        enable = true;
+        comms = true;
+        core = true;
+        dev = true;
+        evil = true;
+        music = true;
+        org = false;
+        package = true;
+        python = true;
+        shell = true;
+      };
+      git = {
+        enable = true;
+      };
+      gnome = {
+        enable = true;
+      };
+      media = {
+        enable = true;
+      };
+      network.enable = true;
+      programming = {
+        enable = true;
+        python.enable = true;
+      };
+      shell = {
+        enable = true;
+        bash.enable = true;
+        ollama.enable = true;
+      };
+      ssh.enable = true;
+      syncthing = {
+        enable = false;
+        pregeneratedFiles = true;
+      };
+      tex.enable = true;
+      tmux.enable = true;
+      vim.enable = true;
+    })
     (lib.mkIf (config.mine.module.home.default.scheme == "music") {
       media = {
         enable = true;
       };
       music.enable = true;
       sway.enable = true;
+    })
+    (lib.mkIf (config.mine.module.home.default.scheme == "mediaserver") {
+      desktop = {
+        enable = true;
+        browser.enable = true;
+      };
+      git = {
+        enable = true;
+      };
+      gnome = {
+        enable = true;
+      };
+      media = {
+        enable = true;
+        mpd.enable = true;
+      };
+      network.enable = true;
+      syncthing = {
+        enable = false;
+        pregeneratedFiles = false;
+      };
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "phone") {
       desktop = {

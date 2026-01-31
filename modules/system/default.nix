@@ -177,6 +177,43 @@
       };
       zram.enable = true;
     })
+    (lib.mkIf (config.mine.module.system.default.scheme == "workstation") {
+      boot.enable = true;
+      gnome = {
+        enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      mobile = {
+        enable = true;
+        adb.enable = true;
+      };
+      network = {
+        enable = true;
+        mullvad-vpn.enable = true;
+        wireshark.enable = true;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      printing.enable = true;
+      shell = {
+        enable = true;
+      };
+      syncthing.firewall.open = false;
+      virtualisation = {
+        enable = true;
+        binfmt.enable = true;
+        container.enable = true;
+        variant.enable = false;
+        waydroid.enable = true;
+      };
+      zram.enable = true;
+    })
     (lib.mkIf (config.mine.module.system.default.scheme == "music") {
       boot.enable = true;
       locale = {
@@ -187,6 +224,77 @@
       };
       pipewire.enable = true;
       sway.enable = true;
+    })
+    (lib.mkIf (config.mine.module.system.default.scheme == "mediaserver") {
+      audiobookshelf = {
+        enable = true;
+      };
+      boot.enable = true;
+      gnome = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      immich = {
+        enable = true;
+      };
+      jellyfin = {
+        enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      mobile = {
+        enable = true;
+      };
+      network = {
+        enable = true;
+        mullvad-vpn.enable = true;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      remote-desktop.enable = false;
+      shell = {
+        enable = true;
+        autoLogin.enable = true;
+      };
+      syncthing.firewall.open = false;
+      zram.enable = true;
+    })
+    (lib.mkIf (config.mine.module.system.default.scheme == "phone") {
+      boot.enable = true;
+      gnome = {
+        enable = true;
+      };
+      locale = {
+        enable = true;
+      };
+      mobile = {
+        enable = true;
+      };
+      network = {
+        enable = true;
+        mullvad-vpn.enable = true;
+      };
+      nix = {
+        enable = true;
+        store-optimisation.enable = true;
+        auto-upgrade.enable = true;
+      };
+      pipewire.enable = true;
+      shell = {
+        enable = true;
+      };
+      syncthing.firewall.open = false;
+      virtualisation = {
+        enable = true;
+        variant.enable = false;
+        waydroid.enable = true;
+        waydroid.autostart = true;
+      };
     })
   ];
 }
