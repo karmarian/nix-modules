@@ -46,6 +46,10 @@
                 '';
                 default = "ssh-ed25519";
               };
+              scheme = lib.mkOption {
+                type = lib.types.str;
+                default = "";
+              };
             };
           });
       };

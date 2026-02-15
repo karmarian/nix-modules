@@ -13,8 +13,8 @@
 }:
 
 let
-  inherit (config.mine.userSubmodule.userVm) username email;
-  inherit (config.mine.machineSubmodule.machineVm) scheme xkbLayout;
+  inherit (config.mine.userSubmodule.userVm) username email scheme;
+  inherit (config.mine.machineSubmodule.machineVm) xkbLayout;
   inherit (config.mine.peripheralSubmodule.peripheralVm)
     syncDevice
     syncDeviceId

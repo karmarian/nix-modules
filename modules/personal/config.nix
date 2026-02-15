@@ -26,6 +26,7 @@
         ];
         email = "me@vm.de";
         sshKey = "ssh-ed25519";
+        scheme = "headless";
       };
 
       userSubmodule.userWsl = {
@@ -40,6 +41,7 @@
         ];
         email = "me@wsl.de";
         sshKey = "ssh-ed25519";
+        scheme = "headless";
       };
 
       machineSubmodule.machineVm = {
