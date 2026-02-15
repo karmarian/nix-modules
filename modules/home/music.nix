@@ -32,6 +32,7 @@ in
       lmms
       mda_lv2
       musescore
+      qjackctl
       rosegarden
       solfege
       surge
