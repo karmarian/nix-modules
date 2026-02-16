@@ -34,6 +34,7 @@ in
           experimental-features = lib.mkDefault [
             "nix-command"
             "flakes"
+            "pipe-operators"
           ];
           trusted-users = lib.mkDefault [
             "root"

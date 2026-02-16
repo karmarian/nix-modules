@@ -30,6 +30,9 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wrapper-manager = {
+      url = "github:karmarian/wrapper-manager";
+    };
   };
 
   outputs =
@@ -42,6 +45,7 @@
       disko,
       musnix,
       nixos-wsl,
+      wrapper-manager,
       ...
     }:
 
@@ -57,6 +61,36 @@
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
       };
+
+      wm-eval = wrapper-manager.lib {
+        inherit pkgs;
+        modules = [
+          ./packages/wrapper-manager/default.nix
+          {
+            wrappers.hello = {
+              basePackage = pkgs.hello;
+              prependFlags = [
+                "-g"
+                "This is a tasty wrap"
+              ];
+            };
+          }
+        ];
+      };
+
+      # Extract all wrapped packages.
+      allWrappers = wm-eval.config.build.packages;
+      direnvWrapped = wm-eval.config.wrappers.direnv.wrapped;
+      elementWrapped = wm-eval.config.wrappers.element.wrapped;
+      gitWrapped = wm-eval.config.wrappers.git.wrapped;
+      helloWrapped = wm-eval.config.wrappers.hello.wrapped;
+      jamiWrapped = wm-eval.config.wrappers.jami.wrapped;
+      keepassxcWrapped = wm-eval.config.wrappers.keepassxc.wrapped;
+      singalWrapped = wm-eval.config.wrappers.signal.wrapped;
+      teleportsWrapped = wm-eval.config.wrappers.teleports.wrapped;
+      tmuxWrapped = wm-eval.config.wrappers.tmux.wrapped;
+      torBrowserWrapped = wm-eval.config.wrappers.tor-browser.wrapped;
+      vimWrapped = wm-eval.config.wrappers.vim.wrapped;
 
     in
     {
@@ -138,5 +172,36 @@
           ];
         };
       };
+
+      packages.${stdenv.hostPlatform.system} = {
+        # all = allWrappers;
+        direnv = direnvWrapped;
+        element = elementWrapped;
+        git = gitWrapped;
+        hello = helloWrapped;
+        jami = jamiWrapped;
+        keepassxc = keepassxcWrapped;
+        signal = singalWrapped;
+        teleports = teleportsWrapped;
+        # Fix for build issue required.
+        # tmux = tmuxWrapped;
+        tor-browser = torBrowserWrapped;
+        vim = vimWrapped;
+      };
+
+      devShells."${system}".default =
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        pkgs.mkShell {
+          packages = with pkgs; [
+            npins
+            reuse
+          ];
+
+          shellHook = ''
+            echo "Entering devShell`"
+          '';
+        };
     };
 }

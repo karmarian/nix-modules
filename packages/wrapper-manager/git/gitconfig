@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2025 karmar <karmar@posteo.de>
+# SPDX-License-Identifier: CC-BY-SA-4.0
+
+[alias]
+	co = "checkout"
+	cp = "cherry-pick"
+	pushfwl = "push --force-with-lease"
+
+[core]
+        # :BUG: Resolve path to binary in /nix/store.
+	# pager = "delta"
+
+[extraConfig "credential"]
+	helper = "store"
+
+[extraConfig "init"]
+	defaultBranch = "main"
+
+[extraConfig "push"]
+	autoSetupRemote = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "openpgp"
+
+[gpg "openpgp"]
+        # :BUG: Resolve path to binary in /nix/store.
+	# program = "gpg"
+
+[interactive]
+        # :BUG: Resolve path to binary in /nix/store.
+	# diffFilter = "delta --color-only"
+
+[user]
+	email = "karmar@posteo.de"
+	name = "karmar"
