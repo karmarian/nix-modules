@@ -5,7 +5,7 @@
   ll = "ls -ls";
   dir = "ls -ba";
   ss = "ps -aux";
-  dot = ''ls .[a-zA-Z0-9_]*'';
+  dot = "ls .[a-zA-Z0-9_]*";
   c = "clear";
   m = "more";
   j = "jobs";
@@ -15,7 +15,7 @@
     find . -name ".git" -type d | while read gitdir; do 
       repodir=$(dirname "$gitdir")
       echo "Check folder: $repodir"
-      ( cd "$repodir" && git log --branches --not --remotes && git stash list )
+      ( cd "$repodir" && git fetch --all && git log --branches --not --remotes && git stash list )
     done
   '';
   karmar-gitannex-sync = ''
