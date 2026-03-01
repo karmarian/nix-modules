@@ -114,6 +114,22 @@ nixos-rebuild switch --use-remote-sudo --target-host <user>@<hostname> --flake .
 Note that the user on the target system requires root privileges and has to be a
 *trusted-user*.
 
+### Wrapper-manager on Non-Nix OS systems
+Wrappers don't interfere with the host system as home-manager does.
+This might be the better way do bring applications especially to mobile phones
+running GNU/Linux.
+Clone the repository and run e.g.:
+```shell
+nix run .#vim
+```
+or load it directly from the GitLab server using:
+```shell
+nix run "gitlab:karmar-system/nix-modules?ref=develop#vim"
+nix profile install "gitlab:karmar-system/nix-modules?ref=develop#vim"
+```
+
+Note: Wrapped packages are not yet in a usefull state.
+
 ### Git-annex sync workflow quick start
 This is a compilation of the documentation provided at
 [https://git-annex.branchable.com/](https://git-annex.branchable.com/].
@@ -189,10 +205,11 @@ git remote rm <remote>
 ```
 
 ## Known issues
+- Non-flake is broken e.g. the Disko module import is not working in default.nix
 - Attribute sets in custom config are not used for build outputs in flake.nix
 - Wireguard configuration is only a dummy implementation without actual keys
-- Disko module import not working in default.nix
 - Encrypted drives need key files to unlock in the disko virtual machine
+- Wrapped packages are not ready and broken
 
 ## Acknowledgment
 Inspirations came from various sources.
@@ -205,6 +222,8 @@ Some valueable resources are:
 [tfc](https://github.com/tfc/nixos-configs)
 
 [srid](https://github.com/srid/nixos-unified)
+
+[ayats](https://ayats.org)
 
 ## Authors
 **karmar@posteo.de**
