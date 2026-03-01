@@ -62,7 +62,7 @@ in
         };
 
         # Enable WireGuard interfaces.
-        networking.wireguard.interfaces = lib.mkDefault {
+        networking.wireguard.interfaces = {
           # :TODO: Add optional inputs for configuring IPs, keys and other private
           # information.
           wg0 = {

@@ -41,7 +41,7 @@ in
             enable = lib.mkDefault true;
             profiles = {
               myprofile = {
-                settings = lib.mkDefault {
+                settings = {
                   "browser.sessionstore.interval" = 60000;
                   "browser.tabs.animate" = false;
                   "browser.download.animateNotifications" = false;

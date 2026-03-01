@@ -21,6 +21,7 @@
           "audio"
           "lp"
           "networkmanager"
+          "podman"
           "video"
           "wheel"
         ];

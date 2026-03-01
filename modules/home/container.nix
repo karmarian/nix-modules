@@ -76,9 +76,9 @@ in
           "docker.io"
         ];
         policy = {
-          default = lib.mkDefault [ { type = "reject"; } ];
+          default = [ { type = "reject"; } ];
           transports = {
-            docker = lib.mkDefault {
+            docker = {
               "docker.io" = [ { type = "insecureAcceptAnything"; } ];
             };
           };

@@ -48,12 +48,12 @@ in
       # Overrides any folders added or deleted through the WebUI.
       overrideFolders = lib.mkDefault true;
       settings = {
-        devices = lib.mkDefault {
+        devices = {
           "${cfg.syncDevice}" = {
             id = cfg.syncDeviceId;
           };
         };
-        folders = lib.mkDefault {
+        folders = {
           # Name of folder in Syncthing, also the folder ID
           "share" = {
             # Which folder to add to Syncthing

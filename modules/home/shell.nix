@@ -57,7 +57,7 @@ in
           dircolors = {
             enable = lib.mkDefault true;
             enableBashIntegration = lib.mkDefault true;
-            settings = lib.mkDefault {
+            settings = {
               DIR = "00;34";
               EXEC = "00;32";
               LINK = "00;36";
