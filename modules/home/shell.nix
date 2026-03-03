@@ -25,10 +25,13 @@ in
       {
         home.packages = with pkgs; [
           alsa-utils
+          bonnie
           dmidecode
+          dnsutils
           file
           gtop
           hwinfo
+          lm_sensors
           lshw
           lsscsi
           magic-wormhole
@@ -36,7 +39,10 @@ in
           picocom
           pstree
           rsync
+          smartmontools
           snapper
+          snort
+          sysstat
           tldr
           unzip
           usbutils
