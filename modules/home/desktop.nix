@@ -77,7 +77,7 @@ in
 
       (lib.mkIf cfg.comms.enable {
         home.packages = with pkgs; [
-          element-desktop
+          fluffychat
           jami
           lomiri.teleports
           signal-desktop-bin

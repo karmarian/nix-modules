@@ -17,6 +17,11 @@ in
     enable = lib.mkEnableOption "Virtualisation apps";
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
     userName = lib.mkOption {
       type = lib.types.str;
       default = "libvirt";
@@ -69,10 +74,14 @@ in
       }
 
       (lib.mkIf cfg.binfmt.enable {
-        boot.binfmt.emulatedSystems = lib.mkDefault [
-          "aarch64-linux"
-          "armv7l-linux"
-        ];
+        boot.binfmt = {
+          emulatedSystems = lib.mkDefault [
+            "aarch64-linux"
+            "armv7l-linux"
+          ];
+          # Requirement for cross-architecture Podman.
+          preferStaticEmulators = lib.mkDefault true;
+        };
         nix.settings.extra-platforms = lib.mkDefault config.boot.binfmt.emulatedSystems;
       })
 
@@ -102,7 +111,14 @@ in
       (lib.mkIf cfg.container.enable {
         virtualisation = {
           # Enable common container config files in /etc/containers.
-          containers.enable = lib.mkDefault true;
+          containers = {
+            enable = lib.mkDefault true;
+            registries.search = [
+              "registry.access.redhat.com"
+              "registry.redhat.io"
+              "docker.io"
+            ];
+          };
           # Install and configure Podman.
           podman = {
             enable = lib.mkDefault true;
@@ -112,6 +128,18 @@ in
             defaultNetwork.settings.dns_enabled = lib.mkDefault true;
           };
         };
+
+        environment.systemPackages = with pkgs; [
+          # Look into docker image layers.
+          dive
+          distrobox
+          flatpak
+          guix
+          # Start group of containers for development.
+          podman-compose
+        ];
+
+        users.users.${cfg.userName}.extraGroups = [ "podman" ];
       })
 
       (lib.mkIf cfg.waydroid.enable {

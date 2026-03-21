@@ -30,12 +30,15 @@ in
           ffmpeg
           unstable.freetube
           millisecond
-          mpd
           vlc
         ];
       }
 
       (lib.mkIf cfg.mpd.enable {
+        home.packages = with pkgs; [
+          mpd
+        ];
+
         services.mpd = {
           enable = lib.mkDefault true;
           musicDirectory = lib.mkDefault "${config.home.homeDirectory}/music";

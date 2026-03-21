@@ -23,9 +23,25 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    security.polkit.enable = true;
+    environment.systemPackages = with pkgs; [
+      # Notification utility.
+      mako
+      # Screenshot functionality.
+      flameshot
+      # Copy/paste functionality.
+      wl-clipboard
+    ];
+
+    security = {
+      polkit.enable = true;
+      pam.services = {
+        greetd.enableGnomeKeyring = true;
+        swaylock.enableGnomeKeyring = true;
+      };
+    };
 
     services = {
+      # Enable Gnome keyring to store secrets for apps.
       gnome.gnome-keyring.enable = true;
       greetd = {
         enable = true;
@@ -38,6 +54,18 @@ in
       };
     };
 
+    programs = {
+      light.enable = true;
+      sway = {
+        enable = true;
+        extraPackages = with pkgs; [
+          adwaita-icon-theme
+        ];
+        wrapperFeatures.gtk = true;
+      };
+      waybar.enable = true;
+    };
+
     systemd.user.services.kanshi = {
       description = "kanshi daemon";
       environment = {
@@ -46,8 +74,12 @@ in
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = ''${pkgs.kanshi}/bin/kanshi -c kanshi_config_file'';
+        ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
       };
     };
+
+    hardware.graphics.enable = true;
+
+    users.users.${cfg.userName}.extraGroups = [ "video" ];
   };
 }
