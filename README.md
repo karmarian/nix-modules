@@ -192,9 +192,37 @@ Configure the settings of git-annex repositories:
 Require multiple copies of files on accessible remotes
 git annex numcopies 2
 # Exclude specific files in the preferred content section
-git annex wanted here "exclude=*.flac"
+git annex wanted here "include=*.flac and exclude=*.flac and exclude=*.m4a"
 # Alternatively edit the configuration file directly
 git annex vicfg
+# Check with
+git annex wanted --explain
+```
+The next synchronization using:
+```shell
+git annex sync --content
+```
+or an explicit command with *--auto* like:
+```shell
+git annex get --auto
+git annex drop --auto
+```
+might update the preffered content of the repository in question based on the
+availability of files on the remotes and the *numcopies* settings.
+
+Check the consistency of the repository:
+```shell
+time git annex fsck --fast | grep -A 10 -v "ok$"
+time git annex fsck | grep -A 10 -v "ok$"
+```
+Find non-distributed content on remote, i.e. possibly missing files:
+```shell
+git annex find --not --in=<remote> .
+```
+Check how much disk space is saved by unsynced or dropped files on the current
+repository:
+```shell
+git annex info . --not --in here
 ```
 
 Remove an obsolete remote repository:
@@ -202,6 +230,8 @@ Remove an obsolete remote repository:
 git annex move --from <remote>
 git annex dead <remote>
 git remote rm <remote>
+# Optional
+git annex forget --drop-dead
 ```
 
 ## Known issues
