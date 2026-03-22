@@ -88,6 +88,7 @@
         enable = true;
         binfmt.enable = true;
         container.enable = true;
+        packageManager.enable = true;
         variant.enable = true;
         waydroid.enable = true;
         waydroid.autostart = true;
@@ -173,7 +174,6 @@
         enable = true;
         binfmt.enable = true;
         container.enable = true;
-        variant.enable = true;
       };
       zram.enable = true;
     })
@@ -209,7 +209,7 @@
         enable = true;
         binfmt.enable = true;
         container.enable = true;
-        variant.enable = false;
+        packageManager.enable = true;
         waydroid.enable = true;
       };
       zram.enable = true;
@@ -291,7 +291,7 @@
       syncthing.firewall.open = false;
       virtualisation = {
         enable = true;
-        variant.enable = false;
+        packageManager.enable = true;
         waydroid.enable = true;
         waydroid.autostart = true;
       };

@@ -17,6 +17,7 @@ in
     enable = lib.mkEnableOption "Virtualisation apps";
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
+    packageManager.enable = lib.mkEnableOption "Package manager";
     podman = {
       enable = true;
       dockerCompat = true;
@@ -85,29 +86,6 @@ in
         nix.settings.extra-platforms = lib.mkDefault config.boot.binfmt.emulatedSystems;
       })
 
-      (lib.mkIf cfg.variant.enable {
-        # User for testing in VM with build-vm.
-        users.users.nixosvmtest = {
-          isNormalUser = lib.mkDefault true;
-          initialPassword = lib.mkDefault "test";
-          extraGroups = lib.mkDefault [
-            "nixosvmtest"
-            "wheel"
-          ];
-        };
-
-        virtualisation.vmVariant.virtualisation = {
-          # Following configuration is added only when building VM with build-vm.
-          memorySize = cfg.vmMemorySize;
-          cores = cfg.vmCores;
-          # Make the screen size auto-scale
-          qemu.options = lib.mkDefault [ "-vga virtio" ];
-
-          # Don't persist any state, also allows Ctrl-C without problems
-          diskImage = lib.mkDefault null; # "./nixos.qcow2";
-        };
-      })
-
       (lib.mkIf cfg.container.enable {
         virtualisation = {
           # Enable common container config files in /etc/containers.
@@ -133,13 +111,42 @@ in
           # Look into docker image layers.
           dive
           distrobox
-          flatpak
-          guix
           # Start group of containers for development.
           podman-compose
         ];
 
         users.users.${cfg.userName}.extraGroups = [ "podman" ];
+      })
+
+      (lib.mkIf cfg.packageManager.enable {
+        environment.systemPackages = with pkgs; [
+          guix
+        ];
+
+        services.flatpak.enable = lib.mkDefault true;
+      })
+
+      (lib.mkIf cfg.variant.enable {
+        # User for testing in VM with build-vm.
+        users.users.nixosvmtest = {
+          isNormalUser = lib.mkDefault true;
+          initialPassword = lib.mkDefault "test";
+          extraGroups = lib.mkDefault [
+            "nixosvmtest"
+            "wheel"
+          ];
+        };
+
+        virtualisation.vmVariant.virtualisation = {
+          # Following configuration is added only when building VM with build-vm.
+          memorySize = cfg.vmMemorySize;
+          cores = cfg.vmCores;
+          # Make the screen size auto-scale
+          qemu.options = lib.mkDefault [ "-vga virtio" ];
+
+          # Don't persist any state, also allows Ctrl-C without problems
+          diskImage = lib.mkDefault null; # "./nixos.qcow2";
+        };
       })
 
       (lib.mkIf cfg.waydroid.enable {
