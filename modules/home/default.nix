@@ -40,7 +40,7 @@
         enable = true;
         browser.enable = true;
         browser.privacy.enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       emacs = {
         enable = true;
@@ -145,7 +145,7 @@
         enable = true;
         browser.enable = true;
         browser.privacy.enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       emacs = {
         enable = true;
@@ -215,7 +215,7 @@
     (lib.mkIf (config.mine.module.home.default.scheme == "phone") {
       desktop = {
         enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       home-manager = {
         enable = true;
