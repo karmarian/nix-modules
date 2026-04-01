@@ -56,7 +56,6 @@
         # :BUG: Upstream build issues.
         org = false;
         package = true;
-        python = true;
         shell = true;
       };
       git = {
@@ -187,7 +186,6 @@
         music = true;
         org = false;
         package = true;
-        python = true;
         shell = true;
       };
       git = {

@@ -22,7 +22,6 @@ in
     music = lib.mkEnableOption "Music modules";
     org = lib.mkEnableOption "Org modules";
     package = lib.mkEnableOption "Package management modules";
-    python = lib.mkEnableOption "Python modules";
     shell = lib.mkEnableOption "Shell modules";
   };
 
@@ -145,13 +144,6 @@ in
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
             use-package
-          ];
-      })
-
-      (lib.mkIf cfg.python {
-        programs.emacs.extraPackages =
-          epkgs: with epkgs; [
-            elpy
           ];
       })
 
