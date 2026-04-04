@@ -33,6 +33,17 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
+      {
+        environment.systemPackages = with pkgs; [
+          netcat-gnu
+          netop
+          nettools
+          nmap
+          tcpdump
+          traceroute
+          transmission_4-gtk
+        ];
+      }
       (lib.mkIf cfg.wireshark.enable {
         programs.wireshark = {
           enable = lib.mkDefault true;

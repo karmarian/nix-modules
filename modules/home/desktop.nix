@@ -17,24 +17,11 @@ in
     enable = lib.mkEnableOption "Desktop apps and browser settings";
     browser.enable = lib.mkEnableOption "Browsers";
     browser.privacy.enable = lib.mkEnableOption "Extra privacy focused browsers";
-    comms.enable = lib.mkEnableOption "Communication apps";
+    utils.enable = lib.mkEnableOption "Desktop utilities";
   };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      {
-        home.packages = with pkgs; [
-          bustle
-          kdePackages.okular
-        ];
-
-        manual.html.enable = lib.mkDefault true;
-
-        programs = {
-          keepassxc.enable = lib.mkDefault true;
-        };
-      }
-
       (lib.mkIf cfg.browser.enable {
         programs = {
           firefox = {
@@ -75,17 +62,20 @@ in
         ];
       })
 
-      (lib.mkIf cfg.comms.enable {
+      (lib.mkIf cfg.utils.enable {
         home.packages = with pkgs; [
-          element-desktop
-          jami
-          lomiri.teleports
-          signal-desktop-bin
+          bustle
+          kdePackages.okular
         ];
 
-        programs.thunderbird = {
-          enable = lib.mkDefault true;
-          profiles.default.isDefault = lib.mkDefault true;
+        manual.html.enable = lib.mkDefault true;
+
+        programs = {
+          keepassxc.enable = lib.mkDefault true;
+          thunderbird = {
+            enable = lib.mkDefault true;
+            profiles.default.isDefault = lib.mkDefault true;
+          };
         };
       })
     ]

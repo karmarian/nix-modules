@@ -10,7 +10,6 @@
 
 {
   imports = [
-    ./container.nix
     ./desktop.nix
     ./emacs.nix
     ./git.nix
@@ -18,11 +17,9 @@
     ./home-manager.nix
     ./media.nix
     ./music.nix
-    ./network.nix
     ./programming.nix
     ./shell.nix
     ./ssh.nix
-    ./sway.nix
     ./syncthing.nix
     ./tex.nix
     ./tmux.nix
@@ -33,18 +30,17 @@
     scheme = lib.mkOption {
       type = lib.types.str;
       default = "";
-      description = "Enable supported scheme like 'all', 'gnome', 'sway' or 'headless'";
+      description = "Enable supported scheme like 'all', 'gnome' or 'headless'";
     };
   };
 
   config.mine.module.home = lib.mkMerge [
     (lib.mkIf (config.mine.module.home.default.scheme == "all") {
-      container.enable = true;
       desktop = {
         enable = true;
         browser.enable = true;
         browser.privacy.enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       emacs = {
         enable = true;
@@ -76,7 +72,6 @@
         gstreamer.enable = true;
       };
       music.enable = true;
-      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;
@@ -88,7 +83,6 @@
         ollama.autostart = true;
       };
       ssh.enable = true;
-      sway.enable = false;
       syncthing = {
         enable = true;
         pregeneratedFiles = false;
@@ -112,34 +106,11 @@
         auto-expire = true;
         auto-upgrade = false;
       };
-      network.enable = true;
       shell = {
         enable = true;
         bash.enable = true;
       };
       ssh.enable = true;
-      tmux.enable = true;
-      vim.enable = true;
-    })
-    (lib.mkIf (config.mine.module.home.default.scheme == "sway") {
-      desktop = {
-        enable = true;
-      };
-      git = {
-        enable = true;
-      };
-      home-manager = {
-        enable = true;
-        auto-expire = true;
-        auto-upgrade = false;
-      };
-      network.enable = true;
-      shell = {
-        enable = true;
-        bash.enable = true;
-      };
-      ssh.enable = true;
-      sway.enable = true;
       tmux.enable = true;
       vim.enable = true;
     })
@@ -158,7 +129,6 @@
         mpd.enable = true;
         gstreamer.enable = true;
       };
-      network.enable = true;
       shell = {
         enable = true;
         bash.enable = true;
@@ -170,12 +140,11 @@
       vim.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "workstation") {
-      container.enable = true;
       desktop = {
         enable = true;
         browser.enable = true;
         browser.privacy.enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       emacs = {
         enable = true;
@@ -197,7 +166,6 @@
       media = {
         enable = true;
       };
-      network.enable = true;
       programming = {
         enable = true;
         python.enable = true;
@@ -221,7 +189,6 @@
         enable = true;
       };
       music.enable = true;
-      sway.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "mediaserver") {
       desktop = {
@@ -238,7 +205,6 @@
         enable = true;
         mpd.enable = true;
       };
-      network.enable = true;
       syncthing = {
         enable = false;
         pregeneratedFiles = false;
@@ -247,7 +213,7 @@
     (lib.mkIf (config.mine.module.home.default.scheme == "phone") {
       desktop = {
         enable = true;
-        comms.enable = true;
+        utils.enable = true;
       };
       home-manager = {
         enable = true;

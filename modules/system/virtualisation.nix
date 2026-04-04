@@ -17,6 +17,12 @@ in
     enable = lib.mkEnableOption "Virtualisation apps";
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
+    packageManager.enable = lib.mkEnableOption "Package manager";
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
     userName = lib.mkOption {
       type = lib.types.str;
       default = "libvirt";
@@ -69,11 +75,55 @@ in
       }
 
       (lib.mkIf cfg.binfmt.enable {
-        boot.binfmt.emulatedSystems = lib.mkDefault [
-          "aarch64-linux"
-          "armv7l-linux"
-        ];
+        boot.binfmt = {
+          emulatedSystems = lib.mkDefault [
+            "aarch64-linux"
+            "armv7l-linux"
+          ];
+          # Requirement for cross-architecture Podman.
+          preferStaticEmulators = lib.mkDefault true;
+        };
         nix.settings.extra-platforms = lib.mkDefault config.boot.binfmt.emulatedSystems;
+      })
+
+      (lib.mkIf cfg.container.enable {
+        virtualisation = {
+          # Enable common container config files in /etc/containers.
+          containers = {
+            enable = lib.mkDefault true;
+            registries.search = [
+              "registry.access.redhat.com"
+              "registry.redhat.io"
+              "docker.io"
+            ];
+          };
+          # Install and configure Podman.
+          podman = {
+            enable = lib.mkDefault true;
+            # Create a `docker` alias for podman, to use it as a drop-in replacement.
+            dockerCompat = lib.mkDefault true;
+            # Required for containers under podman-compose to be able to talk to each other.
+            defaultNetwork.settings.dns_enabled = lib.mkDefault true;
+          };
+        };
+
+        environment.systemPackages = with pkgs; [
+          # Look into docker image layers.
+          dive
+          distrobox
+          # Start group of containers for development.
+          podman-compose
+        ];
+
+        users.users.${cfg.userName}.extraGroups = [ "podman" ];
+      })
+
+      (lib.mkIf cfg.packageManager.enable {
+        environment.systemPackages = with pkgs; [
+          guix
+        ];
+
+        services.flatpak.enable = lib.mkDefault true;
       })
 
       (lib.mkIf cfg.variant.enable {
@@ -96,21 +146,6 @@ in
 
           # Don't persist any state, also allows Ctrl-C without problems
           diskImage = lib.mkDefault null; # "./nixos.qcow2";
-        };
-      })
-
-      (lib.mkIf cfg.container.enable {
-        virtualisation = {
-          # Enable common container config files in /etc/containers.
-          containers.enable = lib.mkDefault true;
-          # Install and configure Podman.
-          podman = {
-            enable = lib.mkDefault true;
-            # Create a `docker` alias for podman, to use it as a drop-in replacement.
-            dockerCompat = lib.mkDefault true;
-            # Required for containers under podman-compose to be able to talk to each other.
-            defaultNetwork.settings.dns_enabled = lib.mkDefault true;
-          };
         };
       })
 
