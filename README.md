@@ -192,11 +192,13 @@ Configure the settings of git-annex repositories:
 Require multiple copies of files on accessible remotes
 git annex numcopies 2
 # Exclude specific files in the preferred content section
-git annex wanted here "include=*.flac and exclude=*.flac and exclude=*.m4a"
+git annex wanted here "include=*.flac and exclude=*.mp3 and exclude=*.m4a"
 # Alternatively edit the configuration file directly
 git annex vicfg
 # Check with
-git annex wanted --explain
+git annex wanted --explain <remote>
+git annex find --want-get --not --in .
+git annex find --want-drop --in .
 ```
 The next synchronization using:
 ```shell
