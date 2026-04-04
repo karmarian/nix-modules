@@ -77,6 +77,11 @@
       };
       pipewire.enable = true;
       printing.enable = true;
+      remote-desktop = {
+        enable = true;
+        rdp.enable = false;
+        weylus.enable = true;
+      };
       shell = {
         enable = true;
         autoLogin.enable = true;
@@ -256,7 +261,11 @@
         auto-upgrade.enable = true;
       };
       pipewire.enable = true;
-      remote-desktop.enable = false;
+      remote-desktop = {
+        enable = true;
+        rdp.enable = false;
+        weylus.enable = true;
+      };
       shell = {
         enable = true;
         autoLogin.enable = true;

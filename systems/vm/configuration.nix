@@ -118,6 +118,7 @@ in
     network = {
       userName = username;
     };
+    remote-desktop.weylus.users = [ username ];
     shell = {
       autoLogin.user = username;
     };
