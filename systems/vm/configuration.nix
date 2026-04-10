@@ -118,6 +118,9 @@ in
     network = {
       userName = username;
     };
+    nix = {
+      auto-upgrade.path = /etc/nixos;
+    };
     remote-desktop.weylus.users = [ username ];
     shell = {
       autoLogin.user = username;

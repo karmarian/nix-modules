@@ -17,7 +17,25 @@ in
   options.mine.module.system.nix = {
     enable = lib.mkEnableOption "Nix config";
     store-optimisation.enable = lib.mkEnableOption "Store optimisation";
-    auto-upgrade.enable = lib.mkEnableOption "Automatic system upgrade";
+    auto-upgrade = {
+      enable = lib.mkEnableOption "Automatic system upgrade";
+      method = lib.mkOption {
+        type = lib.types.enum [
+          "flake"
+          "channels"
+          "npins"
+          "disabled"
+        ];
+        default = "disabled";
+        description = "Method for automatic upgrades";
+      };
+      path = lib.mkOption {
+        type = lib.types.path;
+        default = /etc/nixos;
+        example = "/home/user/nixos-config";
+        description = "Path to project root directory";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -65,21 +83,63 @@ in
         };
       })
 
-      (lib.mkIf cfg.auto-upgrade.enable {
+      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "flake") {
         system.autoUpgrade = {
           enable = lib.mkDefault true;
           flake = lib.mkDefault inputs.self.outPath;
           flags = lib.mkDefault [
             "--update-input"
             "home-manager"
+            "--update-input"
             "musnix"
+            "--update-input"
             "nixpkgs"
+            "--update-input"
             "nixpkgs-unstable"
             "-L"
           ];
           dates = lib.mkDefault "19:00";
           randomizedDelaySec = lib.mkDefault "45min";
         };
+      })
+      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "channels") {
+        system.autoUpgrade = {
+          enable = lib.mkDefault true;
+          channel = lib.mkDefault "nixos";
+          flags = lib.mkDefault [
+            "--upgrade"
+            "-L"
+          ];
+          dates = lib.mkDefault "19:00";
+          randomizedDelaySec = lib.mkDefault "45min";
+        };
+      })
+      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "npins") {
+        systemd.services.npins-auto-update = {
+          description = "Automatic npins update and system rebuild";
+          path = with pkgs; [
+            npins
+            nixos-rebuild
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = pkgs.writeShellScript "npins update" ''
+              cd ${cfg.auto-upgrade.path}
+              npins update
+              nixos-rebuild switch --file default.nix
+            '';
+          };
+        };
+        systemd.timers.npins-auto-update = {
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnCalendar = lib.mkDefault "19:00";
+            RandomizedDelaySec = lib.mkDefault "45min";
+          };
+        };
+      })
+      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "npins") {
+        # No auto-upgrades.
       })
     ]
   );

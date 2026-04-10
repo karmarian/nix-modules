@@ -6,36 +6,45 @@
   sources ? import ./npins,
 }:
 let
-  pkgs = import sources.nixos-stable {
+  pkgs = import sources."nixos-25.11" {
     config = { };
-    overlays = [ ];
+    overlays = [
+      unstableOverlay
+      (import ./overlays/default.nix)
+    ];
     inherit system;
   };
-  pkgs-unstable = import sources.nixpkgs-unstable {
-    config = { };
-    overlays = [ ];
-    inherit system;
-  };
+
   home-manager = (import sources.home-manager { }).path;
   disko = import sources.disko { };
-  pkgs-unstable = final: prev: {
-    unstable = pkgs-unstable;
+  musnix = import sources.musnix { };
+
+  unstableOverlay = final: prev: {
+    unstable = import sources.nixpkgs-unstable {
+      system = prev.stdenv.hostPlatform.system;
+      config = prev.config;
+    };
   };
+
   inherit (pkgs) lib;
 in
 lib.makeScope pkgs.newScope (final: {
 
-  nixosSystem = import (sources.nixos-stable + "/nixos/lib/eval-config.nix") {
+  nixosSystem = import (sources."nixos-25.11" + "/nixos/lib/eval-config.nix") {
     system = "x86_64-linux";
     modules = [
       ./systems/vm/configuration.nix
       (import "${home-manager}/nixos")
-      (import "${disko}/module.nix")
+      (import "${sources.disko.outPath}/module.nix")
+      (import "${sources.musnix.outPath}")
       ./modules/personal/config.nix
       (
         { config, pkgs, ... }:
         {
-          nixpkgs.overlays = [ pkgs-unstable ];
+          nixpkgs.overlays = [
+            unstableOverlay
+            (import ./overlays/default.nix)
+          ];
         }
       )
     ];

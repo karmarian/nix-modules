@@ -73,7 +73,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       printing.enable = true;
@@ -116,7 +119,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       printing.enable = true;
@@ -138,7 +144,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       shell = {
@@ -168,7 +177,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       shell = {
@@ -202,7 +214,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       printing.enable = true;
@@ -258,7 +273,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       remote-desktop = {
@@ -291,7 +309,10 @@
       nix = {
         enable = true;
         store-optimisation.enable = true;
-        auto-upgrade.enable = true;
+        auto-upgrade = {
+          enable = true;
+          method = "npins";
+        };
       };
       pipewire.enable = true;
       shell = {
