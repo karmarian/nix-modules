@@ -17,7 +17,7 @@
     ./keepassxc/default.nix
     ./signal/default.nix
     ./teleports/default.nix
-    ./tmux/default.nix
+    #./tmux/default.nix
     ./tor-browser/default.nix
     ./vim/default.nix
   ];

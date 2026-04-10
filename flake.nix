@@ -63,42 +63,28 @@
             config = prev.config;
           };
         })
+        (import ./overlays/default.nix)
+        (
+          final: prev:
+          let
+            wm-eval = wrapper-manager.lib {
+              pkgs = final;
+              modules = [
+                ./packages/wrapper-manager/default.nix
+              ];
+            };
+          in
+          {
+            wrapped = nixpkgs.lib.mapAttrs (name: wrapper: wrapper.wrapped) wm-eval.config.wrappers;
+          }
+        )
       ];
+
       pkgs = import nixpkgs {
         system = defaultSystem;
         overlays = overlays;
         config = { };
       };
-
-      wm-eval = wrapper-manager.lib {
-        inherit pkgs;
-        modules = [
-          ./packages/wrapper-manager/default.nix
-          {
-            wrappers.hello = {
-              basePackage = pkgs.hello;
-              prependFlags = [
-                "-g"
-                "This is a tasty wrap"
-              ];
-            };
-          }
-        ];
-      };
-
-      # Extract all wrapped packages.
-      allWrappers = wm-eval.config.build.packages;
-      direnvWrapped = wm-eval.config.wrappers.direnv.wrapped;
-      elementWrapped = wm-eval.config.wrappers.element.wrapped;
-      gitWrapped = wm-eval.config.wrappers.git.wrapped;
-      helloWrapped = wm-eval.config.wrappers.hello.wrapped;
-      jamiWrapped = wm-eval.config.wrappers.jami.wrapped;
-      keepassxcWrapped = wm-eval.config.wrappers.keepassxc.wrapped;
-      singalWrapped = wm-eval.config.wrappers.signal.wrapped;
-      teleportsWrapped = wm-eval.config.wrappers.teleports.wrapped;
-      tmuxWrapped = wm-eval.config.wrappers.tmux.wrapped;
-      torBrowserWrapped = wm-eval.config.wrappers.tor-browser.wrapped;
-      vimWrapped = wm-eval.config.wrappers.vim.wrapped;
 
     in
     {
@@ -175,21 +161,7 @@
         };
       };
 
-      packages.${defaultSystem} = {
-        # all = allWrappers;
-        direnv = direnvWrapped;
-        element = elementWrapped;
-        git = gitWrapped;
-        hello = helloWrapped;
-        jami = jamiWrapped;
-        keepassxc = keepassxcWrapped;
-        signal = singalWrapped;
-        teleports = teleportsWrapped;
-        # Fix for build issue required.
-        # tmux = tmuxWrapped;
-        tor-browser = torBrowserWrapped;
-        vim = vimWrapped;
-      };
+      packages.${defaultSystem} = pkgs.wrapped;
 
       devShells."${defaultSystem}".default = pkgs.mkShell {
         packages = with pkgs; [
