@@ -18,7 +18,7 @@ let
   };
   home-manager = (import sources.home-manager { }).path;
   disko = import sources.disko { };
-  overlay-unstable = final: prev: {
+  pkgs-unstable = final: prev: {
     unstable = pkgs-unstable;
   };
   inherit (pkgs) lib;
@@ -35,7 +35,7 @@ lib.makeScope pkgs.newScope (final: {
       (
         { config, pkgs, ... }:
         {
-          nixpkgs.overlays = [ overlay-unstable ];
+          nixpkgs.overlays = [ pkgs-unstable ];
         }
       )
     ];

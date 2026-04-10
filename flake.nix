@@ -54,12 +54,20 @@
       userVm = "me";
       machineVm = "vm";
       machineWsl = "wsl";
-      system = "x86_64-linux";
+      defaultSystem = "x86_64-linux";
 
-      stdenv.hostPlatform.system = system;
-      pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
-      overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
+      overlays = [
+        (final: prev: {
+          unstable = import nixpkgs-unstable {
+            system = prev.stdenv.hostPlatform.system;
+            config = prev.config;
+          };
+        })
+      ];
+      pkgs = import nixpkgs {
+        system = defaultSystem;
+        overlays = overlays;
+        config = { };
       };
 
       wm-eval = wrapper-manager.lib {
@@ -104,14 +112,14 @@
           specialArgs = { inherit inputs; };
 
           modules = [
+            {
+              nixpkgs = {
+                overlays = overlays;
+                config = { };
+              };
+            }
             # Use personal configuration settings.
             ./modules/personal/config.nix
-            (
-              { config, pkgs, ... }:
-              {
-                nixpkgs.overlays = [ overlay-unstable ];
-              }
-            )
             ./systems/vm/configuration.nix
             home-manager.nixosModules.home-manager
             # :KLUDGE: For compatibility with default.nix, this is placed into
@@ -134,13 +142,13 @@
           specialArgs = { inherit inputs; };
 
           modules = [
+            {
+              nixpkgs = {
+                overlays = overlays;
+                config = { };
+              };
+            }
             ./modules/personal/config.nix
-            (
-              { config, pkgs, ... }:
-              {
-                nixpkgs.overlays = [ overlay-unstable ];
-              }
-            )
             ./systems/${machineWsl}/configuration.nix
             nixos-wsl.nixosModules.wsl
             home-manager.nixosModules.home-manager
@@ -162,18 +170,12 @@
 
           modules = [
             ./modules/personal/config.nix
-            (
-              { config, pkgs, ... }:
-              {
-                nixpkgs.overlays = [ overlay-unstable ];
-              }
-            )
             ./homes/${userVm}/home.nix
           ];
         };
       };
 
-      packages.${stdenv.hostPlatform.system} = {
+      packages.${defaultSystem} = {
         # all = allWrappers;
         direnv = direnvWrapped;
         element = elementWrapped;
@@ -189,19 +191,15 @@
         vim = vimWrapped;
       };
 
-      devShells."${system}".default =
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        pkgs.mkShell {
-          packages = with pkgs; [
-            npins
-            reuse
-          ];
+      devShells."${defaultSystem}".default = pkgs.mkShell {
+        packages = with pkgs; [
+          npins
+          reuse
+        ];
 
-          shellHook = ''
-            echo "Entering devShell`"
-          '';
-        };
+        shellHook = ''
+          echo "Entering devShell`"
+        '';
+      };
     };
 }
