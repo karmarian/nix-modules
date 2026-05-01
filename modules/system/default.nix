@@ -72,10 +72,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -118,10 +119,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -143,10 +145,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -176,10 +179,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -213,10 +217,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -241,6 +246,7 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
       };
       pipewire.enable = true;
       sway.enable = true;
@@ -272,10 +278,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;
@@ -308,10 +315,11 @@
       };
       nix = {
         enable = true;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
-          method = "npins";
+          method = "flake";
         };
       };
       pipewire.enable = true;

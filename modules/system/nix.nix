@@ -12,10 +12,26 @@
 let
   cfg = config.mine.module.system.nix;
 
+  lixOverlay =
+    if cfg.lix.enable then
+      [
+        (final: prev: {
+          inherit (prev.lixPackageSets.stable)
+            nixpkgs-review
+            nix-eval-jobs
+            nix-fast-build
+            colmena
+            ;
+        })
+      ]
+    else
+      [ ];
+
 in
 {
   options.mine.module.system.nix = {
     enable = lib.mkEnableOption "Nix config";
+    lix.enable = lib.mkEnableOption "Nix-like package manager";
     store-optimisation.enable = lib.mkEnableOption "Store optimisation";
     auto-upgrade = {
       enable = lib.mkEnableOption "Automatic system upgrade";
@@ -43,7 +59,7 @@ in
       {
         # Set Nixpkgs overlays and config
         nixpkgs = {
-          overlays = import ../../nixpkgs/overlays.nix;
+          overlays = (import ../../nixpkgs/overlays.nix) ++ lixOverlay;
           config = import ../../nixpkgs/config.nix;
         };
 
@@ -52,7 +68,6 @@ in
           experimental-features = lib.mkDefault [
             "nix-command"
             "flakes"
-            "pipe-operators"
           ];
           trusted-users = lib.mkDefault [
             "root"
@@ -62,6 +77,10 @@ in
 
         environment.systemPackages = [ pkgs.nixfmt-rfc-style ];
       }
+
+      (lib.mkIf cfg.lix.enable {
+        nix.package = pkgs.lixPackageSets.stable.lix;
+      })
 
       (lib.mkIf cfg.store-optimisation.enable {
         nix = {
