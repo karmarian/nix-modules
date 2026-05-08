@@ -62,7 +62,13 @@
       };
       emacs = {
         enable = true;
+        comms = true;
+        core = true;
         dev = true;
+        evil = true;
+        music = true;
+        org = true;
+        package = true;
         shell = true;
       };
       git = {
@@ -271,7 +277,12 @@
       };
       emacs = {
         enable = true;
+        comms = true;
+        core = true;
         dev = true;
+        evil = true;
+        music = true;
+        org = true;
         shell = true;
       };
       git = {
