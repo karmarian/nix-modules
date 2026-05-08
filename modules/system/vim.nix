@@ -20,6 +20,19 @@ in
   config = lib.mkIf cfg.enable {
     programs.neovim = {
       enable = lib.mkDefault true;
+      defaultEditor = lib.mkDefault true;
+      vimAlias = true;
+      configure = {
+        packages.myVimPackage = with pkgs.vimPlugins; {
+          start = [
+            telescope-nvim
+            vim-colorschemes
+            modus-themes-nvim
+            vim-nix
+            vim-tmux-navigator
+          ];
+        };
+      };
     };
 
     environment.systemPackages = with pkgs; [
