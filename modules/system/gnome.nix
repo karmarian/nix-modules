@@ -23,12 +23,12 @@ in
     };
     xkbLayout = lib.mkOption {
       type = lib.types.str;
-      default = "de";
+      default = "de,us";
       description = "Xserver keyboard layout";
     };
     xkbVariant = lib.mkOption {
       type = lib.types.str;
-      default = "";
+      default = ",";
       description = "Xserver keyboard variant";
     };
   };
@@ -49,6 +49,8 @@ in
           xserver.xkb = {
             layout = cfg.xkbLayout;
             variant = cfg.xkbVariant;
+            # Switch with Alt+Shift.
+            options = "grp:alt_shift_toggle";
           };
         };
 
@@ -58,17 +60,17 @@ in
         environment = {
           systemPackages = with pkgs; [
             gnome-connections
+            gnome-maps
+            gnome-terminal
             gnome-tweaks
+            gnomeExtensions.astra-monitor
+            gnomeExtensions.appindicator
             nautilus
           ];
 
           gnome.excludePackages = with pkgs; [
             gnome-tour
           ];
-        };
-
-        programs = {
-          gnome-terminal.enable = lib.mkDefault true;
         };
 
         services.gnome = {

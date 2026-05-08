@@ -22,7 +22,6 @@
     ./ssh.nix
     ./syncthing.nix
     ./tex.nix
-    ./tmux.nix
     ./vim.nix
   ];
 
@@ -88,7 +87,6 @@
         pregeneratedFiles = false;
       };
       tex.enable = true;
-      tmux.enable = true;
       vim.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "gnome") {
@@ -111,7 +109,6 @@
         bash.enable = true;
       };
       ssh.enable = true;
-      tmux.enable = true;
       vim.enable = true;
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "headless") {
@@ -136,79 +133,7 @@
         ollama.autostart = true;
       };
       ssh.enable = true;
-      tmux.enable = true;
       vim.enable = true;
-    })
-    (lib.mkIf (config.mine.module.home.default.scheme == "workstation") {
-      desktop = {
-        enable = true;
-        browser.enable = true;
-        browser.privacy.enable = true;
-        utils.enable = true;
-      };
-      emacs = {
-        enable = true;
-        comms = true;
-        core = true;
-        dev = true;
-        evil = true;
-        music = true;
-        org = false;
-        package = true;
-        shell = true;
-      };
-      git = {
-        enable = true;
-      };
-      gnome = {
-        enable = true;
-      };
-      media = {
-        enable = true;
-      };
-      programming = {
-        enable = true;
-        python.enable = true;
-      };
-      shell = {
-        enable = true;
-        bash.enable = true;
-        ollama.enable = true;
-      };
-      ssh.enable = true;
-      syncthing = {
-        enable = false;
-        pregeneratedFiles = true;
-      };
-      tex.enable = true;
-      tmux.enable = true;
-      vim.enable = true;
-    })
-    (lib.mkIf (config.mine.module.home.default.scheme == "music") {
-      media = {
-        enable = true;
-      };
-      music.enable = true;
-    })
-    (lib.mkIf (config.mine.module.home.default.scheme == "mediaserver") {
-      desktop = {
-        enable = true;
-        browser.enable = true;
-      };
-      git = {
-        enable = true;
-      };
-      gnome = {
-        enable = true;
-      };
-      media = {
-        enable = true;
-        mpd.enable = true;
-      };
-      syncthing = {
-        enable = false;
-        pregeneratedFiles = false;
-      };
     })
     (lib.mkIf (config.mine.module.home.default.scheme == "phone") {
       desktop = {
@@ -229,7 +154,6 @@
         enable = false;
         pregeneratedFiles = false;
       };
-      tmux.enable = true;
       vim.enable = true;
     })
   ];

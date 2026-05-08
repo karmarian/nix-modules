@@ -112,6 +112,12 @@ in
       timeZone = timeZone;
       keyboardLayout = xkbLayout;
     };
+    media = {
+      mpd = {
+        username = username;
+        musicSubdir = "music";
+      };
+    };
     mobile = {
       userName = username;
     };
@@ -124,6 +130,11 @@ in
     remote-desktop.weylus.users = [ username ];
     shell = {
       autoLogin.user = username;
+    };
+    ssh = {
+      server = {
+        allowUsers = [ username ];
+      };
     };
     virtualisation = {
       userName = username;

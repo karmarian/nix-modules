@@ -13,20 +13,29 @@
   imports = [
     ./audiobookshelf.nix
     ./boot.nix
+    ./desktop.nix
+    ./emacs.nix
+    ./git.nix
     ./gnome.nix
     ./immich.nix
     ./jellyfin.nix
     ./locale.nix
+    ./media.nix
     ./mobile.nix
+    ./music.nix
     ./network.nix
     ./nix.nix
     ./pipewire.nix
     ./printing.nix
+    ./programming.nix
     ./remote-desktop.nix
     ./shell.nix
+    ./ssh.nix
     ./sway.nix
     ./syncthing.nix
+    ./tex.nix
     ./unfree.nix
+    ./vim.nix
     ./virtualisation.nix
     ./zram.nix
   ];
@@ -45,6 +54,20 @@
         enable = true;
       };
       boot.enable = true;
+      desktop = {
+        enable = true;
+        browser.enable = true;
+        browser.privacy.enable = true;
+        utils.enable = true;
+      };
+      emacs = {
+        enable = true;
+        dev = true;
+        shell = true;
+      };
+      git = {
+        enable = true;
+      };
       gnome = {
         enable = true;
         autoLogin.enable = true;
@@ -58,10 +81,16 @@
       locale = {
         enable = true;
       };
+      media = {
+        enable = true;
+        mpd.enable = true;
+        gstreamer.enable = true;
+      };
       mobile = {
         enable = true;
         adb.enable = true;
       };
+      music.enable = true;
       network = {
         enable = true;
         mullvad-vpn.enable = true;
@@ -81,6 +110,10 @@
       };
       pipewire.enable = true;
       printing.enable = true;
+      programming = {
+        enable = true;
+        python.enable = true;
+      };
       remote-desktop = {
         enable = true;
         rdp.enable = false;
@@ -89,10 +122,31 @@
       shell = {
         enable = true;
         autoLogin.enable = true;
+        bash.enable = true;
+        ollama.enable = true;
+        ollama.autostart = true;
+      };
+      ssh = {
+        enable = true;
+        client = {
+          enable = true;
+        };
+
+        server = {
+          enable = true;
+          ports = [ 22 ];
+          permitRootLogin = "no";
+          passwordAuthentication = false;
+        };
       };
       sway.enable = false;
-      syncthing.firewall.open = true;
+      syncthing = {
+        enable = true;
+        pregeneratedFiles = false;
+      };
+      tex.enable = true;
       unfree.enable = true;
+      vim.enable = true;
       virtualisation = {
         enable = true;
         binfmt.enable = true;
@@ -200,10 +254,27 @@
     })
     (lib.mkIf (config.mine.module.system.default.scheme == "workstation") {
       boot.enable = true;
+      desktop = {
+        enable = true;
+        browser.enable = true;
+        browser.privacy.enable = true;
+        utils.enable = true;
+      };
+      emacs = {
+        enable = true;
+        dev = true;
+        shell = true;
+      };
+      git = {
+        enable = true;
+      };
       gnome = {
         enable = true;
       };
       locale = {
+        enable = true;
+      };
+      media = {
         enable = true;
       };
       mobile = {
@@ -226,10 +297,21 @@
       };
       pipewire.enable = true;
       printing.enable = true;
+      programming = {
+        enable = true;
+        python.enable = true;
+      };
       shell = {
         enable = true;
+        bash.enable = true;
+        ollama.enable = true;
       };
-      syncthing.firewall.open = false;
+      syncthing = {
+        enable = false;
+        pregeneratedFiles = true;
+      };
+      tex.enable = true;
+      vim.enable = true;
       virtualisation = {
         enable = true;
         binfmt.enable = true;
@@ -244,6 +326,10 @@
       locale = {
         enable = true;
       };
+      media = {
+        enable = true;
+      };
+      music.enable = true;
       nix = {
         enable = true;
         lix.enable = true;
@@ -256,6 +342,13 @@
         enable = true;
       };
       boot.enable = true;
+      desktop = {
+        enable = true;
+        browser.enable = true;
+      };
+      git = {
+        enable = true;
+      };
       gnome = {
         enable = true;
         autoLogin.enable = true;
@@ -268,6 +361,10 @@
       };
       locale = {
         enable = true;
+      };
+      media = {
+        enable = true;
+        mpd.enable = true;
       };
       mobile = {
         enable = true;
@@ -295,7 +392,10 @@
         enable = true;
         autoLogin.enable = true;
       };
-      syncthing.firewall.open = false;
+      syncthing = {
+        enable = false;
+        pregeneratedFiles = false;
+      };
       zram.enable = true;
     })
     (lib.mkIf (config.mine.module.system.default.scheme == "phone") {
@@ -326,7 +426,6 @@
       shell = {
         enable = true;
       };
-      syncthing.firewall.open = false;
       virtualisation = {
         enable = true;
         packageManager.enable = true;

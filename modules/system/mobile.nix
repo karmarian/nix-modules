@@ -35,11 +35,11 @@ in
       }
 
       (lib.mkIf cfg.adb.enable {
-
         # Android debuging tools environment
-        programs.adb.enable = lib.mkDefault true;
+        programs.adb.enable = true;
 
         users.users.${cfg.userName}.extraGroups = [
+          # :TODO: Remove because of https://github.com/NixOS/nixpkgs/pull/454366.
           "adbusers"
           "kvm"
         ];

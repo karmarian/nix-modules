@@ -45,10 +45,10 @@ in
         ];
       }
       (lib.mkIf cfg.wireshark.enable {
-        programs.wireshark = {
-          enable = lib.mkDefault true;
-          package = lib.mkDefault pkgs.wireshark;
-        };
+        environment.systemPackages = with pkgs; [
+          wireshark
+        ];
+
         users.users.${cfg.userName}.extraGroups = [ "wireshark" ];
       })
 

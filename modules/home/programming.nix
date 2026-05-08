@@ -24,6 +24,7 @@ in
         home.packages = with pkgs; [
           cachix
           cntr
+          just
           mob
           nix-diff
           nix-output-monitor
