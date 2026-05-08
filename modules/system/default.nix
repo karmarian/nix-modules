@@ -245,6 +245,15 @@
         enable = true;
         autoLogin.enable = true;
       };
+      ssh = {
+        enable = true;
+        server = {
+          enable = true;
+          ports = [ 22 ];
+          permitRootLogin = "no";
+          passwordAuthentication = false;
+        };
+      };
       virtualisation = {
         enable = true;
         binfmt.enable = true;
@@ -305,6 +314,12 @@
         enable = true;
         bash.enable = true;
         ollama.enable = true;
+      };
+      ssh = {
+        enable = true;
+        client = {
+          enable = true;
+        };
       };
       syncthing = {
         enable = false;
@@ -392,6 +407,15 @@
         enable = true;
         autoLogin.enable = true;
       };
+      ssh = {
+        enable = true;
+        server = {
+          enable = true;
+          ports = [ 22 ];
+          permitRootLogin = "no";
+          passwordAuthentication = false;
+        };
+      };
       syncthing = {
         enable = false;
         pregeneratedFiles = false;
@@ -425,6 +449,15 @@
       pipewire.enable = true;
       shell = {
         enable = true;
+      };
+      ssh = {
+        enable = true;
+        server = {
+          enable = true;
+          ports = [ 22 ];
+          permitRootLogin = "no";
+          passwordAuthentication = false;
+        };
       };
       virtualisation = {
         enable = true;
