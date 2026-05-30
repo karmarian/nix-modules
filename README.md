@@ -177,21 +177,28 @@ $local: git push -u <remote> <branch>
 Merge synced/$currentbranch, pull changes from specified remote and update
 synced/$currentbranch:
 ```shell
-$ cd </path/to/annex>
+cd </path/to/annex>
 git annex sync --content
 ```
 This has to be done in all repositories in a decentralized fashion.
 To avoid errors caused on repositories without access privileges to remotes,
-only merge the synced changes:
+merge the synced changes after the sync manually:
 ```shell
-$remote: git annex merge
+git annex merge
 ```
+To modify or add files on such a repository, simply use:
+```shell
+git annex add .
+git commit
+```
+and the next *sync* operation from a repository with access to this remote will
+grep the changes.
 
 Configure the settings of git-annex repositories:
 ```shell
 Require multiple copies of files on accessible remotes
 git annex numcopies 2
-# Exclude specific files in the preferred content section
+# Exclude specific files in the preferred content section or make them mandatory in the required section
 git annex wanted here "include=*.flac and exclude=*.mp3 and exclude=*.m4a"
 # Alternatively edit the configuration file directly
 git annex vicfg

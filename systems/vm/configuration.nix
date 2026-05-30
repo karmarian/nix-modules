@@ -136,6 +136,9 @@ in
         allowUsers = [ username ];
       };
     };
+    sway = {
+      userName = userHomeTwo.username;
+    };
     virtualisation = {
       userName = username;
       vmCores = (cores / 2);
