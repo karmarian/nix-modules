@@ -137,7 +137,7 @@ in
       };
     };
     sway = {
-      userName = userHomeTwo.username;
+      userName = username;
     };
     virtualisation = {
       userName = username;

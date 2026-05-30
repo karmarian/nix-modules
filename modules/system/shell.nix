@@ -53,6 +53,7 @@ in
           ripgrep
           rsync
           screen
+          shellcheck
           smartmontools
           snapper
           snort

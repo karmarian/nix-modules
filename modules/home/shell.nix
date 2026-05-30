@@ -39,6 +39,7 @@ in
           picocom
           pstree
           rsync
+          shellcheck
           smartmontools
           snapper
           snort
