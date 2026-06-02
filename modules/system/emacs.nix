@@ -68,7 +68,6 @@ let
       emms
     ]
     ++ lib.optionals cfg.org [
-      org
       org-roam
     ]
     ++ lib.optionals cfg.package [

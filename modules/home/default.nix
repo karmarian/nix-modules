@@ -48,8 +48,7 @@
         dev = true;
         evil = true;
         music = true;
-        # :BUG: Upstream build issues.
-        org = false;
+        org = true;
         package = true;
         shell = true;
       };

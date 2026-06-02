@@ -135,7 +135,6 @@ in
       (lib.mkIf cfg.org {
         programs.emacs.extraPackages =
           epkgs: with epkgs; [
-            org
             org-roam
           ];
       })
