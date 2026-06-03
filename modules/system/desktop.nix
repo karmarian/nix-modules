@@ -69,6 +69,7 @@ in
           kdePackages.okular
           keepassxc
           thunderbird
+          warp
         ];
       })
     ]
