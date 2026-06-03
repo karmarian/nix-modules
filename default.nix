@@ -6,7 +6,7 @@
   sources ? import ./npins,
 }:
 let
-  pkgs = import sources."nixos-25.11" {
+  pkgs = import sources."nixos-26.05" {
     config = { };
     overlays = [
       unstableOverlay
@@ -30,7 +30,7 @@ let
 in
 lib.makeScope pkgs.newScope (final: {
 
-  nixosSystem = import (sources."nixos-25.11" + "/nixos/lib/eval-config.nix") {
+  nixosSystem = import (sources."nixos-26.05" + "/nixos/lib/eval-config.nix") {
     system = "x86_64-linux";
     modules = [
       ./systems/vm/configuration.nix

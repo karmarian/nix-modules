@@ -23,11 +23,11 @@
         "owner": "nix-community",
         "repo": "home-manager"
       },
-      "branch": "release-25.11",
+      "branch": "release-26.05",
       "submodules": false,
-      "revision": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
-      "url": "https://github.com/nix-community/home-manager/archive/0d02ec1d0a05f88ef9e74b516842900c41f0f2fe.tar.gz",
-      "hash": "16mcnqpcgl3s2frq9if6vb8rpnfkmfxkz5kkkjwlf769wsqqg3i9"
+      "revision": "e28654b71096e08c019d4861ca26acb646f583d8",
+      "url": "https://github.com/nix-community/home-manager/archive/e28654b71096e08c019d4861ca26acb646f583d8.tar.gz",
+      "hash": "0l10n2wx6x37b7h93ir00sjlsaddwmml4j3hla6zaz7qsyv7sxf2"
     },
     "musnix": {
       "type": "Git",
@@ -38,21 +38,21 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "739e2a1f94c87d5f4c8b880a12480185cf0d7620",
-      "url": "https://github.com/musnix/musnix/archive/739e2a1f94c87d5f4c8b880a12480185cf0d7620.tar.gz",
-      "hash": "15l5m4is9g9lpj3chllzshry0gc0nlzds3b1jqddmsrsb288ksq8"
+      "revision": "8548782f0d1d0928daa3fffde8a008f72219a3f3",
+      "url": "https://github.com/musnix/musnix/archive/8548782f0d1d0928daa3fffde8a008f72219a3f3.tar.gz",
+      "hash": "0xnqhvf1zy4a9rsjffh5lxhn4wfs5dipdadh8rm0kcjn8c5paghf"
     },
-    "nixos-25.11": {
+    "nixos-26.05": {
       "type": "Channel",
-      "name": "nixos-25.11",
-      "url": "https://releases.nixos.org/nixos/25.11/nixos-25.11.8972.4e92bbcdb030/nixexprs.tar.xz",
-      "hash": "1lcfhmnw6x6pm823s39fra8cy51q16inl6izh510pdd2yyaabf5g"
+      "name": "nixos-26.05",
+      "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.889.b51242d7d436/nixexprs.tar.xz",
+      "hash": "14l7l7962ksf3znmpqs5jrkicm9fq00gzsazzng8cf0api2z7dnh"
     },
     "nixpkgs-unstable": {
       "type": "Channel",
       "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre977964.9d29d5f667d7/nixexprs.tar.xz",
-      "hash": "1r6ihgk2nbfhi7ca1kx7msag1xfz66hn2ii1fa90qsc35n2ksf89"
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1008784.4df1b885d76a/nixexprs.tar.xz",
+      "hash": "1afp7bb9qp12pi39dgllbws4iwdg6g9jvk08rlcjd17xjga58rbd"
     }
   },
   "version": 5
