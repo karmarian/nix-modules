@@ -33,8 +33,6 @@ in
       database = {
         enable = lib.mkDefault true;
         createDB = lib.mkDefault true;
-        enableVectorChord = lib.mkDefault true;
-        enableVectors = lib.mkDefault false;
         name = cfg.userName;
         user = cfg.userName;
       };

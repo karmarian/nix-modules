@@ -6,11 +6,11 @@
 
   inputs = {
     # Official NixOS package source, using unstable and stable branches.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     # Home-manager source, used for managing user configurations.
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       # The `follows` keyword in inputs is used for inheritance.
       inputs.nixpkgs.follows = "nixpkgs";
     };

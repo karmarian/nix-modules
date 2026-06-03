@@ -75,7 +75,7 @@ in
           ];
         };
 
-        environment.systemPackages = [ pkgs.nixfmt-rfc-style ];
+        environment.systemPackages = [ pkgs.nixfmt ];
       }
 
       (lib.mkIf cfg.lix.enable {

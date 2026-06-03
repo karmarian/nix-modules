@@ -26,7 +26,6 @@ in
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [
             telescope-nvim
-            vim-colorschemes
             modus-themes-nvim
             vim-nix
             vim-tmux-navigator

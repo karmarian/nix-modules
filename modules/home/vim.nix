@@ -28,15 +28,17 @@ in
       vimAlias = lib.mkDefault true;
       viAlias = lib.mkDefault false;
       vimdiffAlias = lib.mkDefault true;
-      withNodeJs = lib.mkDefault true;
+      withNodeJs = lib.mkDefault false;
+      withPython3 = lib.mkDefault true;
+      withRuby = lib.mkDefault false;
       extraConfig = builtins.readFile ./vim/vimrc;
       plugins = with pkgs.vimPlugins; [
         telescope-nvim
-        vim-colorschemes
         modus-themes-nvim
         vim-nix
         {
           plugin = vimtex;
+          type = "viml";
           config = ''
             let g:vimtex_view_automatic = 0
             let g:vimtex_fold_enabled = v:true
@@ -62,10 +64,12 @@ in
         vim-tmux-navigator
         {
           plugin = bufexplorer;
+          type = "viml";
           config = "nnoremap <silent> <F4> :ToggleBufExplorer<CR>";
         }
         {
           plugin = nerdtree;
+          type = "viml";
           config = ''
             autocmd StdinReadPre * let s:std_in=1
             autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -81,12 +85,14 @@ in
         }
         {
           plugin = vim-airline;
+          type = "viml";
           config = ''
             set laststatus=2
           '';
         }
         {
           plugin = vim-better-whitespace;
+          type = "viml";
           config = ''
             let g:better_whitespace_enabled = 1
             let g:strip_whitespace_on_save = 1
@@ -104,7 +110,7 @@ in
       ccls
       ltex-ls
       nixd
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 }
