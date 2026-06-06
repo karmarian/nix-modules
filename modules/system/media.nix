@@ -52,7 +52,7 @@ in
 
         services.mpd = {
           enable = lib.mkDefault true;
-          musicDirectory = "/home/${cfg.mpd.username}/${cfg.mpd.musicSubdir}";
+          settings.music_directory = "/home/${cfg.mpd.username}/${cfg.mpd.musicSubdir}";
         };
       })
 

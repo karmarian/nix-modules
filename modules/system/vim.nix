@@ -39,7 +39,7 @@ in
       ccls
       ltex-ls
       nixd
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 }
