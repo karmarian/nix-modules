@@ -134,6 +134,9 @@ in
     ssh = {
       server = {
         allowUsers = [ username ];
+        ports = [ 22 ];
+        permitRootLogin = "no";
+        passwordAuthentication = false;
       };
     };
     sway = {

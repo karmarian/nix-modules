@@ -66,6 +66,7 @@ in
         home.packages = with pkgs; [
           bustle
           kdePackages.okular
+          tutanota-desktop
           warp
         ];
 

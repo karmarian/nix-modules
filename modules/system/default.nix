@@ -422,9 +422,6 @@
         enable = true;
         server = {
           enable = true;
-          ports = [ 22 ];
-          permitRootLogin = "no";
-          passwordAuthentication = false;
         };
       };
       syncthing = {
@@ -465,9 +462,6 @@
         enable = true;
         server = {
           enable = true;
-          ports = [ 22 ];
-          permitRootLogin = "no";
-          passwordAuthentication = false;
         };
       };
       virtualisation = {
