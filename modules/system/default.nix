@@ -364,10 +364,6 @@
       git = {
         enable = true;
       };
-      gnome = {
-        enable = true;
-        autoLogin.enable = true;
-      };
       immich = {
         enable = true;
       };
@@ -380,6 +376,7 @@
       media = {
         enable = true;
         mpd.enable = true;
+        plasma-bigscreen.enable = true;
       };
       network = {
         enable = true;
@@ -396,11 +393,6 @@
         };
       };
       pipewire.enable = true;
-      remote-desktop = {
-        enable = true;
-        rdp.enable = false;
-        weylus.enable = true;
-      };
       shell = {
         enable = true;
         autoLogin.enable = true;
@@ -410,10 +402,6 @@
         server = {
           enable = true;
         };
-      };
-      syncthing = {
-        enable = false;
-        pregeneratedFiles = false;
       };
       zram.enable = true;
     })

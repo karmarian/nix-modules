@@ -29,6 +29,14 @@ in
       };
     };
     gstreamer.enable = lib.mkEnableOption "Gstreamer app and plugins";
+    plasma-bigscreen = {
+      enable = lib.mkEnableOption "Plasma Bigscreen desktop environment";
+      user = lib.mkOption {
+        type = lib.types.str;
+        description = "Login user for Bigscreen";
+        default = "me";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -63,6 +71,29 @@ in
           gst_all_1.gst-plugins-good
           gst_all_1.gst-plugins-ugly
           gst_all_1.gst-plugins-bad
+        ];
+      })
+
+      (lib.mkIf cfg.plasma-bigscreen.enable {
+        services = {
+          desktopManager.plasma6.enable = true;
+          displayManager = {
+            plasma-login-manager.enable = true;
+            sessionPackages = with pkgs; [
+              unstable.kdePackages.plasma-bigscreen
+            ];
+            defaultSession = "plasma-bigscreen-wayland";
+            autoLogin = {
+              enable = true;
+              user = cfg.plasma-bigscreen.user;
+            };
+          };
+        };
+
+        environment.systemPackages = with pkgs.unstable.kdePackages; [
+          plasma-bigscreen
+          plasma-nm
+          kdeconnect-kde
         ];
       })
     ]
