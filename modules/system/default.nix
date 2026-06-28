@@ -107,7 +107,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -180,7 +181,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -206,7 +208,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -240,7 +243,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -299,7 +303,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -341,7 +346,8 @@
       music.enable = true;
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
       };
       pipewire.enable = true;
       sway.enable = true;
@@ -375,16 +381,14 @@
         enable = true;
         mpd.enable = true;
       };
-      mobile = {
-        enable = true;
-      };
       network = {
         enable = true;
         mullvad-vpn.enable = true;
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -430,7 +434,8 @@
       };
       nix = {
         enable = true;
-        lix.enable = true;
+        # :BUG: Build issues
+        lix.enable = false;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
