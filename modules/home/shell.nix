@@ -29,10 +29,10 @@ in
           dmidecode
           dnsutils
           file
+          findutils
           gtop
           hwinfo
           lm_sensors
-          locate
           lshw
           lsscsi
           magic-wormhole

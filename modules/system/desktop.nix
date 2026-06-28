@@ -68,6 +68,7 @@ in
           bustle
           kdePackages.okular
           keepassxc
+          pika-backup
           thunderbird
           tutanota-desktop
           warp
