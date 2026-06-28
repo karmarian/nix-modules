@@ -32,6 +32,7 @@ in
           gtop
           hwinfo
           lm_sensors
+          locate
           lshw
           lsscsi
           magic-wormhole

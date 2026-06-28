@@ -157,7 +157,8 @@
         enable = true;
         binfmt.enable = true;
         container.enable = true;
-        packageManager.enable = true;
+        packageManager.flatpak.enable = true;
+        packageManager.guix.enable = true;
         variant.enable = true;
         waydroid.enable = true;
         waydroid.autostart = true;
@@ -271,9 +272,7 @@
       boot.enable = true;
       desktop = {
         enable = true;
-        browser.enable = true;
         browser.privacy.enable = true;
-        utils.enable = true;
       };
       emacs = {
         enable = true;
@@ -294,17 +293,9 @@
       locale = {
         enable = true;
       };
-      media = {
-        enable = true;
-      };
-      mobile = {
-        enable = true;
-        adb.enable = true;
-      };
       network = {
         enable = true;
         mullvad-vpn.enable = true;
-        wireshark.enable = true;
       };
       nix = {
         enable = true;
@@ -319,12 +310,10 @@
       printing.enable = true;
       programming = {
         enable = true;
-        python.enable = true;
       };
       shell = {
         enable = true;
         bash.enable = true;
-        ollama.enable = true;
       };
       ssh = {
         enable = true;
@@ -332,18 +321,12 @@
           enable = true;
         };
       };
-      syncthing = {
-        enable = false;
-        pregeneratedFiles = true;
-      };
-      tex.enable = true;
       vim.enable = true;
       virtualisation = {
         enable = true;
         binfmt.enable = true;
         container.enable = true;
-        packageManager.enable = true;
-        waydroid.enable = true;
+        packageManager.flatpak.enable = true;
       };
       zram.enable = true;
     })
@@ -466,7 +449,7 @@
       };
       virtualisation = {
         enable = true;
-        packageManager.enable = true;
+        packageManager.flatpak.enable = true;
         waydroid.enable = true;
         waydroid.autostart = true;
       };

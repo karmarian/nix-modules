@@ -17,7 +17,8 @@ in
     enable = lib.mkEnableOption "Virtualisation apps";
     binfmt.enable = lib.mkEnableOption "Emulation";
     container.enable = lib.mkEnableOption "Container";
-    packageManager.enable = lib.mkEnableOption "Package manager";
+    packageManager.flatpak.enable = lib.mkEnableOption "Flatpak package manager";
+    packageManager.guix.enable = lib.mkEnableOption "Guix package manager";
     podman = {
       enable = true;
       dockerCompat = true;
@@ -118,12 +119,14 @@ in
         users.users.${cfg.userName}.extraGroups = [ "podman" ];
       })
 
-      (lib.mkIf cfg.packageManager.enable {
+      (lib.mkIf cfg.packageManager.flatpak.enable {
+        services.flatpak.enable = lib.mkDefault true;
+      })
+
+      (lib.mkIf cfg.packageManager.guix.enable {
         environment.systemPackages = with pkgs; [
           guix
         ];
-
-        services.flatpak.enable = lib.mkDefault true;
       })
 
       (lib.mkIf cfg.variant.enable {
