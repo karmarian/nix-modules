@@ -20,7 +20,7 @@ in
       default = "adbuser";
       description = "User of ADB";
     };
-    adb.enable = lib.mkEnableOption "Android debugging utilities";
+    android.enable = lib.mkEnableOption "Android debugging utilities";
   };
 
   config = lib.mkIf cfg.enable (
@@ -34,13 +34,13 @@ in
         };
       }
 
-      (lib.mkIf cfg.adb.enable {
-        # Android debuging tools environment
-        programs.adb.enable = true;
+      (lib.mkIf cfg.android.enable {
+        environment.systemPackages = with pkgs; [
+          # Android debuging tools environment
+          android-tools
+        ];
 
         users.users.${cfg.userName}.extraGroups = [
-          # :TODO: Remove because of https://github.com/NixOS/nixpkgs/pull/454366.
-          "adbusers"
           "kvm"
         ];
       })

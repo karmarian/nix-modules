@@ -26,6 +26,7 @@ in
         programs = {
           firefox = {
             enable = lib.mkDefault true;
+            configPath = "${config.xdg.configHome}/mozilla/firefox";
             profiles = {
               myprofile = {
                 settings = {

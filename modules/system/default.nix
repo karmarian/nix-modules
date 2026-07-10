@@ -94,7 +94,7 @@
       };
       mobile = {
         enable = true;
-        adb.enable = true;
+        android.enable = true;
       };
       music.enable = true;
       network = {
