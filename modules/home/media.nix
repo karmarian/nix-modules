@@ -28,6 +28,7 @@ in
           audacious
           audacity
           ffmpeg
+          jellyfin-desktop
           unstable.freetube
           millisecond
           vlc

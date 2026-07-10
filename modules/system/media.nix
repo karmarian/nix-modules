@@ -47,6 +47,7 @@ in
           audacious
           audacity
           ffmpeg
+          jellyfin-desktop
           unstable.freetube
           millisecond
           vlc
@@ -90,10 +91,11 @@ in
           };
         };
 
+        programs.kdeconnect.enable = true;
+
         environment.systemPackages = with pkgs.unstable.kdePackages; [
           plasma-bigscreen
           plasma-nm
-          kdeconnect-kde
         ];
       })
     ]
