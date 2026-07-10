@@ -95,6 +95,7 @@ in
             registries.search = [
               "registry.access.redhat.com"
               "registry.redhat.io"
+              "quay.io"
               "docker.io"
             ];
           };
