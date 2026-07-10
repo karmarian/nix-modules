@@ -107,8 +107,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -181,8 +180,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -208,8 +206,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -243,8 +240,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -303,8 +299,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -346,8 +341,7 @@
       music.enable = true;
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
       };
       pipewire.enable = true;
       sway.enable = true;
@@ -384,8 +378,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;
@@ -422,8 +415,7 @@
       };
       nix = {
         enable = true;
-        # :BUG: Build issues
-        lix.enable = false;
+        lix.enable = true;
         store-optimisation.enable = true;
         auto-upgrade = {
           enable = true;

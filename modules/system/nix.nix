@@ -63,16 +63,20 @@ in
           config = import ../../nixpkgs/config.nix;
         };
 
-        nix.settings = {
-          # Enable experimental support like flakes.
-          experimental-features = lib.mkDefault [
-            "nix-command"
-            "flakes"
-          ];
-          trusted-users = lib.mkDefault [
-            "root"
-            "@wheel"
-          ];
+        nix = {
+          channel.enable = false;
+          nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+          settings = {
+            # Enable experimental support like flakes.
+            experimental-features = lib.mkDefault [
+              "nix-command"
+              "flakes"
+            ];
+            trusted-users = lib.mkDefault [
+              "root"
+              "@wheel"
+            ];
+          };
         };
 
         environment.systemPackages = [ pkgs.nixfmt ];
