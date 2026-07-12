@@ -57,7 +57,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        # Set Nixpkgs overlays and config
+        # Set Nixpkgs overlays and config.
         nixpkgs = {
           overlays = (import ../../nixpkgs/overlays.nix) ++ lixOverlay;
           config = import ../../nixpkgs/config.nix;
@@ -66,6 +66,9 @@ in
         nix = {
           channel.enable = false;
           nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+          registry = {
+            nixpkgs.flake = inputs.nixpkgs;
+          };
           settings = {
             # Enable experimental support like flakes.
             experimental-features = lib.mkDefault [
@@ -79,7 +82,20 @@ in
           };
         };
 
-        environment.systemPackages = [ pkgs.nixfmt ];
+        environment.systemPackages =
+          let
+            # Creating a shell script omitting repl from nix.nixPath.
+            repl_path = toString ./.;
+            karmar-nix-fast-repl = pkgs.writeShellScriptBin "karmar-nix-fast-repl" ''
+              source /etc/set-environment
+              nix repl "${repl_path}/repl.nix" "$@"
+            '';
+          in
+          [
+            karmar-nix-fast-repl
+
+            pkgs.nixfmt
+          ];
       }
 
       (lib.mkIf cfg.lix.enable {
