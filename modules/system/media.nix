@@ -97,6 +97,14 @@ in
           plasma-bigscreen
           plasma-nm
         ];
+
+        # Prevent session from automatic suspend and screen locking.
+        systemd.sleep.settings.Sleep = {
+          AllowHibernation = "no";
+          AllowHybridSleep = "no";
+          AllowSuspend = "no";
+          AllowSuspendThenHibernate = "no";
+        };
       })
     ]
   );
