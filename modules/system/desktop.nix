@@ -54,12 +54,15 @@ in
             DisableAppUpdate = true;
           };
         };
+
+        environment.systemPackages = with pkgs; [
+          brave
+        ];
       })
 
       (lib.mkIf cfg.browser.privacy.enable {
         environment.systemPackages = with pkgs; [
           mullvad-browser
-          tor-browser
         ];
       })
 

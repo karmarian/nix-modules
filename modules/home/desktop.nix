@@ -54,12 +54,15 @@ in
             };
           };
         };
+
+        home.packages = with pkgs; [
+          brave
+        ];
       })
 
       (lib.mkIf cfg.browser.privacy.enable {
         home.packages = with pkgs; [
           mullvad-browser
-          tor-browser
         ];
       })
 

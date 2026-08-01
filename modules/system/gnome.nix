@@ -65,6 +65,7 @@ in
             gnome-tweaks
             gnomeExtensions.astra-monitor
             gnomeExtensions.appindicator
+            loupe
             nautilus
           ];
 
