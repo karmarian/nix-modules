@@ -68,13 +68,10 @@ in
 
       (lib.mkIf cfg.utils.enable {
         environment.systemPackages = with pkgs; [
-          bustle
           kdePackages.okular
           keepassxc
-          pika-backup
           thunderbird
           tutanota-desktop
-          warp
         ];
       })
     ]

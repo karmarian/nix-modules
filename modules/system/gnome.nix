@@ -59,14 +59,20 @@ in
 
         environment = {
           systemPackages = with pkgs; [
+            bustle
+            decibels
             gnome-connections
             gnome-maps
-            gnome-terminal
             gnome-tweaks
+            gnome-weather
             gnomeExtensions.astra-monitor
             gnomeExtensions.appindicator
             loupe
             nautilus
+            pika-backup
+            ptyxis
+            showtime
+            warp
           ];
 
           gnome.excludePackages = with pkgs; [
