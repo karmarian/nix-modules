@@ -64,11 +64,6 @@ in
         };
 
         nix = {
-          channel.enable = false;
-          nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-          registry = {
-            nixpkgs.flake = inputs.nixpkgs;
-          };
           settings = {
             # Enable experimental support like flakes.
             experimental-features = lib.mkDefault [
@@ -177,7 +172,7 @@ in
           };
         };
       })
-      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "npins") {
+      (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "disabled") {
         # No auto-upgrades.
       })
     ]

@@ -79,6 +79,8 @@ in
           };
           gnupg.agent.enable = lib.mkDefault true;
         };
+
+        services.locate.enable = lib.mkDefault true;
       }
 
       (lib.mkIf cfg.autoLogin.enable {

@@ -21,7 +21,7 @@ in
     home.packages = with pkgs; [
       # Mostly required by pandoc when creating PDFs.
       inkscape
-      texlive.combined.scheme-tetex
+      texliveFull
       librsvg
     ];
 

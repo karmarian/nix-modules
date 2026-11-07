@@ -374,7 +374,7 @@
       };
       network = {
         enable = true;
-        mullvad-vpn.enable = true;
+        mullvad-vpn.enable = false;
       };
       nix = {
         enable = true;

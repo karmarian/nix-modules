@@ -19,8 +19,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.qpwgraph
+    environment.systemPackages = with pkgs; [
+      coppwr
+      easyeffects
+      qpwgraph
     ];
     services = {
       pulseaudio.enable = lib.mkDefault false;

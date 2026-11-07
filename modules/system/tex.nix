@@ -23,7 +23,18 @@ in
       inkscape
       librsvg
       pandoc
-      texlive.combined.scheme-tetex
+      texliveFull
+    ];
+
+    fonts.packages = with pkgs; [
+      fira-code
+      fira-code-symbols
+      liberation_ttf
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      source-sans
+      source-code-pro
     ];
   };
 }
