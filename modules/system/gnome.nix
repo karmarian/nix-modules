@@ -60,18 +60,12 @@ in
         environment = {
           systemPackages = with pkgs; [
             bustle
-            decibels
-            gnome-connections
-            gnome-maps
             gnome-tweaks
             gnome-weather
             gnomeExtensions.astra-monitor
             gnomeExtensions.appindicator
-            loupe
-            nautilus
             pika-backup
             ptyxis
-            showtime
             warp
           ];
 
@@ -82,8 +76,8 @@ in
 
         services.gnome = {
           # Gnome desktop-manager service enables core-apps by default.
-          core-apps.enable = false;
-          core-developer-tools.enable = lib.mkDefault false;
+          core-apps.enable = true;
+          core-developer-tools.enable = lib.mkDefault true;
           games.enable = lib.mkDefault false;
         };
 

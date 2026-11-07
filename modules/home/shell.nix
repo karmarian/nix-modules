@@ -49,7 +49,7 @@ in
           tree
           unzip
           usbutils
-          xsel # for tmux-yank
+          wl-clipboard
           zip
         ];
 

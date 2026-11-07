@@ -66,7 +66,7 @@ in
           usbutils
           vim
           wget
-          xsel # for tmux-yank
+          wl-clipboard
           zip
         ];
 
