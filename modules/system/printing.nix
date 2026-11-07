@@ -19,7 +19,6 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      hplip
       xsane
     ];
 
@@ -27,8 +26,12 @@ in
       # Enable CUPS to print documents.
       printing = {
         enable = lib.mkDefault true;
-        # Disable browsed for security reasons (cups vulnerability)
-        browsed.enable = lib.mkDefault false;
+        drivers = [ pkgs.hplip ];
+      };
+      avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
       };
     };
   };
