@@ -115,7 +115,12 @@ in
         myEmacs
         # Core dependencies
       ]
-      ++ lib.optionals cfg.core [ source-code-pro ]
+      ++ lib.optionals cfg.core [
+        hunspell
+        hunspellDicts.de-de
+        hunspellDicts.en-us
+        source-code-pro
+      ]
       ++ lib.optionals cfg.dev [
         clang-tools
         cmake
