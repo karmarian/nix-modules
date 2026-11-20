@@ -18,10 +18,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      xsane
-    ];
-
     services = {
       # Enable CUPS to print documents.
       printing = {

@@ -6,11 +6,11 @@
 
   inputs = {
     # Official NixOS package source, using unstable and stable branches.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
     # Home-manager source, used for managing user configurations.
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -39,7 +39,7 @@
     inputs@{
       self,
       nixpkgs,
-      nixpkgs-unstable,
+      nixpkgs-stable,
       home-manager,
       nixos-hardware,
       disko,
@@ -58,9 +58,9 @@
 
       overlays = [
         (final: prev: {
-          unstable = import nixpkgs-unstable {
-            inherit (final) config;
+          stable = import nixpkgs-stable {
             inherit (final.stdenv.hostPlatform) system;
+            config = import ./nixpkgs/config.nix;
           };
         })
         (import ./overlays/default.nix)
@@ -107,17 +107,6 @@
             # Use personal configuration settings.
             ./modules/personal/config.nix
             ./systems/vm/configuration.nix
-            home-manager.nixosModules.home-manager
-            # :KLUDGE: For compatibility with default.nix, this is placed into
-            # the configuration.nix file.
-            # {
-            #   home-manager.useGlobalPkgs = true;
-            #   home-manager.useUserPackages = true;
-            #   home-manager.backupFileExtension = "bak";
-            #   home-manager.users = {
-            #     ${userVm} = import ./homes/${userVm}/home.nix;
-            #   };
-            # }
             disko.nixosModules.disko
             musnix.nixosModules.musnix
           ];

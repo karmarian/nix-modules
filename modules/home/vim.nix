@@ -108,7 +108,7 @@ in
     home.packages = with pkgs; [
       bash-language-server
       ccls
-      ltex-ls
+      ltex-ls-plus
       nixd
       nixfmt
     ];

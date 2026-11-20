@@ -29,7 +29,7 @@ in
           audacity
           ffmpeg
           jellyfin-desktop
-          unstable.freetube
+          freetube
           millisecond
           vlc
         ];

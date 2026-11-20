@@ -48,7 +48,7 @@ in
           audacity
           ffmpeg
           jellyfin-desktop
-          unstable.freetube
+          freetube
           millisecond
           vlc
         ];
@@ -80,8 +80,8 @@ in
           desktopManager.plasma6.enable = true;
           displayManager = {
             plasma-login-manager.enable = true;
-            sessionPackages = with pkgs; [
-              unstable.kdePackages.plasma-bigscreen
+            sessionPackages = with pkgs.kdePackages; [
+              plasma-bigscreen
             ];
             defaultSession = "plasma-bigscreen-wayland";
             autoLogin = {
@@ -91,9 +91,11 @@ in
           };
         };
 
+        xdg.portal.configPackages = [ pkgs.kdePackages.plasma-bigscreen ];
+
         programs.kdeconnect.enable = true;
 
-        environment.systemPackages = with pkgs.unstable.kdePackages; [
+        environment.systemPackages = with pkgs.kdePackages; [
           plasma-bigscreen
           plasma-nm
         ];

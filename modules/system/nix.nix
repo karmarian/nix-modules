@@ -16,7 +16,7 @@ let
     if cfg.lix.enable then
       [
         (final: prev: {
-          inherit (prev.lixPackageSets.stable)
+          inherit (prev.lixPackageSets.latest)
             nixpkgs-review
             nix-eval-jobs
             nix-fast-build
@@ -94,7 +94,7 @@ in
       }
 
       (lib.mkIf cfg.lix.enable {
-        nix.package = pkgs.lixPackageSets.stable.lix;
+        nix.package = pkgs.lixPackageSets.latest.lix;
       })
 
       (lib.mkIf cfg.store-optimisation.enable {
@@ -129,7 +129,7 @@ in
             "--update-input"
             "nixpkgs"
             "--update-input"
-            "nixpkgs-unstable"
+            "nixpkgs-stable"
             "-L"
           ];
           dates = lib.mkDefault "19:00";

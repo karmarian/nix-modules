@@ -57,13 +57,13 @@ in
 
         services.mullvad-vpn = {
           enable = lib.mkDefault true;
-          package = lib.mkDefault pkgs.mullvad-vpn;
+          gui.enable = lib.mkDefault true;
         };
       })
 
       (lib.mkIf cfg.protonvpn.enable {
         environment.systemPackages = with pkgs; [
-          protonvpn-gui
+          proton-vpn
         ];
       })
 

@@ -92,12 +92,15 @@ in
           # Enable common container config files in /etc/containers.
           containers = {
             enable = lib.mkDefault true;
-            registries.search = [
-              "registry.access.redhat.com"
-              "registry.redhat.io"
-              "quay.io"
-              "docker.io"
-            ];
+            registries.settings = {
+              # Podman 6 dropped registries.conf V1; this generates the V2 file.
+              unqualified-search-registries = [
+                "registry.access.redhat.com"
+                "registry.redhat.io"
+                "quay.io"
+                "docker.io"
+              ];
+            };
           };
           # Install and configure Podman.
           podman = {

@@ -31,8 +31,10 @@ in
         alsa.enable = lib.mkDefault true;
         alsa.support32Bit = lib.mkDefault true;
         pulse.enable = lib.mkDefault true;
-        # If you want to use JACK applications, uncomment this
-        jack.enable = lib.mkDefault true;
+        # `services.pipewire.jack.enable` is deprecated, because it introduces
+        # global impurity via `LD_LIBRARY_PATH`. Use the `pw-jack` wrapper from
+        # `pipewire.jack` where necessary instead.
+        jack.enable = lib.mkDefault false;
       };
     };
     security.rtkit.enable = lib.mkDefault true;

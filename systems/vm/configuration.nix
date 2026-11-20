@@ -59,13 +59,6 @@ in
     extraGroups = extraGroups;
   };
 
-  # :KLUDGE: Until home-manager attribute sets are working in default.nix, this
-  # is placed here instead of flake.nix and default.nix.
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "bak";
-  home-manager.users.${username} = import ../../homes/${username}/home.nix;
-
   security.sudo.wheelNeedsPassword = false;
 
   # Programs are added with modules per system or per home.
@@ -87,7 +80,7 @@ in
   environment.systemPackages = with pkgs; [
     vm-switch
   ];
-
+  programs.command-not-found.enable = false;
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
     default.scheme = scheme;
@@ -153,6 +146,7 @@ in
     enable = true;
   };
 
+  mine.module.system.nix.lix.enable = lib.mkForce false;
   # Avoid the stateVersion warning.
   # Setting this to system.nixos.release is fine because we have no state.
   system.stateVersion = config.system.nixos.release;

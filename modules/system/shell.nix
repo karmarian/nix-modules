@@ -57,7 +57,7 @@ in
           shellcheck
           smartmontools
           snapper
-          snort
+          stable.snort
           sysstat
           tldr
           tmux
