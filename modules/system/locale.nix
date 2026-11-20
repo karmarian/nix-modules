@@ -37,7 +37,7 @@ in
     };
     keyboardLayout = lib.mkOption {
       type = lib.types.str;
-      default = "us_en";
+      default = "us";
       description = "Keyboard layout";
     };
   };

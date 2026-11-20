@@ -27,7 +27,14 @@ in
       default = "wireshark";
       description = "User of Wireshark";
     };
-    wireguard.enable = lib.mkEnableOption "Wireguard";
+    wireguard = {
+      enable = lib.mkEnableOption "Wireguard";
+      keyFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = "Path to the WireGuard private key file";
+      };
+    };
     wireshark.enable = lib.mkEnableOption "Wireshark";
   };
 
@@ -67,36 +74,19 @@ in
         ];
       })
 
-      (lib.mkIf cfg.wireguard.enable {
-        networking.firewall = {
-          allowedUDPPorts = lib.mkDefault [ 51820 ]; # Clients and peers can use the same port, see listenport
+      (lib.mkIf (cfg.wireguard.enable && cfg.wireguard.keyFile != null) {
+        networking.firewall.allowedUDPPorts = lib.mkDefault [ 51820 ];
+
+        networking.wireguard.interfaces.wg0 = {
+          ips = [ "0.0.0.0/32" ]; # replace with real address when wiring up
+          listenPort = 51820;
+          privateKeyFile = toString cfg.wireguard.keyFile;
+          peers = [
+            # fill in when wiring up
+          ];
         };
 
-        # Enable WireGuard interfaces.
-        networking.wireguard.interfaces = {
-          # :TODO: Add optional inputs for configuring IPs, keys and other private
-          # information.
-          wg0 = {
-            ips = [ "0.0.0.0/32" ];
-            # Match firewall allowedUDPPorts (without this wg uses random port numbers).
-            listenPort = 51820;
-            privateKeyFile = "/etc/wireguard/wireguard.key";
-
-            peers = [
-              {
-                # EU#0
-                publicKey = "xxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=";
-                allowedIPs = [ "0.0.0.0/0" ];
-                endpoint = "0.0.0.0:51820";
-                persistentKeepalive = 25;
-              }
-            ];
-          };
-        };
-
-        environment.systemPackages = [
-          pkgs.wireguard-tools
-        ];
+        environment.systemPackages = [ pkgs.wireguard-tools ];
       })
     ]
   );

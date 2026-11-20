@@ -45,6 +45,8 @@ in
   # users.users.root.initialPassword = "root";
 
   # Declarative users.
+  # SECURITY: TEST-VM ONLY — passwordless sudo and empty user password are
+  # deliberate test conveniences. DO NOT copy this pattern to a real host.
   users.mutableUsers = false;
 
   users.users.${username} = {
@@ -80,7 +82,6 @@ in
   environment.systemPackages = with pkgs; [
     vm-switch
   ];
-  programs.command-not-found.enable = false;
   # NixOS system gets customized by system modules, which are enabled here.
   mine.module.system = {
     default.scheme = scheme;

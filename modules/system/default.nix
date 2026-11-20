@@ -182,10 +182,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       printing.enable = true;
@@ -208,10 +204,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       shell = {
@@ -242,10 +234,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       shell = {
@@ -301,10 +289,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       printing.enable = true;
@@ -380,10 +364,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       shell = {
@@ -417,10 +397,6 @@
         enable = true;
         lix.enable = true;
         store-optimisation.enable = true;
-        auto-upgrade = {
-          enable = true;
-          method = "flake";
-        };
       };
       pipewire.enable = true;
       shell = {

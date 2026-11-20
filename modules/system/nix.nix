@@ -116,24 +116,18 @@ in
           };
         };
       })
-
       (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "flake") {
         system.autoUpgrade = {
           enable = lib.mkDefault true;
           flake = lib.mkDefault inputs.self.outPath;
-          flags = lib.mkDefault [
-            "--update-input"
-            "home-manager"
-            "--update-input"
-            "musnix"
-            "--update-input"
-            "nixpkgs"
-            "--update-input"
-            "nixpkgs-stable"
-            "-L"
-          ];
           dates = lib.mkDefault "19:00";
           randomizedDelaySec = lib.mkDefault "45min";
+        };
+
+        # Modern flake upgrade: refresh the lockfile before the rebuild,
+        # instead of the removed `--update-input` flags.
+        systemd.services.nixos-upgrade = {
+          serviceConfig.ExecStartPre = "+${pkgs.nix}/bin/nix flake update --flake ${inputs.self.outPath}";
         };
       })
       (lib.mkIf (cfg.auto-upgrade.enable && cfg.auto-upgrade.method == "channels") {

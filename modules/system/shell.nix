@@ -71,7 +71,6 @@ in
         ];
 
         programs = {
-          command-not-found.enable = lib.mkDefault true;
           direnv = {
             enable = lib.mkDefault true;
             enableBashIntegration = lib.mkDefault true;

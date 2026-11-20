@@ -58,7 +58,6 @@ in
             enable = lib.mkDefault true;
             enableBashIntegration = lib.mkDefault true;
           };
-          command-not-found.enable = lib.mkDefault true;
           direnv = {
             enable = lib.mkDefault true;
             enableBashIntegration = lib.mkDefault true;

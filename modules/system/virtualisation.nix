@@ -135,6 +135,8 @@ in
 
       (lib.mkIf cfg.variant.enable {
         # User for testing in VM with build-vm.
+        # SECURITY: TEST-VM ONLY — hardcoded initial password "test" for the
+        # build-vm test user. DO NOT copy this pattern to a real host.
         users.users.nixosvmtest = {
           isNormalUser = lib.mkDefault true;
           initialPassword = lib.mkDefault "test";

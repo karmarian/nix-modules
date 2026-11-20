@@ -15,6 +15,8 @@
     controlPersist = "no";
   };
 
+  # SECURITY: TEST-VM ONLY — host entries below reference throwaway test
+  # credentials. DO NOT copy this pattern to a real host.
   # "vm" = {
   #   HostName = "vm";
   #   User = "me";

@@ -17,12 +17,12 @@ in
     enable = lib.mkEnableOption "Git apps and config";
     userName = lib.mkOption {
       type = lib.types.str;
-      default = "me@posteo.org";
+      default = "me";
       description = "Username config";
     };
     userEmail = lib.mkOption {
       type = lib.types.str;
-      default = "me";
+      default = "me@vm.de";
       description = "Email config";
     };
   };

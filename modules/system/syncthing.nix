@@ -47,18 +47,15 @@ in
       overrideDevices = lib.mkDefault true;
       # Overrides any folders added or deleted through the WebUI.
       overrideFolders = lib.mkDefault true;
-      settings = {
+      settings = lib.mkIf (cfg.syncDeviceId != "") {
         devices = {
           "${cfg.syncDevice}" = {
             id = cfg.syncDeviceId;
           };
         };
         folders = {
-          # Name of folder in Syncthing, also the folder ID
           "share" = {
-            # Which folder to add to Syncthing
             path = "/home/${cfg.userName}/syncthing/share";
-            # Which devices to share the folder with
             devices = [ "${cfg.syncDevice}" ];
           };
         };

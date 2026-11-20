@@ -150,17 +150,15 @@
         };
       };
 
-      packages.${defaultSystem} = pkgs.wrapped;
+      packages.${defaultSystem} = {
+        test-image = import ./qemu.nix { pkgs = pkgs; };
+      };
 
       devShells."${defaultSystem}".default = pkgs.mkShell {
         packages = with pkgs; [
           npins
           reuse
         ];
-
-        shellHook = ''
-          echo "Entering devShell`"
-        '';
       };
     };
 }
